@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planilhas - Validade App</title>
+    <script src="temas.js"></script>
+    <link rel="stylesheet" href="temas.css" />
+    <style>
+      /* ============================================
+       RESET E CONFIGURAÇÕES GLOBAIS
+       ============================================ */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #000;
+        color: white;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* FUNDO ANIMADO */
+      .cyber-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: #000;
+        overflow: hidden;
+      }
+
+      .code-rain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        opacity: 0.15;
+      }
+
+      .code-column {
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fall linear infinite;
+      }
+
+      .code-column:nth-child(1) {
+        animation-duration: 15s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(2) {
+        animation-duration: 18s;
+        animation-delay: 2s;
+      }
+      .code-column:nth-child(3) {
+        animation-duration: 20s;
+        animation-delay: 1s;
+      }
+      .code-column:nth-child(4) {
+        animation-duration: 16s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(5) {
+        animation-duration: 22s;
+        animation-delay: 0.5s;
+      }
+      .code-column:nth-child(6) {
+        animation-duration: 19s;
+        animation-delay: 2.5s;
+      }
+      .code-column:nth-child(7) {
+        animation-duration: 17s;
+        animation-delay: 1.5s;
+      }
+      .code-column:nth-child(8) {
+        animation-duration: 21s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(9) {
+        animation-duration: 14s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(10) {
+        animation-duration: 23s;
+        animation-delay: 1s;
+      }
+
+      .code-line {
+        color: #0ff;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        white-space: nowrap;
+        opacity: 0;
+        animation: fadeCode 4s ease-in-out infinite;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+      }
+
+      .code-line:nth-child(odd) {
+        animation-delay: 0.5s;
+      }
+      .code-line:nth-child(even) {
+        animation-delay: 1s;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      @keyframes fadeCode {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 0.4;
+        }
+        30% {
+          opacity: 0.9;
+        }
+        40% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.7;
+        }
+        60% {
+          opacity: 0.2;
+        }
+        70% {
+          opacity: 0.6;
+        }
+        80% {
+          opacity: 0.1;
+        }
+        90% {
+          opacity: 0.5;
+        }
+      }
+
+      /* ============================================
+       LOGO
+       ============================================ */
+      .gear-container {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem auto 1rem;
+      }
+
+      .gear {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        box-shadow:
+          0 0 15px rgba(0, 255, 255, 0.3),
+          inset 0 0 8px rgba(0, 255, 255, 0.3);
+        animation: spin 16s infinite linear;
+      }
+
+      .gear::before {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: #0b0f15;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #0ff;
+      }
+
+      .gear-teeth {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .tooth {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #0ff;
+        box-shadow: 0 0 10px cyan;
+        clip-path: polygon(
+          30% 0%,
+          70% 0%,
+          100% 30%,
+          70% 100%,
+          30% 100%,
+          0% 30%
+        );
+      }
+
+      .tooth:nth-child(1) {
+        top: -10px;
+        left: 35px;
+      }
+      .tooth:nth-child(2) {
+        top: 20px;
+        left: 75px;
+        transform: rotate(45deg);
+      }
+      .tooth:nth-child(3) {
+        top: 65px;
+        left: 55px;
+        transform: rotate(90deg);
+      }
+      .tooth:nth-child(4) {
+        top: 65px;
+        left: -5px;
+        transform: rotate(135deg);
+      }
+      .tooth:nth-child(5) {
+        top: 22px;
+        left: -25px;
+        transform: rotate(180deg);
+      }
+      .tooth:nth-child(6) {
+        top: -20px;
+        left: -5px;
+        transform: rotate(225deg);
+      }
+      .tooth:nth-child(7) {
+        top: -28px;
+        left: 25px;
+        transform: rotate(270deg);
+      }
+      .tooth:nth-child(8) {
+        top: -15px;
+        left: 60px;
+        transform: rotate(315deg);
+      }
+
+      .gear.small {
+        width: 55px;
+        height: 55px;
+        right: -10px;
+        top: 30px;
+        border-width: 2px;
+        animation: spin-reverse 12s infinite linear;
+      }
+
+      .gear.small .tooth {
+        width: 10px;
+        height: 10px;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      /* ============================================
+       RELÓGIO
+       ============================================ */
+      .clock-container {
+        text-align: center;
+        margin: 15px auto 20px;
+        padding: 5px 10px;
+        background: rgba(0, 255, 255, 0.03);
+        border: 1px dashed #0ff5;
+        border-radius: 0;
+        box-shadow: none;
+        width: fit-content;
+        max-width: 200px;
+        font-family: "Courier New", monospace;
+      }
+
+      .clock {
+        font-size: 2rem;
+        font-weight: 400;
+        color: #0ff;
+        text-shadow: 0 0 5px cyan;
+        display: block;
+        letter-spacing: 3px;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: #0ff;
+        opacity: 0.7;
+        display: block;
+        letter-spacing: 2px;
+      }
+
+      /* ============================================
+       CABEÇALHO DA PÁGINA
+       ============================================ */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto 20px;
+        padding: 0 20px;
+      }
+
+      .voltar-btn {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+
+      .voltar-btn:hover {
+        background: #0ff2;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      h1 {
+        color: #0ff;
+        font-size: 2rem;
+        border-bottom: 2px solid #0ff3;
+        padding-bottom: 10px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        text-align: center;
+      }
+
+      /* ============================================
+       SEÇÃO PLANILHAS
+       ============================================ */
+      .planilhas-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .botoes-acao {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+        justify-content: center;
+      }
+
+      .btn-planilha {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 12px 30px;
+        border-radius: 40px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-planilha:hover {
+        background: #0ff2;
+        box-shadow: 0 0 20px cyan;
+        transform: translateY(-2px);
+      }
+
+      .btn-planilha.importar {
+        border-color: #ffaa00;
+        color: #ffaa00;
+      }
+
+      .btn-planilha.importar:hover {
+        background: rgba(255, 170, 0, 0.1);
+        box-shadow: 0 0 20px #ffaa00;
+      }
+
+      #status-planilha {
+        color: #0ff5;
+        font-size: 0.9rem;
+        margin-left: 10px;
+      }
+
+      .visualizacao {
+        background: rgba(26, 31, 42, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 20px;
+        border: 1px solid #0ff3;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      }
+
+      .visualizacao-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #0ff3;
+      }
+
+      .visualizacao-header h3 {
+        color: #0ff;
+        font-size: 1.3rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-atualizar {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+      }
+
+      .btn-atualizar:hover {
+        background: #0ff2;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      .tabela-container {
+        max-height: 500px;
+        overflow-y: auto;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.3);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Courier New", monospace;
+        font-size: 0.9rem;
+      }
+
+      th {
+        background: rgba(0, 255, 255, 0.15);
+        color: #0ff;
+        padding: 15px 10px;
+        text-align: left;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(5px);
+        border-bottom: 2px solid #0ff;
+        font-weight: 600;
+      }
+
+      td {
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      tr:hover td {
+        background: rgba(0, 255, 255, 0.05);
+      }
+
+      .loading {
+        color: #0ff5;
+        text-align: center;
+        padding: 40px;
+        font-style: italic;
+      }
+
+      .loading-small {
+        color: #0ff5;
+        text-align: center;
+        padding: 20px;
+        font-style: italic;
+      }
+
+      /* SCROLLBAR */
+      .tabela-container::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+
+      .tabela-container::-webkit-scrollbar-track {
+        background: #1a1f2a;
+      }
+
+      .tabela-container::-webkit-scrollbar-thumb {
+        background: #0ff3;
+        border-radius: 4px;
+      }
+
+      .tabela-container::-webkit-scrollbar-thumb:hover {
+        background: #0ff;
+      }
+
+      /* RESPONSIVIDADE */
+      @media (max-width: 768px) {
+        .botoes-acao {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .btn-planilha {
+          width: 100%;
+          justify-content: center;
+        }
+
+        table {
+          font-size: 0.8rem;
+        }
+
+        th,
+        td {
+          padding: 8px 5px;
+        }
+      }
+
+      /* ============================================
+   TEMAS - PLANILHAS
+   ============================================ */
+
+      /* Tema Claro */
+      body.tema-claro {
+        background: #f5f5f5 !important;
+      }
+
+      body.tema-claro .visualizacao {
+        background: rgba(255, 255, 255, 0.9) !important;
+        border-color: #00aaff33 !important;
+      }
+
+      body.tema-claro .visualizacao-header h3 {
+        color: #00aaff !important;
+      }
+
+      body.tema-claro th {
+        background: rgba(0, 170, 255, 0.15) !important;
+        color: #00aaff !important;
+        border-bottom-color: #00aaff !important;
+      }
+
+      body.tema-claro td {
+        color: #222 !important;
+        border-bottom-color: #00aaff1a !important;
+      }
+
+      body.tema-claro .btn-planilha {
+        border-color: #00aaff !important;
+        color: #00aaff !important;
+      }
+
+      body.tema-claro .btn-planilha.importar {
+        border-color: #ffaa00 !important;
+        color: #ffaa00 !important;
+      }
+
+      /* Tema Matrix */
+      body.tema-matrix {
+        background: #0a0f0a !important;
+      }
+
+      body.tema-matrix .visualizacao {
+        background: rgba(10, 20, 10, 0.95) !important;
+        border-color: #0f03 !important;
+      }
+
+      body.tema-matrix .visualizacao-header h3 {
+        color: #0f0 !important;
+      }
+
+      body.tema-matrix th {
+        background: rgba(0, 255, 0, 0.15) !important;
+        color: #0f0 !important;
+        border-bottom-color: #0f0 !important;
+      }
+
+      body.tema-matrix td {
+        color: #0f0 !important;
+        border-bottom-color: #0f01 !important;
+      }
+
+      body.tema-matrix .btn-planilha {
+        border-color: #0f0 !important;
+        color: #0f0 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- FUNDO ANIMADO -->
+    <div class="cyber-background">
+      <div class="code-rain">
+        <div class="code-column">
+          <div class="code-line">fn main() {</div>
+          <div class="code-line">let x = 42;</div>
+          <div class="code-line">println!("{}", x);</div>
+          <div class="code-line">if x > 0 {</div>
+          <div class="code-line">loop { x += 1 }</div>
+          <div class="code-line">match x {</div>
+          <div class="code-line">Some(val) => val</div>
+          <div class="code-line">Box::new(x)</div>
+          <div class="code-line">unsafe {}</div>
+          <div class="code-line">impl Trait for</div>
+        </div>
+        <div class="code-column">
+          <div class="code-line">SELECT * FROM</div>
+          <div class="code-line">INNER JOIN users</div>
+          <div class="code-line">WHERE id = 1</div>
+          <div class="code-line">INSERT INTO logs</div>
+          <div class="code-line">UPDATE produtos</div>
+          <div class="code-line">DELETE FROM lotes</div>
+          <div class="code-line">CREATE TABLE</div>
+          <div class="code-line">ALTER TABLE ADD</div>
+          <div class="code-line">DROP COLUMN</div>
+          <div class="code-line">ORDER BY validade</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="gear-container">
+      <div class="gear">
+        <div class="gear-teeth">
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+        </div>
+      </div>
+      <div class="gear small" style="top: -5px; right: -10px">
+        <div class="gear-teeth">
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELÓGIO -->
+    <div class="clock-container">
+      <span class="clock" id="clock">--:--:--</span>
+      <span class="date" id="date">--/--/----</span>
+    </div>
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <div class="page-header">
+      <a href="menu.html" class="voltar-btn">← Menu</a>
+      <h1>📑 Planilhas</h1>
+      <div style="width: 80px"></div>
+    </div>
+
+    <!-- SEÇÃO PLANILHAS -->
+    <div class="planilhas-container">
+      <div class="botoes-acao">
+        <button id="btn-exportar-csv" class="btn-planilha">
+          📥 Exportar CSV
+        </button>
+        <button id="btn-importar-csv" class="btn-planilha importar">
+          📤 Importar CSV
+        </button>
+        <span id="status-planilha">Pronto</span>
+      </div>
+
+      <div class="visualizacao">
+        <div class="visualizacao-header">
+          <h3>📋 Visualização dos Dados</h3>
+          <button id="btn-atualizar-visualizacao" class="btn-atualizar">
+            🔄 Atualizar
+          </button>
+        </div>
+
+        <div id="tabela-dados-container" class="tabela-container">
+          <div class="loading">Carregando dados...</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // ===========================================
+      // RELÓGIO EM TEMPO REAL
+      // ===========================================
+      function atualizarRelogio() {
+        const agora = new Date();
+        document.getElementById("clock").textContent =
+          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+        document.getElementById("date").textContent =
+          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+      }
+      atualizarRelogio();
+      setInterval(atualizarRelogio, 1000);
+
+      // ===========================================
+      // PLANILHAS
+      // ===========================================
+      (function () {
+        const invoke = window.__TAURI__.core.invoke;
+        console.log(">>> PLANILHAS");
+
+        const statusEl = document.getElementById("status-planilha");
+
+        function atualizarStatus(msg, cor) {
+          if (statusEl) {
+            statusEl.textContent = msg;
+            statusEl.style.color = cor;
+          }
+        }
+
+        // ===========================================
+        // EXPORTAR CSV
+        // ===========================================
+        async function exportarCSV() {
+          try {
+            atualizarStatus("📥 Exportando...", "#0ff5");
+
+            const csv = await invoke("exportar_csv");
+
+            // Criar arquivo para download
+            const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.download = `backup_${new Date().toISOString().slice(0, 10)}.csv`;
+            link.click();
+
+            URL.revokeObjectURL(url);
+            atualizarStatus("✅ Exportado com sucesso!", "#0f0");
+
+            setTimeout(() => atualizarStatus("Pronto", "#0ff5"), 3000);
+          } catch (error) {
+            console.error(">>> ERRO ao exportar:", error);
+            atualizarStatus("❌ Erro ao exportar", "#a22");
+          }
+        }
+
+        // ===========================================
+        // IMPORTAR CSV
+        // ===========================================
+        async function importarCSV() {
+          const input = document.createElement("input");
+          input.type = "file";
+          input.accept = ".csv";
+
+          input.onchange = async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            // Dupla confirmação (dados serão substituídos)
+            if (
+              !confirm(
+                "⚠️ IMPORTANTE: Isso vai SUBSTITUIR todos os dados atuais pelos dados do arquivo. Deseja continuar?",
+              )
+            ) {
+              return;
+            }
+
+            if (
+              !confirm(
+                "ÚLTIMA CHANCE! Tem certeza absoluta? Esta ação não pode ser desfeita.",
+              )
+            ) {
+              return;
+            }
+
+            try {
+              atualizarStatus("📤 Importando...", "#ffaa00");
+
+              const text = await file.text();
+              const resultado = await invoke("importar_csv", { csvData: text });
+
+              console.log(">>> Resultado da importação:", resultado);
+              atualizarStatus("✅ Importado com sucesso!", "#0f0");
+
+              // Atualizar visualização
+              carregarVisualizacao();
+            } catch (error) {
+              console.error(">>> ERRO ao importar:", error);
+              atualizarStatus("❌ Erro ao importar: " + error, "#a22");
+            }
+          };
+
+          input.click();
+        }
+
+        // ===========================================
+        // CARREGAR VISUALIZAÇÃO DOS DADOS
+        // ===========================================
+        async function carregarVisualizacao() {
+          const container = document.getElementById("tabela-dados-container");
+          if (!container) return;
+
+          container.innerHTML =
+            '<div class="loading">Carregando dados...</div>';
+
+          try {
+            // Busca dados completos para visualização
+            const dados = await invoke("relatorio_completo");
+
+            if (!dados || dados.length === 0) {
+              container.innerHTML =
+                '<div class="loading">Nenhum dado encontrado</div>';
+              return;
+            }
+
+            let html =
+              "<table><thead><tr><th>Seção</th><th>Tipo</th><th>Produto</th><th>Validade</th><th>Total</th><th>Prateleira</th></tr></thead><tbody>";
+
+            // Percorre a árvore para gerar linhas
+            dados.forEach((secao) => {
+              if (secao.filhos && secao.filhos.length > 0) {
+                secao.filhos.forEach((tipo) => {
+                  if (tipo.filhos && tipo.filhos.length > 0) {
+                    tipo.filhos.forEach((produto) => {
+                      if (produto.filhos && produto.filhos.length > 0) {
+                        produto.filhos.forEach((lote) => {
+                          html += `<tr>
+                          <td>${secao.nome}</td>
+                          <td>${tipo.nome}</td>
+                          <td>${produto.nome}</td>
+                          <td>${lote.nome.replace("Lote ", "")}</td>
+                          <td>${lote.total}</td>
+                          <td>${lote.prateleira}</td>
+                        </tr>`;
+                        });
+                      }
+                    });
+                  }
+                });
+              }
+            });
+
+            html += "</tbody></table>";
+            container.innerHTML = html;
+          } catch (error) {
+            console.error(">>> ERRO ao carregar visualização:", error);
+            container.innerHTML = `<div class="loading" style="color: #a22;">Erro ao carregar: ${error}</div>`;
+          }
+        }
+
+        // ===========================================
+        // EVENTOS
+        // ===========================================
+        document
+          .getElementById("btn-exportar-csv")
+          ?.addEventListener("click", exportarCSV);
+        document
+          .getElementById("btn-importar-csv")
+          ?.addEventListener("click", importarCSV);
+        document
+          .getElementById("btn-atualizar-visualizacao")
+          ?.addEventListener("click", carregarVisualizacao);
+
+        // ===========================================
+        // INICIALIZAÇÃO
+        // ===========================================
+        carregarVisualizacao();
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,167 @@
+/* temas.css - COMPLETO */
+
+/* ============================================
+   CORES BASE POR TEMA
+   ============================================ */
+:root {
+  --cor-primaria: #0ff;
+  --cor-secundaria: #ff5555;
+  --bg-escuro: #000;
+  --bg-claro: #f5f5f5;
+  --bg-matrix: #0a0f0a;
+}
+
+/* Tema Escuro */
+body.tema-escuro {
+  background: var(--bg-escuro) !important;
+  color: #fff !important;
+  --cor-tema: #0ff;
+  --cor-sair: #ff5555;
+}
+
+/* Tema Claro */
+body.tema-claro {
+  background: var(--bg-claro) !important;
+  color: #222 !important;
+  --cor-tema: #00aaff;
+  --cor-sair: #ff5555;
+}
+
+/* Tema Matrix */
+body.tema-matrix {
+  background: var(--bg-matrix) !important;
+  color: #0f0 !important;
+  --cor-tema: #0f0;
+  --cor-sair: #f0f;
+}
+
+/* ============================================
+   ELEMENTOS GLOBAIS
+   ============================================ */
+
+/* Gear/Logo */
+body.tema-escuro .gear,
+body.tema-claro .gear,
+body.tema-matrix .gear {
+  border-color: var(--cor-tema) !important;
+}
+
+body.tema-escuro .gear::before,
+body.tema-claro .gear::before,
+body.tema-matrix .gear::before {
+  border-color: var(--cor-tema) !important;
+  background: currentBg;
+}
+
+body.tema-escuro .gear::before { background: var(--bg-escuro) !important; }
+body.tema-claro .gear::before { background: var(--bg-claro) !important; }
+body.tema-matrix .gear::before { background: var(--bg-matrix) !important; }
+
+body.tema-escuro .tooth,
+body.tema-claro .tooth,
+body.tema-matrix .tooth {
+  background: var(--cor-tema) !important;
+  box-shadow: 0 0 10px var(--cor-tema) !important;
+}
+
+/* Relógio */
+body.tema-escuro .clock-container,
+body.tema-claro .clock-container,
+body.tema-matrix .clock-container {
+  border-color: var(--cor-tema)33 !important;
+  background: color-mix(in srgb, var(--cor-tema) 3%, transparent) !important;
+}
+
+body.tema-escuro .clock,
+body.tema-claro .clock,
+body.tema-matrix .clock {
+  color: var(--cor-tema) !important;
+  text-shadow: 0 0 5px var(--cor-tema) !important;
+}
+
+body.tema-escuro .date,
+body.tema-claro .date,
+body.tema-matrix .date {
+  color: var(--cor-tema) !important;
+}
+
+/* Título */
+body.tema-escuro .app-title,
+body.tema-claro .app-title,
+body.tema-matrix .app-title {
+  color: var(--cor-tema) !important;
+  text-shadow: 0 0 20px var(--cor-tema) !important;
+}
+
+/* Botões do Menu */
+body.tema-escuro .menu-btn,
+body.tema-claro .menu-btn,
+body.tema-matrix .menu-btn {
+  border-color: var(--cor-tema)33 !important;
+  color: var(--cor-tema) !important;
+  background: color-mix(in srgb, var(--cor-tema) 5%, transparent) !important;
+}
+
+body.tema-escuro .menu-btn:hover,
+body.tema-claro .menu-btn:hover,
+body.tema-matrix .menu-btn:hover {
+  background: color-mix(in srgb, var(--cor-tema) 10%, transparent) !important;
+  border-color: var(--cor-tema) !important;
+  box-shadow: 0 0 30px var(--cor-tema) !important;
+}
+
+/* Botão Sair */
+body.tema-escuro .sair,
+body.tema-claro .sair {
+  border-color: #ff5555 !important;
+  color: #ff5555 !important;
+}
+
+body.tema-matrix .sair {
+  border-color: #f0f !important;
+  color: #f0f !important;
+}
+
+body.tema-escuro .sair:hover,
+body.tema-claro .sair:hover {
+  background: rgba(255, 85, 85, 0.1) !important;
+  box-shadow: 0 0 20px #ff5555 !important;
+}
+
+body.tema-matrix .sair:hover {
+  background: rgba(255, 0, 255, 0.1) !important;
+  box-shadow: 0 0 20px #f0f !important;
+}
+
+/* Fundo animado (code rain) */
+body.tema-escuro .code-line { color: #0ff !important; }
+body.tema-claro .code-line { color: #00aaff !important; }
+body.tema-matrix .code-line { color: #0f0 !important; }
+
+/* Estilo do botão */
+.login-form button {
+  width: 100%;
+  padding: 14px;
+  background: rgba(0, 255, 255, 0.1);
+  border: 2px solid #0ff;
+  color: #0ff;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  border-radius: 40px;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.login-form button:hover:not(:disabled) {
+  background: #0ff;
+  color: black;
+  box-shadow: 0 0 30px cyan;
+}
+
+.login-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

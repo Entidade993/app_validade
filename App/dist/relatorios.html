@@ -1,0 +1,844 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Relatórios - Validade App</title>
+    <script src="temas.js"></script>
+    <link rel="stylesheet" href="temas.css">
+    <style>
+      /* ============================================
+       RESET E CONFIGURAÇÕES GLOBAIS
+       ============================================ */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #000;
+        color: white;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* FUNDO ANIMADO */
+      .cyber-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: #000;
+        overflow: hidden;
+      }
+
+      .code-rain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        opacity: 0.15;
+      }
+
+      .code-column {
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fall linear infinite;
+      }
+
+      .code-column:nth-child(1) {
+        animation-duration: 15s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(2) {
+        animation-duration: 18s;
+        animation-delay: 2s;
+      }
+      .code-column:nth-child(3) {
+        animation-duration: 20s;
+        animation-delay: 1s;
+      }
+      .code-column:nth-child(4) {
+        animation-duration: 16s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(5) {
+        animation-duration: 22s;
+        animation-delay: 0.5s;
+      }
+      .code-column:nth-child(6) {
+        animation-duration: 19s;
+        animation-delay: 2.5s;
+      }
+      .code-column:nth-child(7) {
+        animation-duration: 17s;
+        animation-delay: 1.5s;
+      }
+      .code-column:nth-child(8) {
+        animation-duration: 21s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(9) {
+        animation-duration: 14s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(10) {
+        animation-duration: 23s;
+        animation-delay: 1s;
+      }
+
+      .code-line {
+        color: #0ff;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        white-space: nowrap;
+        opacity: 0;
+        animation: fadeCode 4s ease-in-out infinite;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+      }
+
+      .code-line:nth-child(odd) {
+        animation-delay: 0.5s;
+      }
+      .code-line:nth-child(even) {
+        animation-delay: 1s;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      @keyframes fadeCode {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 0.4;
+        }
+        30% {
+          opacity: 0.9;
+        }
+        40% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.7;
+        }
+        60% {
+          opacity: 0.2;
+        }
+        70% {
+          opacity: 0.6;
+        }
+        80% {
+          opacity: 0.1;
+        }
+        90% {
+          opacity: 0.5;
+        }
+      }
+
+      /* ============================================
+       LOGO
+       ============================================ */
+      .gear-container {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem auto 1rem;
+      }
+
+      .gear {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        box-shadow:
+          0 0 15px rgba(0, 255, 255, 0.3),
+          inset 0 0 8px rgba(0, 255, 255, 0.3);
+        animation: spin 16s infinite linear;
+      }
+
+      .gear::before {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: #0b0f15;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #0ff;
+      }
+
+      .gear-teeth {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .tooth {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #0ff;
+        box-shadow: 0 0 10px cyan;
+        clip-path: polygon(
+          30% 0%,
+          70% 0%,
+          100% 30%,
+          70% 100%,
+          30% 100%,
+          0% 30%
+        );
+      }
+
+      .tooth:nth-child(1) {
+        top: -10px;
+        left: 35px;
+      }
+      .tooth:nth-child(2) {
+        top: 20px;
+        left: 75px;
+        transform: rotate(45deg);
+      }
+      .tooth:nth-child(3) {
+        top: 65px;
+        left: 55px;
+        transform: rotate(90deg);
+      }
+      .tooth:nth-child(4) {
+        top: 65px;
+        left: -5px;
+        transform: rotate(135deg);
+      }
+      .tooth:nth-child(5) {
+        top: 22px;
+        left: -25px;
+        transform: rotate(180deg);
+      }
+      .tooth:nth-child(6) {
+        top: -20px;
+        left: -5px;
+        transform: rotate(225deg);
+      }
+      .tooth:nth-child(7) {
+        top: -28px;
+        left: 25px;
+        transform: rotate(270deg);
+      }
+      .tooth:nth-child(8) {
+        top: -15px;
+        left: 60px;
+        transform: rotate(315deg);
+      }
+
+      .gear.small {
+        width: 55px;
+        height: 55px;
+        right: -10px;
+        top: 30px;
+        border-width: 2px;
+        animation: spin-reverse 12s infinite linear;
+      }
+
+      .gear.small .tooth {
+        width: 10px;
+        height: 10px;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      /* ============================================
+       RELÓGIO
+       ============================================ */
+      .clock-container {
+        text-align: center;
+        margin: 15px auto 20px;
+        padding: 5px 10px;
+        background: rgba(0, 255, 255, 0.03);
+        border: 1px dashed #0ff5;
+        border-radius: 0;
+        box-shadow: none;
+        width: fit-content;
+        max-width: 200px;
+        font-family: "Courier New", monospace;
+      }
+
+      .clock {
+        font-size: 2rem;
+        font-weight: 400;
+        color: #0ff;
+        text-shadow: 0 0 5px cyan;
+        display: block;
+        letter-spacing: 3px;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: #0ff;
+        opacity: 0.7;
+        display: block;
+        letter-spacing: 2px;
+      }
+
+      /* ============================================
+       CABEÇALHO DA PÁGINA
+       ============================================ */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto 20px;
+        padding: 0 20px;
+      }
+
+      .voltar-btn {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+
+      .voltar-btn:hover {
+        background: #0ff2;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      h1 {
+        color: #0ff;
+        font-size: 2rem;
+        border-bottom: 2px solid #0ff3;
+        padding-bottom: 10px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        text-align: center;
+      }
+
+      /* ============================================
+       SEÇÃO RELATÓRIOS
+       ============================================ */
+      .relatorios-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .controles {
+        margin-bottom: 20px;
+        display: flex;
+        gap: 15px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn-relatorio {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 10px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+      }
+
+      .btn-relatorio:hover {
+        background: #0ff2;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      #ultima-atualizacao {
+        color: #0ff5;
+        font-size: 0.9rem;
+      }
+
+      .arvore-container {
+        background: rgba(26, 31, 42, 0.8);
+        backdrop-filter: blur(10px);
+        border-radius: 20px;
+        padding: 25px;
+        max-height: 600px;
+        overflow-y: auto;
+        font-family: "Courier New", monospace;
+        border: 1px solid #0ff3;
+        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+      }
+
+      .arvore-item {
+        margin: 5px 0;
+        border-left: 2px solid #0ff3;
+        transition: all 0.2s;
+      }
+
+      .arvore-item:hover {
+        border-left-color: #0ff;
+        background: rgba(0, 255, 255, 0.05);
+      }
+
+      .arvore-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 10px 10px 15px;
+        cursor: pointer;
+        border-radius: 0 8px 8px 0;
+      }
+
+      .arvore-header:hover {
+        background: rgba(0, 255, 255, 0.1);
+      }
+
+      .arvore-nome {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #fff;
+        font-size: 1rem;
+      }
+
+      .arvore-nome span:first-child {
+        color: #0ff;
+        font-weight: bold;
+      }
+
+      .arvore-stats {
+        display: flex;
+        gap: 15px;
+        font-size: 0.9rem;
+      }
+
+      .stat-estoque {
+        color: #0ff;
+      }
+      .stat-prateleira {
+        color: #2a5;
+      }
+      .stat-vendido {
+        color: #a22;
+      }
+
+      .expand-icon {
+        width: 20px;
+        height: 20px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #0ff;
+        transition: transform 0.2s;
+      }
+
+      .expand-icon.expanded {
+        transform: rotate(90deg);
+      }
+
+      .arvore-filhos {
+        margin-left: 30px;
+        padding-left: 15px;
+        border-left: 1px dashed #0ff3;
+        display: none;
+      }
+
+      .arvore-filhos.expanded {
+        display: block;
+      }
+
+      .icone-secao::before {
+        content: "📁 ";
+        color: #0ff;
+      }
+      .icone-tipo::before {
+        content: "📂 ";
+        color: #0ff;
+      }
+      .icone-produto::before {
+        content: "📦 ";
+        color: #0ff;
+      }
+      .icone-lote::before {
+        content: "📆 ";
+        color: #0ff;
+      }
+
+      .loading {
+        color: #0ff5;
+        text-align: center;
+        padding: 40px;
+        font-style: italic;
+      }
+
+      /* SCROLLBAR */
+      .arvore-container::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .arvore-container::-webkit-scrollbar-track {
+        background: #1a1f2a;
+      }
+
+      .arvore-container::-webkit-scrollbar-thumb {
+        background: #0ff3;
+        border-radius: 4px;
+      }
+
+      .arvore-container::-webkit-scrollbar-thumb:hover {
+        background: #0ff;
+      }
+
+      /* RESPONSIVIDADE */
+      @media (max-width: 768px) {
+        .arvore-stats {
+          flex-direction: column;
+          gap: 5px;
+          align-items: flex-end;
+        }
+
+        .clock {
+          font-size: 1.8rem;
+        }
+      }
+
+      /* ============================================
+   TEMAS - RELATÓRIOS
+   ============================================ */
+
+/* Tema Claro */
+body.tema-claro {
+  background: #f5f5f5 !important;
+}
+
+body.tema-claro .arvore-container {
+  background: rgba(255, 255, 255, 0.9) !important;
+  border-color: #00aaff33 !important;
+}
+
+body.tema-claro .arvore-item {
+  border-left-color: #00aaff33 !important;
+}
+
+body.tema-claro .arvore-item:hover {
+  background: rgba(0, 170, 255, 0.05) !important;
+}
+
+body.tema-claro .arvore-nome {
+  color: #222 !important;
+}
+
+body.tema-claro .arvore-nome span:first-child {
+  color: #00aaff !important;
+}
+
+body.tema-claro .btn-relatorio {
+  border-color: #00aaff !important;
+  color: #00aaff !important;
+}
+
+/* Tema Matrix */
+body.tema-matrix {
+  background: #0a0f0a !important;
+}
+
+body.tema-matrix .arvore-container {
+  background: rgba(10, 20, 10, 0.95) !important;
+  border-color: #0f03 !important;
+}
+
+body.tema-matrix .arvore-item {
+  border-left-color: #0f03 !important;
+}
+
+body.tema-matrix .arvore-nome span:first-child {
+  color: #0f0 !important;
+}
+
+body.tema-matrix .btn-relatorio {
+  border-color: #0f0 !important;
+  color: #0f0 !important;
+}
+    </style>
+  </head>
+  <body>
+    <!-- FUNDO ANIMADO -->
+    <div class="cyber-background">
+      <div class="code-rain">
+        <div class="code-column">
+          <div class="code-line">fn main() {</div>
+          <div class="code-line">let x = 42;</div>
+          <div class="code-line">println!("{}", x);</div>
+          <div class="code-line">if x > 0 {</div>
+          <div class="code-line">loop { x += 1 }</div>
+          <div class="code-line">match x {</div>
+          <div class="code-line">Some(val) => val</div>
+          <div class="code-line">Box::new(x)</div>
+          <div class="code-line">unsafe {}</div>
+          <div class="code-line">impl Trait for</div>
+        </div>
+        <div class="code-column">
+          <div class="code-line">SELECT * FROM</div>
+          <div class="code-line">INNER JOIN users</div>
+          <div class="code-line">WHERE id = 1</div>
+          <div class="code-line">INSERT INTO logs</div>
+          <div class="code-line">UPDATE produtos</div>
+          <div class="code-line">DELETE FROM lotes</div>
+          <div class="code-line">CREATE TABLE</div>
+          <div class="code-line">ALTER TABLE ADD</div>
+          <div class="code-line">DROP COLUMN</div>
+          <div class="code-line">ORDER BY validade</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="gear-container">
+      <div class="gear">
+        <div class="gear-teeth">
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+        </div>
+      </div>
+      <div class="gear small" style="top: -5px; right: -10px">
+        <div class="gear-teeth">
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELÓGIO -->
+    <div class="clock-container">
+      <span class="clock" id="clock">--:--:--</span>
+      <span class="date" id="date">--/--/----</span>
+    </div>
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <div class="page-header">
+      <a href="menu.html" class="voltar-btn">← Menu</a>
+      <h1>📊 Relatórios</h1>
+      <div style="width: 80px"></div>
+    </div>
+
+    <!-- SEÇÃO RELATÓRIOS -->
+    <div class="relatorios-container">
+      <div class="controles">
+        <button id="btn-atualizar-relatorio" class="btn-relatorio">
+          🔄 Atualizar
+        </button>
+        <span id="ultima-atualizacao">Nunca atualizado</span>
+      </div>
+
+      <div id="arvore-relatorio" class="arvore-container">
+        <div class="loading">Carregando...</div>
+      </div>
+    </div>
+
+    <script>
+      // ===========================================
+      // RELÓGIO EM TEMPO REAL
+      // ===========================================
+      function atualizarRelogio() {
+        const agora = new Date();
+        document.getElementById("clock").textContent =
+          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+        document.getElementById("date").textContent =
+          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+      }
+      atualizarRelogio();
+      setInterval(atualizarRelogio, 1000);
+
+      // ===========================================
+      // RELATÓRIOS
+      // ===========================================
+      (function () {
+        const invoke = window.__TAURI__.core.invoke;
+        console.log(">>> RELATÓRIOS");
+
+        const estado = { dados: [], expandidos: new Set() };
+
+        async function carregarRelatorio() {
+          const container = document.getElementById("arvore-relatorio");
+          container.innerHTML = '<div class="loading">Carregando...</div>';
+
+          try {
+            const dados = await invoke("relatorio_completo");
+
+            if (!dados?.length) {
+              container.innerHTML =
+                '<div class="loading">Nenhum dado encontrado</div>';
+              return;
+            }
+
+            estado.dados = dados;
+            renderizarArvore(dados);
+
+            document.getElementById("ultima-atualizacao").textContent =
+              `Última atualização: ${new Date().toLocaleString()}`;
+          } catch (error) {
+            console.error("Erro:", error);
+            container.innerHTML = `<div class="loading" style="color:#a22;">Erro: ${error}</div>`;
+          }
+        }
+
+        function renderizarArvore(itens, nivel = 0) {
+          let html = "";
+
+          itens.forEach((item) => {
+            const id = `${item.tipo}-${item.id}`;
+            const expandido = estado.expandidos.has(id);
+            const temFilhos = item.filhos && item.filhos.length > 0;
+            const vendido = item.total - item.prateleira;
+
+            html += `
+            <div class="arvore-item" style="margin-left: ${nivel * 20}px">
+              <div class="arvore-header" onclick="toggleRelatorio('${id}', event)">
+                <div class="arvore-nome">
+                  <span class="expand-icon ${expandido ? "expanded" : ""}">${temFilhos ? "▶" : "•"}</span>
+                  <span class="icone-${item.tipo}"></span>
+                  <span>${item.nome}</span>
+                </div>
+                <div class="arvore-stats">
+                  <span class="stat-estoque">🟦 ${item.estoque}</span>
+                  <span class="stat-prateleira">🟩 ${item.prateleira}</span>
+                  <span class="stat-vendido">🟥 ${vendido}</span>
+                </div>
+              </div>
+              ${
+                temFilhos
+                  ? `
+                <div id="filhos-${id}" class="arvore-filhos ${expandido ? "expanded" : ""}">
+                  ${renderizarSubItens(item.filhos, nivel + 1)}
+                </div>
+              `
+                  : ""
+              }
+            </div>
+          `;
+          });
+
+          document.getElementById("arvore-relatorio").innerHTML = html;
+        }
+
+        function renderizarSubItens(itens, nivel) {
+          if (!itens || itens.length === 0) return "";
+
+          let html = "";
+
+          itens.forEach((item) => {
+            const id = `${item.tipo}-${item.id}`;
+            const expandido = estado.expandidos.has(id);
+            const temFilhos = item.filhos && item.filhos.length > 0;
+            const vendido = item.total - item.prateleira;
+
+            html += `
+            <div class="arvore-item">
+              <div class="arvore-header" onclick="toggleRelatorio('${id}', event)">
+                <div class="arvore-nome">
+                  <span class="expand-icon ${expandido ? "expanded" : ""}">${temFilhos ? "▶" : "•"}</span>
+                  <span class="icone-${item.tipo}"></span>
+                  <span>${item.nome}</span>
+                </div>
+                <div class="arvore-stats">
+                  <span class="stat-estoque">🟦 ${item.estoque}</span>
+                  <span class="stat-prateleira">🟩 ${item.prateleira}</span>
+                  <span class="stat-vendido">🟥 ${vendido}</span>
+                </div>
+              </div>
+              ${
+                temFilhos
+                  ? `
+                <div id="filhos-${id}" class="arvore-filhos ${expandido ? "expanded" : ""}">
+                  ${renderizarSubItens(item.filhos, nivel + 1)}
+                </div>
+              `
+                  : ""
+              }
+            </div>
+          `;
+          });
+
+          return html;
+        }
+
+        window.toggleRelatorio = function (id, e) {
+          e.stopPropagation();
+          if (estado.expandidos.has(id)) {
+            estado.expandidos.delete(id);
+          } else {
+            estado.expandidos.add(id);
+          }
+          renderizarArvore(estado.dados);
+        };
+
+        document
+          .getElementById("btn-atualizar-relatorio")
+          .addEventListener("click", carregarRelatorio);
+
+        // Carrega dados automaticamente ao abrir a página
+        carregarRelatorio();
+      })();
+    </script>
+  </body>
+</html>

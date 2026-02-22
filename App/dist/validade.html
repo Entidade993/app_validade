@@ -1,0 +1,1029 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validade - Validade App</title>
+    <script src="temas.js"></script>
+    <link rel="stylesheet" href="temas.css" />
+    <style>
+      /* ============================================
+       RESET E CONFIGURAÇÕES GLOBAIS
+       ============================================ */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background: #000;
+        color: white;
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        min-height: 100vh;
+        overflow: hidden;
+        position: relative;
+      }
+
+      /* FUNDO ANIMADO */
+      .cyber-background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        background: #000;
+        overflow: hidden;
+      }
+
+      .code-rain {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: space-around;
+        opacity: 0.15;
+      }
+
+      .code-column {
+        width: 80px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        animation: fall linear infinite;
+      }
+
+      .code-column:nth-child(1) {
+        animation-duration: 15s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(2) {
+        animation-duration: 18s;
+        animation-delay: 2s;
+      }
+      .code-column:nth-child(3) {
+        animation-duration: 20s;
+        animation-delay: 1s;
+      }
+      .code-column:nth-child(4) {
+        animation-duration: 16s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(5) {
+        animation-duration: 22s;
+        animation-delay: 0.5s;
+      }
+      .code-column:nth-child(6) {
+        animation-duration: 19s;
+        animation-delay: 2.5s;
+      }
+      .code-column:nth-child(7) {
+        animation-duration: 17s;
+        animation-delay: 1.5s;
+      }
+      .code-column:nth-child(8) {
+        animation-duration: 21s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(9) {
+        animation-duration: 14s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(10) {
+        animation-duration: 23s;
+        animation-delay: 1s;
+      }
+
+      .code-line {
+        color: #0ff;
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        white-space: nowrap;
+        opacity: 0;
+        animation: fadeCode 4s ease-in-out infinite;
+        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+      }
+
+      .code-line:nth-child(odd) {
+        animation-delay: 0.5s;
+      }
+      .code-line:nth-child(even) {
+        animation-delay: 1s;
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
+      }
+
+      @keyframes fadeCode {
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 0.4;
+        }
+        30% {
+          opacity: 0.9;
+        }
+        40% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.7;
+        }
+        60% {
+          opacity: 0.2;
+        }
+        70% {
+          opacity: 0.6;
+        }
+        80% {
+          opacity: 0.1;
+        }
+        90% {
+          opacity: 0.5;
+        }
+      }
+
+      /* ============================================
+       LOGO
+       ============================================ */
+      .gear-container {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 2rem auto 1rem;
+      }
+
+      .gear {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        box-shadow:
+          0 0 15px rgba(0, 255, 255, 0.3),
+          inset 0 0 8px rgba(0, 255, 255, 0.3);
+        animation: spin 16s infinite linear;
+      }
+
+      .gear::before {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: #0b0f15;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #0ff;
+      }
+
+      .gear-teeth {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .tooth {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #0ff;
+        box-shadow: 0 0 10px cyan;
+        clip-path: polygon(
+          30% 0%,
+          70% 0%,
+          100% 30%,
+          70% 100%,
+          30% 100%,
+          0% 30%
+        );
+      }
+
+      .tooth:nth-child(1) {
+        top: -10px;
+        left: 35px;
+      }
+      .tooth:nth-child(2) {
+        top: 20px;
+        left: 75px;
+        transform: rotate(45deg);
+      }
+      .tooth:nth-child(3) {
+        top: 65px;
+        left: 55px;
+        transform: rotate(90deg);
+      }
+      .tooth:nth-child(4) {
+        top: 65px;
+        left: -5px;
+        transform: rotate(135deg);
+      }
+      .tooth:nth-child(5) {
+        top: 22px;
+        left: -25px;
+        transform: rotate(180deg);
+      }
+      .tooth:nth-child(6) {
+        top: -20px;
+        left: -5px;
+        transform: rotate(225deg);
+      }
+      .tooth:nth-child(7) {
+        top: -28px;
+        left: 25px;
+        transform: rotate(270deg);
+      }
+      .tooth:nth-child(8) {
+        top: -15px;
+        left: 60px;
+        transform: rotate(315deg);
+      }
+
+      .gear.small {
+        width: 55px;
+        height: 55px;
+        right: -10px;
+        top: 30px;
+        border-width: 2px;
+        animation: spin-reverse 12s infinite linear;
+      }
+
+      .gear.small .tooth {
+        width: 10px;
+        height: 10px;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      /* ============================================
+       RELÓGIO
+       ============================================ */
+      .clock-container {
+        text-align: center;
+        margin: 15px auto 20px;
+        padding: 5px 10px;
+        background: rgba(0, 255, 255, 0.03);
+        border: 1px dashed #0ff5;
+        border-radius: 0;
+        box-shadow: none;
+        width: fit-content;
+        max-width: 200px;
+        font-family: "Courier New", monospace;
+      }
+
+      .clock {
+        font-size: 2rem;
+        font-weight: 400;
+        color: #0ff;
+        text-shadow: 0 0 5px cyan;
+        display: block;
+        letter-spacing: 3px;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: #0ff;
+        opacity: 0.7;
+        display: block;
+        letter-spacing: 2px;
+      }
+
+      /* ============================================
+       CABEÇALHO DA PÁGINA
+       ============================================ */
+      .page-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto 20px;
+        padding: 0 20px;
+      }
+
+      .voltar-btn {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 8px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+        text-decoration: none;
+      }
+
+      .voltar-btn:hover {
+        background: #0ff2;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      h1 {
+        color: #0ff;
+        font-size: 2rem;
+        border-bottom: 2px solid #0ff3;
+        padding-bottom: 10px;
+        max-width: 600px;
+        margin: 0 auto 30px;
+        text-align: center;
+      }
+
+      /* ============================================
+       SEÇÃO VALIDADE
+       ============================================ */
+      .validade-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      .controles {
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 25px;
+        padding: 15px 20px;
+        background: rgba(26, 31, 42, 0.5);
+        backdrop-filter: blur(5px);
+        border-radius: 50px;
+        border: 1px solid #0ff3;
+      }
+
+      .controle-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .controle-item label {
+        color: #0ff;
+        font-size: 0.95rem;
+      }
+
+      #dias-alerta {
+        width: 80px;
+        padding: 8px 12px;
+        background: #1a1f2a;
+        border: 1px solid #0ff3;
+        border-radius: 30px;
+        color: white;
+        text-align: center;
+        font-size: 1rem;
+      }
+
+      #dias-alerta:focus {
+        outline: none;
+        border-color: #0ff;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      .btn-validade {
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        padding: 8px 25px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s;
+        margin-left: auto;
+      }
+
+      .btn-validade:hover {
+        background: #0ff2;
+        box-shadow: 0 0 15px cyan;
+      }
+
+      #info-vencidos {
+        color: #ff5555;
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+
+      .lista-validade {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        max-height: 600px;
+        overflow-y: auto;
+        padding-right: 10px;
+      }
+
+      .validade-card {
+        background: rgba(26, 31, 42, 0.8);
+        backdrop-filter: blur(10px);
+        border-left: 6px solid;
+        border-radius: 16px;
+        padding: 18px 22px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+        transition: all 0.3s;
+        border: 1px solid #0ff3;
+      }
+
+      .validade-card:hover {
+        transform: translateX(5px);
+        box-shadow: 0 5px 20px rgba(0, 255, 255, 0.2);
+      }
+
+      .validade-card.critico {
+        border-left-color: #ff5555;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 85, 85, 0.1),
+          rgba(26, 31, 42, 0.8)
+        );
+      }
+
+      .validade-card.alerta {
+        border-left-color: #ffaa00;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 170, 0, 0.1),
+          rgba(26, 31, 42, 0.8)
+        );
+      }
+
+      .validade-card.normal {
+        border-left-color: #2a5;
+        background: linear-gradient(
+          90deg,
+          rgba(0, 255, 85, 0.1),
+          rgba(26, 31, 42, 0.8)
+        );
+      }
+
+      .card-info {
+        flex: 2;
+      }
+
+      .card-info h3 {
+        color: #0ff;
+        margin: 0 0 5px 0;
+        font-size: 1.3rem;
+      }
+
+      .card-info p {
+        color: #aaa;
+        margin: 0;
+        font-size: 0.9rem;
+      }
+
+      .card-info .detalhes {
+        color: #888;
+        font-size: 0.85rem;
+        margin-top: 5px;
+      }
+
+      .card-dias {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        min-width: 140px;
+        padding: 0 10px;
+      }
+
+      .card-acoes {
+        display: flex;
+        gap: 10px;
+      }
+
+      .btn-excluir-lote {
+        background: transparent;
+        border: 2px solid #ff5555;
+        color: #ff5555;
+        padding: 10px 20px;
+        border-radius: 30px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        font-weight: bold;
+      }
+
+      .btn-excluir-lote:hover {
+        background: rgba(255, 85, 85, 0.1);
+        transform: scale(1.05);
+        box-shadow: 0 0 15px #ff5555;
+      }
+
+      .loading {
+        color: #0ff5;
+        text-align: center;
+        padding: 40px;
+        font-style: italic;
+      }
+
+      .sem-produtos {
+        color: #0ff5;
+        text-align: center;
+        padding: 40px;
+        font-size: 1.2rem;
+      }
+
+      /* SCROLLBAR */
+      .lista-validade::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .lista-validade::-webkit-scrollbar-track {
+        background: #1a1f2a;
+      }
+
+      .lista-validade::-webkit-scrollbar-thumb {
+        background: #0ff3;
+        border-radius: 4px;
+      }
+
+      .lista-validade::-webkit-scrollbar-thumb:hover {
+        background: #0ff;
+      }
+
+      /* RESPONSIVIDADE */
+      @media (max-width: 768px) {
+        .controles {
+          flex-direction: column;
+          align-items: stretch;
+        }
+
+        .btn-validade {
+          margin-left: 0;
+        }
+
+        .validade-card {
+          flex-direction: column;
+          text-align: center;
+        }
+
+        .card-dias {
+          font-size: 1.5rem;
+          min-width: auto;
+        }
+
+        .card-acoes {
+          width: 100%;
+          justify-content: center;
+        }
+      }
+
+      /* ============================================
+   TEMAS - VALIDADE
+   ============================================ */
+
+      /* Tema Claro */
+      body.tema-claro {
+        background: #f5f5f5 !important;
+      }
+
+      body.tema-claro .controles {
+        background: rgba(255, 255, 255, 0.9) !important;
+        border-color: #00aaff33 !important;
+      }
+
+      body.tema-claro .controle-item label {
+        color: #00aaff !important;
+      }
+
+      body.tema-claro #dias-alerta {
+        background: #ffffff !important;
+        border-color: #00aaff33 !important;
+        color: #222 !important;
+      }
+
+      body.tema-claro .btn-validade {
+        border-color: #00aaff !important;
+        color: #00aaff !important;
+      }
+
+      body.tema-claro .validade-card {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-color: #00aaff33 !important;
+      }
+
+      body.tema-claro .validade-card.critico {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 85, 85, 0.15),
+          rgba(255, 255, 255, 0.95)
+        ) !important;
+      }
+
+      body.tema-claro .validade-card.alerta {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 170, 0, 0.15),
+          rgba(255, 255, 255, 0.95)
+        ) !important;
+      }
+
+      body.tema-claro .validade-card.normal {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 255, 85, 0.15),
+          rgba(255, 255, 255, 0.95)
+        ) !important;
+      }
+
+      body.tema-claro .card-info h3 {
+        color: #00aaff !important;
+      }
+
+      body.tema-claro .card-info p {
+        color: #666 !important;
+      }
+
+      /* Tema Matrix */
+      body.tema-matrix {
+        background: #0a0f0a !important;
+      }
+
+      body.tema-matrix .controles {
+        background: rgba(10, 20, 10, 0.95) !important;
+        border-color: #0f03 !important;
+      }
+
+      body.tema-matrix .controle-item label {
+        color: #0f0 !important;
+      }
+
+      body.tema-matrix #dias-alerta {
+        background: #1a2a1a !important;
+        border-color: #0f03 !important;
+        color: #0f0 !important;
+      }
+
+      body.tema-matrix .btn-validade {
+        border-color: #0f0 !important;
+        color: #0f0 !important;
+      }
+
+      body.tema-matrix .validade-card {
+        background: rgba(10, 20, 10, 0.95) !important;
+        border-color: #0f03 !important;
+      }
+
+      body.tema-matrix .validade-card.critico {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 85, 85, 0.15),
+          rgba(10, 20, 10, 0.95)
+        ) !important;
+      }
+
+      body.tema-matrix .validade-card.alerta {
+        background: linear-gradient(
+          90deg,
+          rgba(255, 170, 0, 0.15),
+          rgba(10, 20, 10, 0.95)
+        ) !important;
+      }
+
+      body.tema-matrix .validade-card.normal {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 255, 0, 0.15),
+          rgba(10, 20, 10, 0.95)
+        ) !important;
+      }
+
+      body.tema-matrix .card-info h3 {
+        color: #0f0 !important;
+      }
+
+      body.tema-matrix .card-info p {
+        color: #8f8 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- FUNDO ANIMADO -->
+    <div class="cyber-background">
+      <div class="code-rain">
+        <div class="code-column">
+          <div class="code-line">fn main() {</div>
+          <div class="code-line">let x = 42;</div>
+          <div class="code-line">println!("{}", x);</div>
+          <div class="code-line">if x > 0 {</div>
+          <div class="code-line">loop { x += 1 }</div>
+          <div class="code-line">match x {</div>
+          <div class="code-line">Some(val) => val</div>
+          <div class="code-line">Box::new(x)</div>
+          <div class="code-line">unsafe {}</div>
+          <div class="code-line">impl Trait for</div>
+        </div>
+        <div class="code-column">
+          <div class="code-line">SELECT * FROM</div>
+          <div class="code-line">INNER JOIN users</div>
+          <div class="code-line">WHERE id = 1</div>
+          <div class="code-line">INSERT INTO logs</div>
+          <div class="code-line">UPDATE produtos</div>
+          <div class="code-line">DELETE FROM lotes</div>
+          <div class="code-line">CREATE TABLE</div>
+          <div class="code-line">ALTER TABLE ADD</div>
+          <div class="code-line">DROP COLUMN</div>
+          <div class="code-line">ORDER BY validade</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LOGO -->
+    <div class="gear-container">
+      <div class="gear">
+        <div class="gear-teeth">
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+        </div>
+      </div>
+      <div class="gear small" style="top: -5px; right: -10px">
+        <div class="gear-teeth">
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+          <div class="tooth"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELÓGIO -->
+    <div class="clock-container">
+      <span class="clock" id="clock">--:--:--</span>
+      <span class="date" id="date">--/--/----</span>
+    </div>
+
+    <!-- CABEÇALHO DA PÁGINA -->
+    <div class="page-header">
+      <a href="menu.html" class="voltar-btn">← Menu</a>
+      <h1>⚠️ Validade</h1>
+      <div style="width: 80px"></div>
+    </div>
+
+    <!-- SEÇÃO VALIDADE -->
+    <div class="validade-container">
+      <div class="controles">
+        <div class="controle-item">
+          <label for="dias-alerta">Mostrar produtos com até:</label>
+          <input type="number" id="dias-alerta" value="30" min="1" max="365" />
+          <span style="color: #0ff">dias</span>
+        </div>
+
+        <button id="btn-atualizar-validade" class="btn-validade">
+          🔄 Atualizar
+        </button>
+        <span id="info-vencidos"></span>
+      </div>
+
+      <div id="lista-validade" class="lista-validade">
+        <div class="loading">Carregando produtos...</div>
+      </div>
+    </div>
+
+    <script>
+      // ===========================================
+      // RELÓGIO EM TEMPO REAL
+      // ===========================================
+      function atualizarRelogio() {
+        const agora = new Date();
+        document.getElementById("clock").textContent =
+          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+        document.getElementById("date").textContent =
+          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+      }
+      atualizarRelogio();
+      setInterval(atualizarRelogio, 1000);
+
+      // ===========================================
+      // VALIDADE
+      // ===========================================
+      (function () {
+        const invoke = window.__TAURI__.core.invoke;
+        console.log(">>> VALIDADE");
+
+        const listaEl = document.getElementById("lista-validade");
+        const diasInput = document.getElementById("dias-alerta");
+        const infoVencidos = document.getElementById("info-vencidos");
+
+        // ===========================================
+        // CARREGAR PRODUTOS PRÓXIMOS AO VENCIMENTO
+        // ===========================================
+        async function carregarValidade() {
+          if (!listaEl) return;
+
+          const dias = parseInt(diasInput?.value || "30");
+
+          listaEl.innerHTML =
+            '<div class="loading">Carregando produtos...</div>';
+
+          try {
+            // Busca todos os dados
+            const dados = await invoke("relatorio_completo");
+
+            if (!dados || dados.length === 0) {
+              listaEl.innerHTML =
+                '<div class="sem-produtos">Nenhum produto cadastrado</div>';
+              return;
+            }
+
+            // Extrai todos os lotes com informações completas
+            const lotes = [];
+            const hoje = new Date();
+            hoje.setHours(0, 0, 0, 0);
+
+            dados.forEach((secao) => {
+              if (!secao.filhos) return;
+              secao.filhos.forEach((tipo) => {
+                if (!tipo.filhos) return;
+                tipo.filhos.forEach((produto) => {
+                  if (!produto.filhos) return;
+                  produto.filhos.forEach((lote) => {
+                    if (!lote || !lote.id) return;
+
+                    // Extrai a data do nome do lote (formato "Lote YYYY-MM-DD")
+                    const dataStr = lote.nome?.replace("Lote ", "") || "";
+                    const dataLote = new Date(dataStr + "T00:00:00");
+
+                    if (isNaN(dataLote)) return;
+
+                    const diffTime = dataLote - hoje;
+                    const diffDays = Math.ceil(
+                      diffTime / (1000 * 60 * 60 * 24),
+                    );
+
+                    lotes.push({
+                      secao: secao.nome || "Sem seção",
+                      tipo: tipo.nome || "Sem tipo",
+                      produto: produto.nome || "Sem produto",
+                      loteId: lote.id,
+                      validade: dataStr,
+                      dias: diffDays,
+                      total: lote.total || 0,
+                      prateleira: lote.prateleira || 0,
+                    });
+                  });
+                });
+              });
+            });
+
+            // Filtra apenas os que vencem em até X dias (incluindo vencidos)
+            const proximos = lotes
+              .filter((l) => l.dias <= dias)
+              .sort((a, b) => a.dias - b.dias);
+
+            if (proximos.length === 0) {
+              listaEl.innerHTML = `<div class="sem-produtos">✨ Nenhum produto vence nos próximos ${dias} dias</div>`;
+              if (infoVencidos) infoVencidos.textContent = "";
+              return;
+            }
+
+            // Conta quantos estão vencidos
+            const vencidos = proximos.filter((l) => l.dias <= 0).length;
+            if (infoVencidos) {
+              infoVencidos.textContent =
+                vencidos > 0 ? `⚠️ ${vencidos} produto(s) vencido(s)!` : "";
+            }
+
+            // Renderiza cards
+            let html = "";
+            proximos.forEach((l) => {
+              if (!l.loteId) return;
+
+              let classe = "normal";
+              let diasText = "";
+              let corDias = "#2a5";
+
+              if (l.dias <= 0) {
+                classe = "critico";
+                diasText = `VENCIDO HÁ ${Math.abs(l.dias)} DIAS`;
+                corDias = "#ff5555";
+              } else if (l.dias <= 7) {
+                classe = "critico";
+                diasText = `${l.dias} ${l.dias === 1 ? "DIA" : "DIAS"}`;
+                corDias = "#ff5555";
+              } else if (l.dias <= 15) {
+                classe = "alerta";
+                diasText = `${l.dias} DIAS`;
+                corDias = "#ffaa00";
+              } else {
+                classe = "normal";
+                diasText = `${l.dias} DIAS`;
+                corDias = "#2a5";
+              }
+
+              html += `
+              <div class="validade-card ${classe}" data-lote-id="${l.loteId}">
+                <div class="card-info">
+                  <h3>${l.produto}</h3>
+                  <p>${l.secao} › ${l.tipo}</p>
+                  <div class="detalhes">
+                    Lote: ${l.validade} | Estoque: ${l.total} | Prateleira: ${l.prateleira}
+                  </div>
+                </div>
+                <div class="card-dias" style="color: ${corDias}">
+                  ${diasText}
+                </div>
+                <div class="card-acoes">
+                  <button class="btn-excluir-lote" data-id="${l.loteId}">🗑️ Excluir lote</button>
+                </div>
+              </div>
+            `;
+            });
+
+            listaEl.innerHTML = html;
+
+            // Adiciona eventos aos botões de excluir
+            document.querySelectorAll(".btn-excluir-lote").forEach((btn) => {
+              btn.addEventListener("click", async (e) => {
+                e.stopPropagation();
+                const loteId = parseInt(e.target.dataset.id);
+
+                if (
+                  !confirm(
+                    "⚠️ Tem certeza que deseja EXCLUIR este lote inteiro?",
+                  )
+                )
+                  return;
+                if (!confirm("ÚLTIMA CHANCE! Essa ação não pode ser desfeita."))
+                  return;
+
+                try {
+                  await invoke("deletar_lote", { id: loteId });
+                  alert("✅ Lote excluído com sucesso!");
+                  carregarValidade(); // Recarrega a lista
+                } catch (error) {
+                  console.error(">>> ERRO ao excluir lote:", error);
+                  alert("Erro: " + error);
+                }
+              });
+            });
+          } catch (error) {
+            console.error(">>> ERRO ao carregar validade:", error);
+            listaEl.innerHTML = `<div class="loading" style="color: #a22;">Erro ao carregar: ${error}</div>`;
+          }
+        }
+
+        // ===========================================
+        // EVENTOS
+        // ===========================================
+        document
+          .getElementById("btn-atualizar-validade")
+          ?.addEventListener("click", carregarValidade);
+        diasInput?.addEventListener("change", carregarValidade);
+
+        // ===========================================
+        // INICIALIZAÇÃO
+        // ===========================================
+        carregarValidade();
+      })();
+    </script>
+  </body>
+</html>
