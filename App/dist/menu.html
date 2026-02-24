@@ -5,430 +5,330 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Validade App - Menu</title>
     <script src="temas.js"></script>
-    <link rel="stylesheet" href="temas.css">
+    <script src="api.js"></script>
+    <link rel="stylesheet" href="temas.css" />
     <style>
       /* ============================================
-       RESET E CONFIGURAÇÕES GLOBAIS
-       ============================================ */
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+   RESET E CONFIGURAÇÕES GLOBAIS
+   ============================================ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-      body {
-        background: #000;
-        color: white;
-        font-family:
-          system-ui,
-          -apple-system,
-          "Segoe UI",
-          Roboto,
-          sans-serif;
-        min-height: 100vh;
-        overflow: hidden;
-        position: relative;
-      }
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-overflow-scrolling: touch;
+}
 
-      /* FUNDO ANIMADO (MESMO DO LOGIN) */
-      .cyber-background {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        background: #000;
-        overflow: hidden;
-      }
+/* FUNDO ANIMADO */
+.cyber-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
 
-      .code-rain {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: space-around;
-        opacity: 0.15;
-      }
+.code-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  opacity: 0.15;
+}
 
-      .code-column {
-        width: 80px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        animation: fall linear infinite;
-      }
+.code-column {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fall linear infinite;
+}
 
-      .code-column:nth-child(1) {
-        animation-duration: 15s;
-        animation-delay: 0s;
-      }
-      .code-column:nth-child(2) {
-        animation-duration: 18s;
-        animation-delay: 2s;
-      }
-      .code-column:nth-child(3) {
-        animation-duration: 20s;
-        animation-delay: 1s;
-      }
-      .code-column:nth-child(4) {
-        animation-duration: 16s;
-        animation-delay: 3s;
-      }
-      .code-column:nth-child(5) {
-        animation-duration: 22s;
-        animation-delay: 0.5s;
-      }
-      .code-column:nth-child(6) {
-        animation-duration: 19s;
-        animation-delay: 2.5s;
-      }
-      .code-column:nth-child(7) {
-        animation-duration: 17s;
-        animation-delay: 1.5s;
-      }
-      .code-column:nth-child(8) {
-        animation-duration: 21s;
-        animation-delay: 0s;
-      }
-      .code-column:nth-child(9) {
-        animation-duration: 14s;
-        animation-delay: 3s;
-      }
-      .code-column:nth-child(10) {
-        animation-duration: 23s;
-        animation-delay: 1s;
-      }
+.code-column:nth-child(1) { animation-duration: 15s; animation-delay: 0s; }
+.code-column:nth-child(2) { animation-duration: 18s; animation-delay: 2s; }
+.code-column:nth-child(3) { animation-duration: 20s; animation-delay: 1s; }
+.code-column:nth-child(4) { animation-duration: 16s; animation-delay: 3s; }
+.code-column:nth-child(5) { animation-duration: 22s; animation-delay: 0.5s; }
+.code-column:nth-child(6) { animation-duration: 19s; animation-delay: 2.5s; }
+.code-column:nth-child(7) { animation-duration: 17s; animation-delay: 1.5s; }
+.code-column:nth-child(8) { animation-duration: 21s; animation-delay: 0s; }
+.code-column:nth-child(9) { animation-duration: 14s; animation-delay: 3s; }
+.code-column:nth-child(10) { animation-duration: 23s; animation-delay: 1s; }
 
-      .code-line {
-        color: #0ff;
-        font-family: "Courier New", monospace;
-        font-size: 14px;
-        line-height: 1.8;
-        white-space: nowrap;
-        opacity: 0;
-        animation: fadeCode 4s ease-in-out infinite;
-        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-      }
+.code-line {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeCode 4s ease-in-out infinite;
+}
 
-      .code-line:nth-child(odd) {
-        animation-delay: 0.5s;
-      }
-      .code-line:nth-child(even) {
-        animation-delay: 1s;
-      }
+@keyframes fall {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
 
-      @keyframes fall {
-        0% {
-          transform: translateY(-100%);
-        }
-        100% {
-          transform: translateY(100vh);
-        }
-      }
+@keyframes fadeCode {
+  0%,100% { opacity: 0; }
+  10% { opacity: 0.8; }
+  20% { opacity: 0.4; }
+  30% { opacity: 0.9; }
+  40% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+  60% { opacity: 0.2; }
+  70% { opacity: 0.6; }
+  80% { opacity: 0.1; }
+  90% { opacity: 0.5; }
+}
 
-      @keyframes fadeCode {
-        0%,
-        100% {
-          opacity: 0;
-        }
-        10% {
-          opacity: 0.8;
-        }
-        20% {
-          opacity: 0.4;
-        }
-        30% {
-          opacity: 0.9;
-        }
-        40% {
-          opacity: 0.3;
-        }
-        50% {
-          opacity: 0.7;
-        }
-        60% {
-          opacity: 0.2;
-        }
-        70% {
-          opacity: 0.6;
-        }
-        80% {
-          opacity: 0.1;
-        }
-        90% {
-          opacity: 0.5;
-        }
-      }
+/* LOGO */
+.gear-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto 0.5rem;
+}
 
-      /* ============================================
-       LOGO
-       ============================================ */
-      .gear-container {
-        position: relative;
-        width: 110px;
-        height: 110px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 2rem auto 1rem;
-      }
+.gear {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 3px solid;
+  border-radius: 50%;
+  animation: spin 16s infinite linear;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
 
-      .gear {
-        position: absolute;
-        width: 90px;
-        height: 90px;
-        border: 3px solid #0ff;
-        border-radius: 50%;
-        box-shadow:
-          0 0 15px rgba(0, 255, 255, 0.3),
-          inset 0 0 8px rgba(0, 255, 255, 0.3);
-        animation: spin 16s infinite linear;
-      }
+.gear::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: #0b0f15;
+  border: 3px solid;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
 
-      .gear::before {
-        content: "";
-        position: absolute;
-        width: 28px;
-        height: 28px;
-        background: #0b0f15;
-        border: 3px solid #0ff;
-        border-radius: 50%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #0ff;
-      }
+.gear-teeth {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
 
-      .gear-teeth {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
+.tooth {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 70% 100%, 30% 100%, 0% 30%);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
 
-      .tooth {
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        background: #0ff;
-        box-shadow: 0 0 10px cyan;
-        clip-path: polygon(
-          30% 0%,
-          70% 0%,
-          100% 30%,
-          70% 100%,
-          30% 100%,
-          0% 30%
-        );
-      }
+.tooth:nth-child(1) { top: -10px; left: 35px; }
+.tooth:nth-child(2) { top: 20px; left: 75px; transform: rotate(45deg); }
+.tooth:nth-child(3) { top: 65px; left: 55px; transform: rotate(90deg); }
+.tooth:nth-child(4) { top: 65px; left: -5px; transform: rotate(135deg); }
+.tooth:nth-child(5) { top: 22px; left: -25px; transform: rotate(180deg); }
+.tooth:nth-child(6) { top: -20px; left: -5px; transform: rotate(225deg); }
+.tooth:nth-child(7) { top: -28px; left: 25px; transform: rotate(270deg); }
+.tooth:nth-child(8) { top: -15px; left: 60px; transform: rotate(315deg); }
 
-      .tooth:nth-child(1) {
-        top: -10px;
-        left: 35px;
-      }
-      .tooth:nth-child(2) {
-        top: 20px;
-        left: 75px;
-        transform: rotate(45deg);
-      }
-      .tooth:nth-child(3) {
-        top: 65px;
-        left: 55px;
-        transform: rotate(90deg);
-      }
-      .tooth:nth-child(4) {
-        top: 65px;
-        left: -5px;
-        transform: rotate(135deg);
-      }
-      .tooth:nth-child(5) {
-        top: 22px;
-        left: -25px;
-        transform: rotate(180deg);
-      }
-      .tooth:nth-child(6) {
-        top: -20px;
-        left: -5px;
-        transform: rotate(225deg);
-      }
-      .tooth:nth-child(7) {
-        top: -28px;
-        left: 25px;
-        transform: rotate(270deg);
-      }
-      .tooth:nth-child(8) {
-        top: -15px;
-        left: 60px;
-        transform: rotate(315deg);
-      }
+.gear.small {
+  width: 55px;
+  height: 55px;
+  right: -10px;
+  top: 30px;
+  border-width: 2px;
+  animation: spin-reverse 12s infinite linear;
+}
 
-      .gear.small {
-        width: 55px;
-        height: 55px;
-        right: -10px;
-        top: 30px;
-        border-width: 2px;
-        animation: spin-reverse 12s infinite linear;
-      }
+.gear.small .tooth {
+  width: 10px;
+  height: 10px;
+}
 
-      .gear.small .tooth {
-        width: 10px;
-        height: 10px;
-      }
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
 
-      @keyframes spin {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(360deg);
-        }
-      }
+@keyframes spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
 
-      @keyframes spin-reverse {
-        from {
-          transform: rotate(0deg);
-        }
-        to {
-          transform: rotate(-360deg);
-        }
-      }
+/* RELÓGIO */
+.clock-container {
+  text-align: center;
+  margin: 0.5rem auto 1.5rem;
+  padding: 5px 10px;
+  border: 1px dashed;
+  border-radius: 0;
+  width: fit-content;
+  font-family: "Courier New", monospace;
+  transition: border-color 0.3s;
+}
 
-      /* ============================================
-       RELÓGIO E TÍTULO
-       ============================================ */
-      .clock-container {
-        text-align: center;
-        margin: 15px auto 20px;
-        padding: 5px 10px;
-        background: rgba(0, 255, 255, 0.03);
-        border: 1px dashed #0ff5;
-        border-radius: 0;
-        box-shadow: none;
-        width: fit-content;
-        max-width: 200px;
-        font-family: "Courier New", monospace;
-      }
+.clock {
+  font-size: 2rem;
+  font-weight: 400;
+  display: block;
+  letter-spacing: 3px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
 
-      .clock {
-        font-size: 2rem;
-        font-weight: 400;
-        color: #0ff;
-        text-shadow: 0 0 5px cyan;
-        display: block;
-        letter-spacing: 3px;
-      }
+.date {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  display: block;
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
 
-      .date {
-        font-size: 0.8rem;
-        color: #0ff;
-        opacity: 0.7;
-        display: block;
-        letter-spacing: 2px;
-      }
+/* TÍTULO */
+.app-title {
+  font-size: 2.2rem;
+  font-weight: 500;
+  margin: 15px 0 20px;
+  text-align: center !important;  /* ← FORÇA CENTRALIZAÇÃO */
+  letter-spacing: 5px;
+  font-family: "Courier New", monospace;
+  text-transform: uppercase;
+  transition: color 0.3s, text-shadow 0.3s;
+  width: 100%;
+  display: block;
+}
 
-      .app-title {
-        font-size: 2.2rem;
-        font-weight: 500;
-        margin: 15px 0 20px;
-        text-align: center;
-        color: #0ff;
-        text-shadow: 0 0 20px cyan;
-        letter-spacing: 5px;
-        font-family: "Courier New", monospace;
-        text-transform: uppercase;
-      }
+/* BOTÕES DO MENU */
+.menu-botoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+}
 
-      /* ============================================
-       BOTÕES DO MENU
-       ============================================ */
-      .menu-botoes {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 20px;
-        max-width: 800px;
-        margin: 40px auto;
-        padding: 20px;
-      }
+.menu-btn {
+  flex: 1 1 150px;
+  min-width: 140px;
+  padding: 20px 10px;
+  border: 2px solid;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  transition: all 0.3s;
+  backdrop-filter: blur(5px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.9;
+}
 
-      .menu-btn {
-        flex: 1 1 150px;
-        min-width: 140px;
-        padding: 20px 10px;
-        background: rgba(0, 255, 255, 0.05);
-        border: 2px solid #0ff3;
-        border-radius: 30px;
-        color: #0ff;
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-decoration: none;
-        text-align: center;
-        transition: all 0.3s;
-        backdrop-filter: blur(5px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
+.menu-btn:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 30px;
+  opacity: 1;
+}
 
-      .menu-btn:hover {
-        background: #0ff2;
-        border-color: #0ff;
-        transform: translateY(-5px);
-        box-shadow: 0 0 30px cyan;
-      }
+.menu-btn span {
+  font-size: 2.5rem;
+}
 
-      .menu-btn span {
-        font-size: 2.5rem;
-      }
+.sair {
+  display: block;
+  margin: 20px auto;
+  padding: 12px 30px;
+  background: transparent;
+  border: 2px solid #ff5555;
+  color: #ff5555;
+  font-size: 1.2rem;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s;
+  width: fit-content;
+}
 
-      .sair {
-        display: block;
-        margin: 20px auto;
-        padding: 12px 30px;
-        background: transparent;
-        border: 2px solid #ff5555;
-        color: #ff5555;
-        font-size: 1.2rem;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s;
-        width: fit-content;
-      }
+.sair:hover {
+  background: rgba(255, 85, 85, 0.1);
+  box-shadow: 0 0 20px #ff5555;
+  transform: scale(1.05);
+}
 
-      .sair:hover {
-        background: rgba(255, 85, 85, 0.1);
-        box-shadow: 0 0 20px #ff5555;
-        transform: scale(1.05);
-      }
+/* RESPONSIVIDADE */
+@media (max-width: 768px) {
+  .menu-botoes {
+    gap: 15px;
+    padding: 10px;
+  }
 
-      /* ============================================
-       RESPONSIVIDADE
-       ============================================ */
-      @media (max-width: 768px) {
-        .menu-botoes {
-          gap: 15px;
-          padding: 10px;
-        }
+  .menu-btn {
+    min-width: 120px;
+    padding: 15px 5px;
+    font-size: 1rem;
+  }
 
-        .menu-btn {
-          min-width: 120px;
-          padding: 15px 5px;
-          font-size: 1rem;
-        }
+  .menu-btn span {
+    font-size: 2rem;
+  }
 
-        .menu-btn span {
-          font-size: 2rem;
-        }
+  .clock {
+    font-size: 2rem;
+  }
+}
 
-        .clock {
-          font-size: 2rem;
-        }
-      }
-      
+/* NÃO INCLUA DEFINIÇÕES DE TEMA AQUI! 
+   ELAS ESTÃO NO ARQUIVO temas.css */
+   /* ============================================
+   FORÇAR CENTRALIZAÇÃO DO TÍTULO
+   ============================================ */
+h1.app-title,
+.app-title {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+  width: 100% !important;
+  position: relative !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+/* Garantir que nenhum outro elemento atrapalhe */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.page-header h1 {
+  flex: 1;
+  text-align: center;
+}
     </style>
   </head>
   <body>
@@ -488,7 +388,7 @@
           <div class="tooth"></div>
         </div>
       </div>
-      <div class="gear small" style="top: -5px; right: -10px">
+      <div class="gear small">
         <div class="gear-teeth">
           <div class="tooth"></div>
           <div class="tooth"></div>
@@ -537,35 +437,25 @@
     <button class="sair" id="btn-sair">🚪 Sair</button>
 
     <script>
-      // ===========================================
-      // RELÓGIO EM TEMPO REAL
-      // ===========================================
-      function atualizarRelogio() {
-        const agora = new Date();
+// ===========================================
+// RELÓGIO
+// ===========================================
+function atualizarRelogio() {
+    const agora = new Date();
+    document.getElementById("clock").textContent =
+        `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+    document.getElementById("date").textContent =
+        `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
 
-        const horas = String(agora.getHours()).padStart(2, "0");
-        const minutos = String(agora.getMinutes()).padStart(2, "0");
-        const segundos = String(agora.getSeconds()).padStart(2, "0");
-
-        const dia = String(agora.getDate()).padStart(2, "0");
-        const mes = String(agora.getMonth() + 1).padStart(2, "0");
-        const ano = agora.getFullYear();
-
-        document.getElementById("clock").textContent =
-          `${horas}:${minutos}:${segundos}`;
-        document.getElementById("date").textContent = `${dia}/${mes}/${ano}`;
-      }
-
-      // Inicia o relógio
-      atualizarRelogio();
-      setInterval(atualizarRelogio, 1000);
-
-      // ===========================================
-      // BOTÃO SAIR (volta para o login)
-      // ===========================================
-      document.getElementById("btn-sair").addEventListener("click", () => {
-        window.location.href = "index.html";
-      });
-    </script>
+// ===========================================
+// BOTÃO SAIR
+// ===========================================
+document.getElementById("btn-sair")?.addEventListener("click", () => {
+    window.location.href = "index.html";
+});
+</script>
   </body>
 </html>

@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Produtos - Validade App</title>
     <script src="temas.js"></script>
+    <script src="api.js"></script>
     <link rel="stylesheet" href="temas.css" />
     <style>
       /* ============================================
-       RESET E CONFIGURAÇÕES GLOBAIS
-       ============================================ */
+           CSS COMPLETO (MANTIDO IGUAL)
+           ============================================ */
       * {
         margin: 0;
         padding: 0;
@@ -17,8 +18,6 @@
       }
 
       body {
-        background: #000;
-        color: white;
         font-family:
           system-ui,
           -apple-system,
@@ -26,8 +25,12 @@
           Roboto,
           sans-serif;
         min-height: 100vh;
-        overflow: hidden;
-        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+        -webkit-overflow-scrolling: touch;
       }
 
       /* FUNDO ANIMADO */
@@ -38,7 +41,6 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: #000;
         overflow: hidden;
       }
 
@@ -61,65 +63,6 @@
         animation: fall linear infinite;
       }
 
-      .code-column:nth-child(1) {
-        animation-duration: 15s;
-        animation-delay: 0s;
-      }
-      .code-column:nth-child(2) {
-        animation-duration: 18s;
-        animation-delay: 2s;
-      }
-      .code-column:nth-child(3) {
-        animation-duration: 20s;
-        animation-delay: 1s;
-      }
-      .code-column:nth-child(4) {
-        animation-duration: 16s;
-        animation-delay: 3s;
-      }
-      .code-column:nth-child(5) {
-        animation-duration: 22s;
-        animation-delay: 0.5s;
-      }
-      .code-column:nth-child(6) {
-        animation-duration: 19s;
-        animation-delay: 2.5s;
-      }
-      .code-column:nth-child(7) {
-        animation-duration: 17s;
-        animation-delay: 1.5s;
-      }
-      .code-column:nth-child(8) {
-        animation-duration: 21s;
-        animation-delay: 0s;
-      }
-      .code-column:nth-child(9) {
-        animation-duration: 14s;
-        animation-delay: 3s;
-      }
-      .code-column:nth-child(10) {
-        animation-duration: 23s;
-        animation-delay: 1s;
-      }
-
-      .code-line {
-        color: #0ff;
-        font-family: "Courier New", monospace;
-        font-size: 14px;
-        line-height: 1.8;
-        white-space: nowrap;
-        opacity: 0;
-        animation: fadeCode 4s ease-in-out infinite;
-        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-      }
-
-      .code-line:nth-child(odd) {
-        animation-delay: 0.5s;
-      }
-      .code-line:nth-child(even) {
-        animation-delay: 1s;
-      }
-
       @keyframes fall {
         0% {
           transform: translateY(-100%);
@@ -127,6 +70,15 @@
         100% {
           transform: translateY(100vh);
         }
+      }
+
+      .code-line {
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        white-space: nowrap;
+        opacity: 0;
+        animation: fadeCode 4s ease-in-out infinite;
       }
 
       @keyframes fadeCode {
@@ -163,9 +115,7 @@
         }
       }
 
-      /* ============================================
-       LOGO
-       ============================================ */
+      /* LOGO */
       .gear-container {
         position: relative;
         width: 110px;
@@ -180,11 +130,8 @@
         position: absolute;
         width: 90px;
         height: 90px;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
-        box-shadow:
-          0 0 15px rgba(0, 255, 255, 0.3),
-          inset 0 0 8px rgba(0, 255, 255, 0.3);
         animation: spin 16s infinite linear;
       }
 
@@ -194,12 +141,11 @@
         width: 28px;
         height: 28px;
         background: #0b0f15;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #0ff;
       }
 
       .gear-teeth {
@@ -212,8 +158,6 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        background: #0ff;
-        box-shadow: 0 0 10px cyan;
         clip-path: polygon(
           30% 0%,
           70% 0%,
@@ -296,42 +240,32 @@
         }
       }
 
-      /* ============================================
-       RELÓGIO
-       ============================================ */
+      /* RELÓGIO */
       .clock-container {
         text-align: center;
         margin: 15px auto 20px;
         padding: 5px 10px;
-        background: rgba(0, 255, 255, 0.03);
-        border: 1px dashed #0ff5;
+        border: 1px dashed;
         border-radius: 0;
-        box-shadow: none;
         width: fit-content;
-        max-width: 200px;
         font-family: "Courier New", monospace;
       }
 
       .clock {
         font-size: 2rem;
         font-weight: 400;
-        color: #0ff;
-        text-shadow: 0 0 5px cyan;
         display: block;
         letter-spacing: 3px;
       }
 
       .date {
         font-size: 0.8rem;
-        color: #0ff;
         opacity: 0.7;
         display: block;
         letter-spacing: 2px;
       }
 
-      /* ============================================
-       CABEÇALHO DA PÁGINA
-       ============================================ */
+      /* CABEÇALHO */
       .page-header {
         display: flex;
         justify-content: space-between;
@@ -343,8 +277,7 @@
 
       .voltar-btn {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 8px 20px;
         border-radius: 30px;
         cursor: pointer;
@@ -354,27 +287,25 @@
       }
 
       .voltar-btn:hover {
-        background: #0ff2;
-        box-shadow: 0 0 15px cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 15px;
       }
 
       h1 {
-        color: #0ff;
         font-size: 2rem;
-        border-bottom: 2px solid #0ff3;
+        border-bottom: 2px solid;
         padding-bottom: 10px;
         max-width: 600px;
         margin: 0 auto 30px;
         text-align: center;
       }
 
-      /* ============================================
-       SEÇÃO PRODUTOS
-       ============================================ */
+      /* SEÇÃO PRODUTOS */
       #produtos-section {
         padding: 0 20px;
         max-width: 1200px;
         margin: 0 auto;
+        padding-bottom: 50px;
       }
 
       /* BARRA DE PESQUISA */
@@ -386,45 +317,38 @@
       .search-input {
         width: 100%;
         padding: 14px 20px;
-        background: #1a1f2a;
-        border: 2px solid #0ff3;
+        border: 2px solid;
         border-radius: 40px;
-        color: white;
         font-size: 1rem;
         transition: all 0.3s;
       }
 
       .search-input:focus {
         outline: none;
-        border-color: #0ff;
-        box-shadow: 0 0 20px cyan;
+        box-shadow: 0 0 20px;
       }
 
       .search-input::placeholder {
-        color: #0ff5;
         font-style: italic;
       }
 
-      /* RESULTADOS DA PESQUISA */
       .search-results {
         position: absolute;
         top: 100%;
         left: 0;
         right: 0;
-        background: #1a1f2a;
-        border: 1px solid #0ff3;
+        border: 1px solid;
         border-radius: 20px;
         margin-top: 5px;
         padding: 10px;
         max-height: 300px;
         overflow-y: auto;
         z-index: 1000;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       }
 
       .search-result-item {
         padding: 10px 15px;
-        border-bottom: 1px solid #0ff1;
+        border-bottom: 1px solid;
         cursor: pointer;
         transition: all 0.2s;
         display: flex;
@@ -433,7 +357,7 @@
       }
 
       .search-result-item:hover {
-        background: #0ff1;
+        background: rgba(0, 255, 255, 0.1);
       }
 
       .search-result-item:last-child {
@@ -441,12 +365,10 @@
       }
 
       .search-result-nome {
-        color: #0ff;
         font-weight: bold;
       }
 
       .search-result-caminho {
-        color: #aaa;
         font-size: 0.8rem;
       }
 
@@ -460,25 +382,18 @@
       .coluna {
         flex: 1;
         min-width: 240px;
-        background: rgba(0, 255, 255, 0.05);
         border-radius: 20px;
         padding: 18px 15px;
         transition: all 0.3s;
-        border: 1px solid #0ff3;
+        border: 1px solid;
         position: relative;
         backdrop-filter: blur(5px);
       }
 
-      .coluna:hover {
-        border-color: #0ff;
-        box-shadow: 0 0 20px #0ff3;
-      }
-
       .coluna h3 {
-        color: #0ff;
         margin: 0 0 20px 0;
         font-size: 1.3rem;
-        border-bottom: 1px solid #0ff3;
+        border-bottom: 1px solid;
         padding-bottom: 8px;
         padding-right: 40px;
       }
@@ -488,8 +403,7 @@
         top: 18px;
         right: 15px;
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         width: 36px;
         height: 36px;
         border-radius: 50%;
@@ -499,15 +413,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        opacity: 0.8;
         z-index: 10;
       }
 
       .btn-add:hover {
-        background: #0ff2;
         transform: scale(1.1);
-        box-shadow: 0 0 15px cyan;
-        opacity: 1;
+        box-shadow: 0 0 15px;
       }
 
       .lista-cards {
@@ -516,33 +427,24 @@
         display: flex;
         flex-direction: column;
         gap: 8px;
-        max-height: 350px;
-        overflow-y: auto;
-        padding-right: 5px;
       }
 
       .card-placeholder {
-        background: rgba(0, 255, 255, 0.05);
-        border: 2px dashed #0ff5;
+        border: 2px dashed;
         border-radius: 12px;
         padding: 15px;
         text-align: center;
-        color: #0ff5;
         cursor: pointer;
         transition: all 0.3s;
         font-size: 0.95rem;
       }
 
       .card-placeholder:hover {
-        background: #0ff1;
-        border-color: #0ff;
-        color: #0ff;
         transform: translateY(-2px);
       }
 
       .card-item {
-        background: #1a1f2a;
-        border: 1px solid #0ff3;
+        border: 1px solid;
         border-radius: 12px;
         padding: 12px;
         cursor: pointer;
@@ -550,15 +452,12 @@
       }
 
       .card-item:hover {
-        border-color: #0ff;
-        box-shadow: 0 0 15px #0ff3;
+        box-shadow: 0 0 15px;
         transform: translateY(-2px);
       }
 
       .card-item.selecionado {
-        border: 2px solid #0ff;
-        background: rgba(0, 255, 255, 0.08);
-        box-shadow: 0 0 20px cyan;
+        border: 2px solid;
       }
 
       .card-header {
@@ -569,7 +468,6 @@
       }
 
       .card-header span {
-        color: #0ff;
         font-weight: bold;
         font-size: 1rem;
       }
@@ -577,7 +475,7 @@
       .btn-excluir {
         background: transparent;
         border: none;
-        color: #ff5555;
+        color: #ff5555 !important;
         font-size: 1.2rem;
         cursor: pointer;
         opacity: 0.7;
@@ -609,11 +507,6 @@
         transition: all 0.2s;
       }
 
-      .quadrinho-interativo:hover {
-        transform: scale(1.15);
-        filter: brightness(1.2);
-      }
-
       .quadrinho-interativo.estoque {
         background: #0ff;
         box-shadow: 0 0 8px cyan;
@@ -629,175 +522,6 @@
         box-shadow: 0 0 5px #a22;
       }
 
-      /* SCROLLBAR */
-      .lista-cards::-webkit-scrollbar {
-        width: 4px;
-      }
-
-      .lista-cards::-webkit-scrollbar-track {
-        background: #1a1f2a;
-      }
-
-      .lista-cards::-webkit-scrollbar-thumb {
-        background: #0ff3;
-        border-radius: 4px;
-      }
-
-      .lista-cards::-webkit-scrollbar-thumb:hover {
-        background: #0ff;
-      }
-
-      /* RESPONSIVIDADE */
-      @media (max-width: 768px) {
-        .produtos-container {
-          flex-direction: column;
-        }
-
-        .coluna {
-          min-width: 100%;
-        }
-
-        .clock {
-          font-size: 1.8rem;
-        }
-      }
-      /* ============================================
-   TEMAS - PRODUTOS (CORRIGIDO)
-   ============================================ */
-
-      /* Tema Claro */
-      body.tema-claro {
-        background: #f5f5f5 !important;
-      }
-
-      body.tema-claro .coluna {
-        background: rgba(0, 170, 255, 0.05) !important;
-        border-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .coluna h3 {
-        color: #00aaff !important;
-        border-bottom-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .card-item {
-        background: #ffffff !important;
-        border-color: #00aaff33 !important;
-        color: #222 !important;
-      }
-
-      body.tema-claro .card-item.selecionado {
-        border-color: #00aaff !important;
-        background: rgba(0, 170, 255, 0.1) !important;
-      }
-
-      body.tema-claro .card-header span {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .search-input {
-        background: #ffffff !important;
-        border-color: #00aaff33 !important;
-        color: #222 !important;
-      }
-
-      body.tema-claro .search-input::placeholder {
-        color: #00aaff80 !important;
-      }
-
-      body.tema-claro .search-results {
-        background: #ffffff !important;
-        border-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .search-result-item {
-        border-bottom-color: #00aaff1a !important;
-      }
-
-      body.tema-claro .search-result-nome {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .search-result-caminho {
-        color: #666 !important;
-      }
-
-      body.tema-claro .card-placeholder {
-        color: #00aaff80 !important;
-        border-color: #00aaff80 !important;
-      }
-
-      body.tema-claro .btn-add {
-        border-color: #00aaff !important;
-        color: #00aaff !important;
-      }
-
-      /* Tema Matrix */
-      body.tema-matrix {
-        background: #0a0f0a !important;
-      }
-
-      body.tema-matrix .coluna {
-        background: rgba(0, 255, 0, 0.05) !important;
-        border-color: #0f03 !important;
-      }
-
-      body.tema-matrix .coluna h3 {
-        color: #0f0 !important;
-        border-bottom-color: #0f03 !important;
-      }
-
-      body.tema-matrix .card-item {
-        background: #1a2a1a !important;
-        border-color: #0f03 !important;
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .card-item.selecionado {
-        border-color: #0f0 !important;
-        background: rgba(0, 255, 0, 0.1) !important;
-      }
-
-      body.tema-matrix .card-header span {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .search-input {
-        background: #1a2a1a !important;
-        border-color: #0f03 !important;
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .search-input::placeholder {
-        color: #0f08 !important; /* CORRIGIDO: agora com 4 dígitos (verde com 50% alpha) */
-      }
-
-      body.tema-matrix .search-results {
-        background: #1a2a1a !important;
-        border-color: #0f03 !important;
-      }
-
-      body.tema-matrix .search-result-item {
-        border-bottom-color: #0f01 !important;
-      }
-
-      body.tema-matrix .search-result-nome {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .search-result-caminho {
-        color: #8f8 !important;
-      }
-
-      body.tema-matrix .card-placeholder {
-        color: #0f08 !important;
-        border-color: #0f08 !important;
-      }
-
-      body.tema-matrix .btn-add {
-        border-color: #0f0 !important;
-        color: #0f0 !important;
-      }
     </style>
   </head>
   <body>
@@ -805,28 +529,14 @@
     <div class="cyber-background">
       <div class="code-rain">
         <div class="code-column">
-          <div class="code-line">fn main() {</div>
-          <div class="code-line">let x = 42;</div>
-          <div class="code-line">println!("{}", x);</div>
-          <div class="code-line">if x > 0 {</div>
-          <div class="code-line">loop { x += 1 }</div>
-          <div class="code-line">match x {</div>
-          <div class="code-line">Some(val) => val</div>
-          <div class="code-line">Box::new(x)</div>
-          <div class="code-line">unsafe {}</div>
-          <div class="code-line">impl Trait for</div>
+          <div class="code-line">FN MAIN() {</div>
+          <div class="code-line">LET X = 42;</div>
+          <div class="code-line">PRINTLN!("{}", X);</div>
         </div>
         <div class="code-column">
           <div class="code-line">SELECT * FROM</div>
-          <div class="code-line">INNER JOIN users</div>
-          <div class="code-line">WHERE id = 1</div>
-          <div class="code-line">INSERT INTO logs</div>
-          <div class="code-line">UPDATE produtos</div>
-          <div class="code-line">DELETE FROM lotes</div>
-          <div class="code-line">CREATE TABLE</div>
-          <div class="code-line">ALTER TABLE ADD</div>
-          <div class="code-line">DROP COLUMN</div>
-          <div class="code-line">ORDER BY validade</div>
+          <div class="code-line">WHERE ID = 1</div>
+          <div class="code-line">ORDER BY VALIDADE</div>
         </div>
       </div>
     </div>
@@ -845,7 +555,7 @@
           <div class="tooth"></div>
         </div>
       </div>
-      <div class="gear small" style="top: -5px; right: -10px">
+      <div class="gear small">
         <div class="gear-teeth">
           <div class="tooth"></div>
           <div class="tooth"></div>
@@ -863,22 +573,21 @@
       <span class="date" id="date">--/--/----</span>
     </div>
 
-    <!-- CABEÇALHO DA PÁGINA -->
+    <!-- CABEÇALHO -->
     <div class="page-header">
-      <a href="menu.html" class="voltar-btn">← Menu</a>
-      <h1>📦 Produtos</h1>
+      <a href="menu.html" class="voltar-btn">← MENU</a>
+      <h1>📦 PRODUTOS</h1>
       <div style="width: 80px"></div>
     </div>
 
     <!-- SEÇÃO PRODUTOS -->
     <section id="produtos-section">
-      <!-- BARRA DE PESQUISA -->
       <div class="search-wrapper">
         <input
           type="text"
           id="pesquisa-produto"
           class="search-input"
-          placeholder="🔍 Buscar produto por nome, seção ou tipo..."
+          placeholder="🔍 BUSCAR PRODUTO..."
         />
         <div
           id="search-results"
@@ -886,471 +595,623 @@
           style="display: none"
         ></div>
       </div>
-
       <div class="produtos-container" id="produtos-container"></div>
     </section>
-
     <script>
-      // ===========================================
-      // RELÓGIO EM TEMPO REAL
-      // ===========================================
-      function atualizarRelogio() {
-        const agora = new Date();
-        document.getElementById("clock").textContent =
-          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
-        document.getElementById("date").textContent =
-          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
-      }
-      atualizarRelogio();
-      setInterval(atualizarRelogio, 1000);
+// ===========================================
+// RELÓGIO
+// ===========================================
+function atualizarRelogio() {
+    const agora = new Date();
+    document.getElementById("clock").textContent =
+        `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+    document.getElementById("date").textContent =
+        `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
 
       // ===========================================
-      // PRODUTOS
+      // PRODUTOS - VERSÃO FINAL CORRIGIDA
       // ===========================================
-      (function () {
-        const invoke = window.__TAURI__.core.invoke;
-        console.log(">>> PRODUTOS");
+      (async function () {
+        console.log(">>> PRODUTOS INICIADO");
 
-        const estado = { secaoId: null, tipoId: null, produtoId: null };
+        // ===========================================
+        // VERIFICAÇÕES INICIAIS
+        // ===========================================
+        if (typeof API === "undefined") {
+          console.error("❌ API NÃO CARREGADA!");
+          alert("ERRO: API não carregada. Recarregue a página.");
+          return;
+        }
+
+        // ===========================================
+        // ESTADO GLOBAL
+        // ===========================================
+        const estado = {
+          secaoId: null,
+          tipoId: null,
+          produtoId: null,
+        };
+
         const searchInput = document.getElementById("pesquisa-produto");
         const searchResults = document.getElementById("search-results");
         const container = document.getElementById("produtos-container");
 
-        // Criação das colunas
-        const colunas = [
-          { id: "secoes", titulo: "🗂️ Seções", btnId: "btn-add-secao" },
-          { id: "tipos", titulo: "📁 Tipos", btnId: "btn-add-tipo" },
-          { id: "produtos", titulo: "📦 Produtos", btnId: "btn-add-produto" },
-          { id: "lotes", titulo: "📆 Lotes", btnId: "btn-add-lote" },
-        ];
-
-        container.innerHTML = colunas
-          .map(
-            (col) => `
-        <div class="coluna">
-          <h3>${col.titulo}</h3>
-          <button class="btn-add" id="${col.btnId}">➕</button>
-          <div class="lista-cards" id="lista-${col.id}">
-            <div class="card-placeholder" id="placeholder-${col.id}">
-              ➕ Nova ${col.id === "secoes" ? "seção" : col.id === "tipos" ? "tipo" : col.id === "produtos" ? "produto" : "lote"}
-            </div>
-          </div>
+        // ===========================================
+        // CRIAÇÃO DAS COLUNAS
+        // ===========================================
+        container.innerHTML = `
+        <div class="coluna" id="coluna-secoes">
+            <h3>🗂️ SEÇÕES</h3>
+            <button class="btn-add" id="btn-add-secoes">➕</button>
+            <div class="lista-cards" id="lista-secoes"></div>
         </div>
-      `,
-          )
-          .join("");
+        <div class="coluna" id="coluna-tipos">
+            <h3>📁 TIPOS</h3>
+            <button class="btn-add" id="btn-add-tipos">➕</button>
+            <div class="lista-cards" id="lista-tipos"></div>
+        </div>
+        <div class="coluna" id="coluna-produtos">
+            <h3>📦 PRODUTOS</h3>
+            <button class="btn-add" id="btn-add-produtos">➕</button>
+            <div class="lista-cards" id="lista-produtos"></div>
+        </div>
+        <div class="coluna" id="coluna-lotes">
+            <h3>📆 LOTES</h3>
+            <button class="btn-add" id="btn-add-lotes">➕</button>
+            <div class="lista-cards" id="lista-lotes"></div>
+        </div>
+    `;
 
-        // Funções de carregamento
+        // Placeholders iniciais
+        document.getElementById("lista-secoes").innerHTML =
+          '<div class="card-placeholder" id="placeholder-secao">➕ NOVA SEÇÃO</div>';
+        document.getElementById("lista-tipos").innerHTML =
+          '<div class="card-placeholder" id="placeholder-tipo">➕ NOVO TIPO</div>';
+        document.getElementById("lista-produtos").innerHTML =
+          '<div class="card-placeholder" id="placeholder-produto">➕ NOVO PRODUTO</div>';
+        document.getElementById("lista-lotes").innerHTML =
+          '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
+
+        // ===========================================
+        // FUNÇÃO ABRIR FORMULÁRIO
+        // ===========================================
+        function abrirFormulario(tipo, dados = {}) {
+          console.log("📝 Abrindo formulário:", tipo, dados);
+
+          const campos = {
+            secao:
+              '<input type="text" id="form-nome" placeholder="NOME DA SEÇÃO" style="width:100%; padding:10px; margin:10px 0; text-transform:uppercase;">',
+            tipo: '<input type="text" id="form-nome" placeholder="NOME DO TIPO" style="width:100%; padding:10px; margin:10px 0; text-transform:uppercase;">',
+            produto:
+              '<input type="text" id="form-nome" placeholder="NOME DO PRODUTO" style="width:100%; padding:10px; margin:10px 0; text-transform:uppercase;">',
+            lote: `
+                <input type="date" id="form-validade" style="width:100%; padding:10px; margin:5px 0;"><br>
+                <input type="number" id="form-quantidade" placeholder="QUANTIDADE TOTAL" style="width:100%; padding:10px; margin:5px 0;"><br>
+                <input type="number" id="form-prateleira" placeholder="NA PRATELEIRA" style="width:100%; padding:10px; margin:5px 0;">
+            `,
+          };
+
+          const modalAntigo = document.getElementById("modal-criar");
+          if (modalAntigo) modalAntigo.remove();
+
+          const modal = document.createElement("div");
+          modal.id = "modal-criar";
+          modal.style.cssText = `
+            position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); 
+            background:#1a1f2a; border:2px solid #0ff; border-radius:20px; 
+            padding:25px; z-index:10000; min-width:300px; box-shadow:0 0 30px cyan;
+        `;
+          modal.innerHTML = `
+            <h3 style="color:#0ff; margin-bottom:20px; text-align:center;">NOVO ${tipo.toUpperCase()}</h3>
+            ${campos[tipo]}
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button id="modal-salvar" style="flex:1; background:#0ff2; border:2px solid #0ff; color:#0ff; border-radius:30px; padding:12px; cursor:pointer;">SALVAR</button>
+                <button id="modal-cancelar" style="flex:1; background:transparent; border:2px solid #f55; color:#f55; border-radius:30px; padding:12px; cursor:pointer;">CANCELAR</button>
+            </div>
+        `;
+          document.body.appendChild(modal);
+
+          document.getElementById("modal-cancelar").onclick = () =>
+            modal.remove();
+
+          document.getElementById("modal-salvar").onclick = async () => {
+            try {
+              console.log("💾 Salvando:", tipo);
+
+              if (tipo === "secao") {
+                const nome = document
+                  .getElementById("form-nome")
+                  .value.toUpperCase();
+                if (!nome) {
+                  alert("NOME OBRIGATÓRIO");
+                  return;
+                }
+                await API.criar_secao(nome);
+                await carregarSecoes();
+              } else if (tipo === "tipo") {
+                const nome = document
+                  .getElementById("form-nome")
+                  .value.toUpperCase();
+                if (!nome) {
+                  alert("NOME OBRIGATÓRIO");
+                  return;
+                }
+                await API.criar_tipo(nome, dados.secaoId);
+                await carregarTipos(dados.secaoId);
+              } else if (tipo === "produto") {
+                const nome = document
+                  .getElementById("form-nome")
+                  .value.toUpperCase();
+                if (!nome) {
+                  alert("NOME OBRIGATÓRIO");
+                  return;
+                }
+                await API.criar_produto(nome, dados.tipoId);
+                await carregarProdutos(dados.tipoId);
+              } else if (tipo === "lote") {
+                const validade = document.getElementById("form-validade").value;
+                const q = parseInt(
+                  document.getElementById("form-quantidade").value,
+                );
+                const p = parseInt(
+                  document.getElementById("form-prateleira").value,
+                );
+
+                if (!validade || !q || !p) {
+                  alert("PREECHA TODOS OS CAMPOS");
+                  return;
+                }
+                if (p > q) {
+                  alert("PRATELEIRA NÃO PODE SER MAIOR QUE TOTAL");
+                  return;
+                }
+
+                await API.criar_lote({
+                  produto_id: dados.produtoId,
+                  validade: validade,
+                  quantidade_total: q,
+                  quantidade_prateleira: p,
+                });
+                await carregarLotes(dados.produtoId);
+              }
+
+              modal.remove();
+            } catch (e) {
+              console.error("❌ Erro ao salvar:", e);
+              alert("ERRO: " + (e.message || e));
+            }
+          };
+        }
+
+        // ===========================================
+        // FUNÇÕES DE CARREGAMENTO
+        // ===========================================
         async function carregarSecoes() {
           try {
-            const secoes = await invoke("listar_secoes");
-            renderizarSecoes(secoes);
-          } catch (error) {
-            console.error("Erro seções:", error);
+            console.log("📥 Carregando seções...");
+            const secoes = await API.listar_secoes();
+            console.log("✅ Seções carregadas:", secoes);
+
+            const lista = document.getElementById("lista-secoes");
+
+            let html = "";
+            if (secoes && secoes.length > 0) {
+              secoes.forEach((sec) => {
+                html += `
+                        <div class="card-item ${estado.secaoId === sec.id ? "selecionado" : ""}" data-id="${sec.id}" data-tipo="secao">
+                            <div class="card-header">
+                                <span>${sec.nome}</span>
+                                <button class="btn-excluir" data-tipo="secao" data-id="${sec.id}">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+              });
+            }
+            html +=
+              '<div class="card-placeholder" id="placeholder-secao">➕ NOVA SEÇÃO</div>';
+            lista.innerHTML = html;
+
+            document
+              .querySelectorAll("#lista-secoes .card-item")
+              .forEach((card) => {
+                card.addEventListener("click", (e) => {
+                  if (e.target.classList.contains("btn-excluir")) return;
+                  estado.secaoId = parseInt(card.dataset.id);
+                  estado.tipoId = estado.produtoId = null;
+                  document
+                    .querySelectorAll(".card-item")
+                    .forEach((c) => c.classList.remove("selecionado"));
+                  card.classList.add("selecionado");
+                  carregarTipos(estado.secaoId);
+                  document.getElementById("lista-produtos").innerHTML =
+                    '<div class="card-placeholder" id="placeholder-produto">➕ NOVO PRODUTO</div>';
+                  document.getElementById("lista-lotes").innerHTML =
+                    '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
+                });
+              });
+
+            document
+              .getElementById("placeholder-secao")
+              ?.addEventListener("click", () => abrirFormulario("secao"));
+          } catch (e) {
+            console.error("❌ Erro seções:", e);
+            alert("Erro ao carregar seções: " + e);
           }
         }
 
         async function carregarTipos(secaoId) {
           if (!secaoId) return;
           try {
-            const tipos = await invoke("listar_tipos", { secaoId });
-            renderizarTipos(tipos);
-          } catch (error) {
-            console.error("Erro tipos:", error);
+            console.log("📥 Carregando tipos da seção:", secaoId);
+            const tipos = await API.listar_tipos(secaoId);
+            console.log("✅ Tipos carregados:", tipos);
+
+            const lista = document.getElementById("lista-tipos");
+
+            let html = "";
+            if (tipos && tipos.length > 0) {
+              tipos.forEach((tipo) => {
+                html += `
+                        <div class="card-item ${estado.tipoId === tipo.id ? "selecionado" : ""}" data-id="${tipo.id}" data-tipo="tipo">
+                            <div class="card-header">
+                                <span>${tipo.nome}</span>
+                                <button class="btn-excluir" data-tipo="tipo" data-id="${tipo.id}">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+              });
+            }
+            html +=
+              '<div class="card-placeholder" id="placeholder-tipo">➕ NOVO TIPO</div>';
+            lista.innerHTML = html;
+
+            document
+              .querySelectorAll("#lista-tipos .card-item")
+              .forEach((card) => {
+                card.addEventListener("click", (e) => {
+                  if (e.target.classList.contains("btn-excluir")) return;
+                  estado.tipoId = parseInt(card.dataset.id);
+                  estado.produtoId = null;
+                  document
+                    .querySelectorAll(".card-item")
+                    .forEach((c) => c.classList.remove("selecionado"));
+                  card.classList.add("selecionado");
+                  carregarProdutos(estado.tipoId);
+                  document.getElementById("lista-lotes").innerHTML =
+                    '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
+                });
+              });
+
+            document
+              .getElementById("placeholder-tipo")
+              ?.addEventListener("click", () => {
+                if (estado.secaoId)
+                  abrirFormulario("tipo", { secaoId: estado.secaoId });
+                else alert("SELECIONE UMA SEÇÃO PRIMEIRO");
+              });
+          } catch (e) {
+            console.error("❌ Erro tipos:", e);
+            alert("Erro ao carregar tipos: " + e);
           }
         }
 
         async function carregarProdutos(tipoId) {
           if (!tipoId) return;
           try {
-            const produtos = await invoke("listar_produtos", { tipoId });
-            renderizarProdutos(produtos);
-          } catch (error) {
-            console.error("Erro produtos:", error);
+            console.log("📥 Carregando produtos do tipo:", tipoId);
+            const produtos = await API.listar_produtos(tipoId);
+            console.log("✅ Produtos carregados:", produtos);
+
+            const lista = document.getElementById("lista-produtos");
+
+            let html = "";
+            if (produtos && produtos.length > 0) {
+              produtos.forEach((prod) => {
+                html += `
+                        <div class="card-item ${estado.produtoId === prod.id ? "selecionado" : ""}" data-id="${prod.id}" data-tipo="produto">
+                            <div class="card-header">
+                                <span>${prod.nome}</span>
+                                <button class="btn-excluir" data-tipo="produto" data-id="${prod.id}">🗑️</button>
+                            </div>
+                        </div>
+                    `;
+              });
+            }
+            html +=
+              '<div class="card-placeholder" id="placeholder-produto">➕ NOVO PRODUTO</div>';
+            lista.innerHTML = html;
+
+            document
+              .querySelectorAll("#lista-produtos .card-item")
+              .forEach((card) => {
+                card.addEventListener("click", (e) => {
+                  if (e.target.classList.contains("btn-excluir")) return;
+                  estado.produtoId = parseInt(card.dataset.id);
+                  document
+                    .querySelectorAll(".card-item")
+                    .forEach((c) => c.classList.remove("selecionado"));
+                  card.classList.add("selecionado");
+                  carregarLotes(estado.produtoId);
+                });
+              });
+
+            document
+              .getElementById("placeholder-produto")
+              ?.addEventListener("click", () => {
+                if (estado.tipoId)
+                  abrirFormulario("produto", { tipoId: estado.tipoId });
+                else alert("SELECIONE UM TIPO PRIMEIRO");
+              });
+          } catch (e) {
+            console.error("❌ Erro produtos:", e);
+            alert("Erro ao carregar produtos: " + e);
           }
         }
 
         async function carregarLotes(produtoId) {
           if (!produtoId) return;
           try {
-            const lotes = await invoke("listar_lotes", { produtoId });
-            renderizarLotes(lotes);
-          } catch (error) {
-            console.error("Erro lotes:", error);
-          }
-        }
+            console.log("📥 Carregando lotes do produto:", produtoId);
+            const lotes = await API.listar_lotes(produtoId);
+            console.log("✅ Lotes carregados:", lotes);
 
-        // Renderização
-        function renderizarSecoes(secoes) {
-          const c = document.getElementById("lista-secoes");
-          if (!c) return;
-          let html = secoes
-            .map(
-              (sec) =>
-                `<div class="card-item ${estado.secaoId === sec.id ? "selecionado" : ""}" data-id="${sec.id}" data-tipo="secao">
-            <div class="card-header">
-              <span>${sec.nome}</span>
-              <button class="btn-excluir" data-tipo="secao" data-id="${sec.id}">🗑️</button>
-            </div>
-          </div>`,
-            )
-            .join("");
-          html +=
-            '<div class="card-placeholder" id="placeholder-secao">➕ Nova seção</div>';
-          c.innerHTML = html;
+            const lista = document.getElementById("lista-lotes");
 
-          c.querySelectorAll(".card-item").forEach((card) => {
-            card.addEventListener("click", (e) => {
-              if (e.target.classList.contains("btn-excluir")) return;
-              estado.secaoId = parseInt(card.dataset.id);
-              estado.tipoId = estado.produtoId = null;
-              c.querySelectorAll(".card-item").forEach((c) =>
-                c.classList.remove("selecionado"),
-              );
-              card.classList.add("selecionado");
-              carregarTipos(estado.secaoId);
-            });
-          });
-        }
+            let html = "";
+            if (lotes && lotes.length > 0) {
+              lotes.forEach((lote) => {
+                const estados = new Array(lote.quantidade_total).fill(0);
+                for (let i = 0; i < lote.quantidade_prateleira; i++)
+                  estados[i] = 1;
 
-        function renderizarTipos(tipos) {
-          const c = document.getElementById("lista-tipos");
-          if (!c) return;
-          let html = tipos
-            .map(
-              (tipo) =>
-                `<div class="card-item ${estado.tipoId === tipo.id ? "selecionado" : ""}" data-id="${tipo.id}" data-tipo="tipo">
-            <div class="card-header">
-              <span>${tipo.nome}</span>
-              <button class="btn-excluir" data-tipo="tipo" data-id="${tipo.id}">🗑️</button>
-            </div>
-          </div>`,
-            )
-            .join("");
-          html +=
-            '<div class="card-placeholder" id="placeholder-tipo">➕ Novo tipo</div>';
-          c.innerHTML = html;
-
-          c.querySelectorAll(".card-item").forEach((card) => {
-            card.addEventListener("click", (e) => {
-              if (e.target.classList.contains("btn-excluir")) return;
-              estado.tipoId = parseInt(card.dataset.id);
-              estado.produtoId = null;
-              c.querySelectorAll(".card-item").forEach((c) =>
-                c.classList.remove("selecionado"),
-              );
-              card.classList.add("selecionado");
-              carregarProdutos(estado.tipoId);
-            });
-          });
-        }
-
-        function renderizarProdutos(produtos) {
-          const c = document.getElementById("lista-produtos");
-          if (!c) return;
-          let html = produtos
-            .map(
-              (prod) =>
-                `<div class="card-item ${estado.produtoId === prod.id ? "selecionado" : ""}" data-id="${prod.id}" data-tipo="produto">
-            <div class="card-header">
-              <span>${prod.nome}</span>
-              <button class="btn-excluir" data-tipo="produto" data-id="${prod.id}">🗑️</button>
-            </div>
-          </div>`,
-            )
-            .join("");
-          html +=
-            '<div class="card-placeholder" id="placeholder-produto">➕ Novo produto</div>';
-          c.innerHTML = html;
-
-          c.querySelectorAll(".card-item").forEach((card) => {
-            card.addEventListener("click", (e) => {
-              if (e.target.classList.contains("btn-excluir")) return;
-              estado.produtoId = parseInt(card.dataset.id);
-              c.querySelectorAll(".card-item").forEach((c) =>
-                c.classList.remove("selecionado"),
-              );
-              card.classList.add("selecionado");
-              carregarLotes(estado.produtoId);
-            });
-          });
-        }
-
-        function renderizarLotes(lotes) {
-          const c = document.getElementById("lista-lotes");
-          if (!c) return;
-          let html = lotes
-            .map((lote) => {
-              const estados = new Array(lote.quantidade_total).fill(0);
-              for (let i = 0; i < lote.quantidade_prateleira; i++)
-                estados[i] = 1;
-              return `
-            <div class="card-item" data-lote-id="${lote.id}">
-              <div class="card-header">
-                <span style="color:#0ff;">Validade: ${lote.validade}</span>
-                <button class="btn-excluir" data-tipo="lote" data-id="${lote.id}">🗑️</button>
-              </div>
-              <div style="color:#aaa;">Total: ${lote.quantidade_total}</div>
-              <div class="quadrinhos-container">${gerarQuadrinhos(estados, lote.id)}</div>
-            </div>
-          `;
-            })
-            .join("");
-          html +=
-            '<div class="card-placeholder" id="placeholder-lote">➕ Novo lote</div>';
-          c.innerHTML = html;
-
-          document.querySelectorAll(".quadrinho-interativo").forEach((q) => {
-            q.addEventListener("click", async (e) => {
-              e.stopPropagation();
-              const loteId = q.dataset.loteId;
-              const est = parseInt(q.dataset.estado);
-              const prox = (est + 1) % 3;
-              q.dataset.estado = prox;
-              q.className = `quadrinho-interativo ${["estoque", "prateleira", "vendido"][prox]}`;
-              const todos = document.querySelectorAll(
-                `.quadrinho-interativo[data-lote-id="${loteId}"]`,
-              );
-              let vend = 0,
-                prat = 0;
-              todos.forEach((q2) => {
-                const e2 = parseInt(q2.dataset.estado);
-                if (e2 === 2) vend++;
-                else if (e2 === 1) prat++;
+                html += `
+                        <div class="card-item" data-lote-id="${lote.id}">
+                            <div class="card-header">
+                                <span>VALIDADE: ${lote.validade}</span>
+                                <button class="btn-excluir" data-tipo="lote" data-id="${lote.id}">🗑️</button>
+                            </div>
+                            <div>TOTAL: ${lote.quantidade_total}</div>
+                            <div class="quadrinhos-container">${gerarQuadrinhos(estados, lote.id)}</div>
+                        </div>
+                    `;
               });
-              if (vend === todos.length) {
-                if (confirm("Todos vendidos! Remover lote?")) {
-                  await invoke("deletar_lote", { id: parseInt(loteId) });
-                  carregarLotes(estado.produtoId);
+            }
+            html +=
+              '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
+            lista.innerHTML = html;
+
+            document.querySelectorAll(".quadrinho-interativo").forEach((q) => {
+              q.addEventListener("click", async (e) => {
+                e.stopPropagation();
+                const loteId = q.dataset.loteId;
+                const est = parseInt(q.dataset.estado);
+                const prox = (est + 1) % 3;
+                q.dataset.estado = prox;
+                q.className = `quadrinho-interativo ${["estoque", "prateleira", "vendido"][prox]}`;
+
+                const todos = document.querySelectorAll(
+                  `.quadrinho-interativo[data-lote-id="${loteId}"]`,
+                );
+                let vend = 0,
+                  prat = 0;
+                todos.forEach((q2) => {
+                  const e2 = parseInt(q2.dataset.estado);
+                  if (e2 === 2) vend++;
+                  else if (e2 === 1) prat++;
+                });
+
+                if (vend === todos.length) {
+                  if (confirm("TODOS VENDIDOS! REMOVER LOTE?")) {
+                    await API.deletar_lote(parseInt(loteId));
+                    carregarLotes(estado.produtoId);
+                  }
+                } else {
+                  try {
+                    await API.atualizar_prateleira(parseInt(loteId), prat);
+                  } catch (err) {
+                    console.error(err);
+                  }
                 }
-              } else {
-                try {
-                  await invoke("atualizar_prateleira", {
-                    lote_id: parseInt(loteId),
-                    quantidade_prateleira: prat,
-                  });
-                } catch (err) {
-                  console.error(err);
-                }
-              }
+              });
             });
-          });
+
+            document
+              .getElementById("placeholder-lote")
+              ?.addEventListener("click", () => {
+                if (estado.produtoId)
+                  abrirFormulario("lote", { produtoId: estado.produtoId });
+                else alert("SELECIONE UM PRODUTO PRIMEIRO");
+              });
+          } catch (e) {
+            console.error("❌ Erro lotes:", e);
+            alert("Erro ao carregar lotes: " + e);
+          }
         }
 
         function gerarQuadrinhos(estados, loteId) {
           return estados
             .map(
               (e, i) =>
-                `<span class="quadrinho-interativo ${["estoque", "prateleira", "vendido"][e]}" data-lote-id="${loteId}" data-index="${i}" data-estado="${e}"></span>`,
+                `<span class="quadrinho-interativo ${["estoque", "prateleira", "vendido"][e]}" 
+                data-lote-id="${loteId}" data-index="${i}" data-estado="${e}"></span>`,
             )
             .join("");
         }
 
-        // Formulários
-        function abrirFormulario(tipo, dados = {}) {
-          const configs = {
-            secao: {
-              titulo: "Nova Seção",
-              campo:
-                '<input type="text" id="form-nome" placeholder="Nome" value="Nova Seção">',
-            },
-            tipo: {
-              titulo: "Novo Tipo",
-              campo:
-                '<input type="text" id="form-nome" placeholder="Nome" value="Novo Tipo">',
-            },
-            produto: {
-              titulo: "Novo Produto",
-              campo:
-                '<input type="text" id="form-nome" placeholder="Nome (maiúsculo)" value="NOVO PRODUTO">',
-            },
-            lote: {
-              titulo: "Novo Lote",
-              campo: `<input type="date" id="form-validade" value="${new Date().toISOString().split("T")[0]}"><input type="number" id="form-quantidade" placeholder="Total" value="10"><input type="number" id="form-prateleira" placeholder="Prateleira" value="5"><small style="color:#0ff5;">Prateleira ≤ Total</small>`,
-            },
-          };
-          const cfg = configs[tipo];
-          const modal = document.createElement("div");
-          modal.style.cssText = `position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#1a1f2a; border:2px solid #0ff; border-radius:20px; padding:25px; z-index:10000; min-width:320px; box-shadow:0 0 30px cyan;`;
-          modal.innerHTML = `<h3 style="color:#0ff;">${cfg.titulo}</h3>${cfg.campo}<div style="display:flex; gap:10px; margin-top:20px;"><button id="modal-salvar" style="flex:1; background:#0ff2; border:2px solid #0ff; color:#0ff; border-radius:30px; padding:12px;">Salvar</button><button id="modal-cancelar" style="flex:1; background:transparent; border:2px solid #f55; color:#f55; border-radius:30px; padding:12px;">Cancelar</button></div>`;
-          document.body.appendChild(modal);
-          document
-            .getElementById("modal-cancelar")
-            .addEventListener("click", () => modal.remove());
-          document
-            .getElementById("modal-salvar")
-            .addEventListener("click", async () => {
-              try {
-                if (tipo === "secao") {
-                  await invoke("criar_secao", {
-                    nome: document.getElementById("form-nome").value,
-                  });
-                  carregarSecoes();
-                } else if (tipo === "tipo") {
-                  await invoke("criar_tipo", {
-                    nome: document.getElementById("form-nome").value,
-                    secaoId: dados.secaoId,
-                  });
-                  carregarTipos(dados.secaoId);
-                } else if (tipo === "produto") {
-                  await invoke("criar_produto", {
-                    nome: document
-                      .getElementById("form-nome")
-                      .value.toUpperCase(),
-                    tipoId: dados.tipoId,
-                  });
-                  carregarProdutos(dados.tipoId);
-                } else if (tipo === "lote") {
-                  const q = parseInt(
-                    document.getElementById("form-quantidade").value,
-                  );
-                  const p = parseInt(
-                    document.getElementById("form-prateleira").value,
-                  );
-                  if (p > q) {
-                    alert("Prateleira não pode ser maior que total!");
-                    return;
-                  }
-                  await invoke("criar_lote", {
-                    produtoId: dados.produtoId,
-                    validade: document.getElementById("form-validade").value,
-                    quantidadeTotal: q,
-                    quantidadePrateleira: p,
-                  });
-                  carregarLotes(dados.produtoId);
+        // ===========================================
+        // CONFIGURAÇÃO DOS BOTÕES
+        // ===========================================
+        function configurarBotoes() {
+          console.log("🔧 Configurando botões...");
+
+          setTimeout(() => {
+            const btnSecoes = document.getElementById("btn-add-secoes");
+            const btnTipos = document.getElementById("btn-add-tipos");
+            const btnProdutos = document.getElementById("btn-add-produtos");
+            const btnLotes = document.getElementById("btn-add-lotes");
+
+            console.log("Botão seções:", btnSecoes);
+            console.log("Botão tipos:", btnTipos);
+            console.log("Botão produtos:", btnProdutos);
+            console.log("Botão lotes:", btnLotes);
+
+            if (btnSecoes) {
+              btnSecoes.onclick = () => {
+                console.log("➕ Clique em NOVA SEÇÃO");
+                abrirFormulario("secao");
+              };
+            }
+
+            if (btnTipos) {
+              btnTipos.onclick = () => {
+                console.log("➕ Clique em NOVO TIPO");
+                if (estado.secaoId) {
+                  abrirFormulario("tipo", { secaoId: estado.secaoId });
+                } else {
+                  alert("SELECIONE UMA SEÇÃO PRIMEIRO");
                 }
-                modal.remove();
-              } catch (error) {
-                alert("Erro: " + error);
-              }
-            });
+              };
+            }
+
+            if (btnProdutos) {
+              btnProdutos.onclick = () => {
+                console.log("➕ Clique em NOVO PRODUTO");
+                if (estado.tipoId) {
+                  abrirFormulario("produto", { tipoId: estado.tipoId });
+                } else {
+                  alert("SELECIONE UM TIPO PRIMEIRO");
+                }
+              };
+            }
+
+            if (btnLotes) {
+              btnLotes.onclick = () => {
+                console.log("➕ Clique em NOVO LOTE");
+                if (estado.produtoId) {
+                  abrirFormulario("lote", { produtoId: estado.produtoId });
+                } else {
+                  alert("SELECIONE UM PRODUTO PRIMEIRO");
+                }
+              };
+            }
+          }, 200);
         }
 
-        // Botões
-        document
-          .getElementById("btn-add-secao")
-          ?.addEventListener("click", () => abrirFormulario("secao"));
-        document
-          .getElementById("btn-add-tipo")
-          ?.addEventListener("click", () =>
-            estado.secaoId
-              ? abrirFormulario("tipo", { secaoId: estado.secaoId })
-              : alert("Selecione uma seção"),
-          );
-        document
-          .getElementById("btn-add-produto")
-          ?.addEventListener("click", () =>
-            estado.tipoId
-              ? abrirFormulario("produto", { tipoId: estado.tipoId })
-              : alert("Selecione um tipo"),
-          );
-        document
-          .getElementById("btn-add-lote")
-          ?.addEventListener("click", () =>
-            estado.produtoId
-              ? abrirFormulario("lote", { produtoId: estado.produtoId })
-              : alert("Selecione um produto"),
-          );
-
-        // Exclusão
+        // ===========================================
+        // EVENTO DE EXCLUSÃO GLOBAL
+        // ===========================================
         document.addEventListener("click", async (e) => {
           if (e.target.classList.contains("btn-excluir")) {
             const tipo = e.target.dataset.tipo;
             const id = parseInt(e.target.dataset.id);
-            if (confirm(`Excluir ${tipo}?`)) {
-              await invoke(`deletar_${tipo}`, { id });
+
+            console.log(`🗑️ Excluindo ${tipo} ID:`, id);
+
+            if (!confirm(`EXCLUIR ${tipo.toUpperCase()}?`)) return;
+
+            try {
+              if (tipo === "secao") await API.deletar_secao(id);
+              else if (tipo === "tipo") await API.deletar_tipo(id);
+              else if (tipo === "produto") await API.deletar_produto(id);
+              else if (tipo === "lote") await API.deletar_lote(id);
+
+              console.log(`✅ ${tipo} excluído com sucesso`);
+
               if (tipo === "secao") {
                 estado.secaoId = estado.tipoId = estado.produtoId = null;
-                carregarSecoes();
+                await carregarSecoes();
+                document.getElementById("lista-tipos").innerHTML =
+                  '<div class="card-placeholder" id="placeholder-tipo">➕ NOVO TIPO</div>';
+                document.getElementById("lista-produtos").innerHTML =
+                  '<div class="card-placeholder" id="placeholder-produto">➕ NOVO PRODUTO</div>';
+                document.getElementById("lista-lotes").innerHTML =
+                  '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
               } else if (tipo === "tipo") {
                 estado.tipoId = estado.produtoId = null;
-                carregarTipos(estado.secaoId);
+                await carregarTipos(estado.secaoId);
+                document.getElementById("lista-produtos").innerHTML =
+                  '<div class="card-placeholder" id="placeholder-produto">➕ NOVO PRODUTO</div>';
+                document.getElementById("lista-lotes").innerHTML =
+                  '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
               } else if (tipo === "produto") {
                 estado.produtoId = null;
-                carregarProdutos(estado.tipoId);
-              } else carregarLotes(estado.produtoId);
+                await carregarProdutos(estado.tipoId);
+                document.getElementById("lista-lotes").innerHTML =
+                  '<div class="card-placeholder" id="placeholder-lote">➕ NOVO LOTE</div>';
+              } else {
+                await carregarLotes(estado.produtoId);
+              }
+            } catch (e) {
+              console.error("❌ Erro ao excluir:", e);
+              alert("ERRO AO EXCLUIR: " + (e.message || e));
             }
           }
         });
 
-        // Pesquisa
-        async function pesquisarProdutos(termo) {
-          if (!termo || termo.length < 2) {
+        // ===========================================
+        // PESQUISA
+        // ===========================================
+        searchInput?.addEventListener("input", async (e) => {
+          const termo = e.target.value.trim().toUpperCase();
+          if (termo.length < 2) {
             searchResults.style.display = "none";
             return;
           }
+
           try {
-            const dados = await invoke("relatorio_completo");
+            const dados = await API.relatorio_completo();
             const resultados = [];
             dados.forEach((s) =>
               s.filhos?.forEach((t) =>
                 t.filhos?.forEach((p) => {
-                  if (
-                    p.nome.toLowerCase().includes(termo.toLowerCase()) ||
-                    s.nome.toLowerCase().includes(termo.toLowerCase()) ||
-                    t.nome.toLowerCase().includes(termo.toLowerCase())
-                  ) {
+                  if (p.nome.includes(termo)) {
                     resultados.push({
                       produto: p.nome,
                       secao: s.nome,
                       tipo: t.nome,
-                      produtoId: p.id,
-                      secaoId: s.id,
-                      tipoId: t.id,
                     });
                   }
                 }),
               ),
             );
-            if (!resultados.length) {
+
+            if (resultados.length === 0) {
               searchResults.innerHTML =
-                '<div class="search-result-item">Nenhum resultado</div>';
+                '<div class="search-result-item">NENHUM RESULTADO</div>';
             } else {
               searchResults.innerHTML = resultados
                 .map(
-                  (r) =>
-                    `<div class="search-result-item" data-secao-id="${r.secaoId}" data-tipo-id="${r.tipoId}" data-produto-id="${r.produtoId}">
-                <span class="search-result-nome">${r.produto}</span>
-                <span class="search-result-caminho">${r.secao} › ${r.tipo}</span>
-              </div>`,
+                  (r) => `
+                        <div class="search-result-item">
+                            <span class="search-result-nome">${r.produto}</span>
+                            <span class="search-result-caminho">${r.secao} › ${r.tipo}</span>
+                        </div>
+                    `,
                 )
                 .join("");
-              searchResults
-                .querySelectorAll(".search-result-item")
-                .forEach((item) =>
-                  item.addEventListener("click", () => {
-                    estado.secaoId = parseInt(item.dataset.secaoId);
-                    estado.tipoId = parseInt(item.dataset.tipoId);
-                    estado.produtoId = parseInt(item.dataset.produtoId);
-                    carregarSecoes().then(() =>
-                      carregarTipos(estado.secaoId).then(() =>
-                        carregarProdutos(estado.tipoId).then(() =>
-                          carregarLotes(estado.produtoId),
-                        ),
-                      ),
-                    );
-                    searchResults.style.display = "none";
-                    searchInput.value = "";
-                  }),
-                );
             }
             searchResults.style.display = "block";
-          } catch (error) {
-            console.error(error);
+          } catch (e) {
+            console.error("❌ Erro na pesquisa:", e);
           }
-        }
-
-        searchInput?.addEventListener("input", (e) =>
-          pesquisarProdutos(e.target.value.trim()),
-        );
-        document.addEventListener("click", (e) => {
-          if (!searchResults.contains(e.target) && e.target !== searchInput)
-            searchResults.style.display = "none";
         });
 
-        // Inicialização
-        carregarSecoes();
-        console.log(">>> PRODUTOS OK");
+        document.addEventListener("click", (e) => {
+          if (!searchResults.contains(e.target) && e.target !== searchInput) {
+            searchResults.style.display = "none";
+          }
+        });
+
+        // ===========================================
+        // INICIALIZAÇÃO
+        // ===========================================
+        console.log("🚀 Iniciando produtos...");
+        await carregarSecoes();
+        configurarBotoes();
+        console.log("✅ PRODUTOS INICIALIZADO COM SUCESSO");
       })();
     </script>
   </body>

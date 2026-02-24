@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Planilhas - Validade App</title>
     <script src="temas.js"></script>
+    <script src="api.js"></script>
     <link rel="stylesheet" href="temas.css" />
     <style>
       /* ============================================
-       RESET E CONFIGURAÇÕES GLOBAIS
-       ============================================ */
+         RESET E CONFIGURAÇÕES GLOBAIS
+         ============================================ */
       * {
         margin: 0;
         padding: 0;
@@ -17,8 +18,6 @@
       }
 
       body {
-        background: #000;
-        color: white;
         font-family:
           system-ui,
           -apple-system,
@@ -28,6 +27,9 @@
         min-height: 100vh;
         overflow: hidden;
         position: relative;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
       }
 
       /* FUNDO ANIMADO */
@@ -38,7 +40,6 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: #000;
         overflow: hidden;
       }
 
@@ -103,14 +104,12 @@
       }
 
       .code-line {
-        color: #0ff;
         font-family: "Courier New", monospace;
         font-size: 14px;
         line-height: 1.8;
         white-space: nowrap;
         opacity: 0;
         animation: fadeCode 4s ease-in-out infinite;
-        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
       }
 
       .code-line:nth-child(odd) {
@@ -163,9 +162,7 @@
         }
       }
 
-      /* ============================================
-       LOGO
-       ============================================ */
+      /* LOGO */
       .gear-container {
         position: relative;
         width: 110px;
@@ -180,12 +177,12 @@
         position: absolute;
         width: 90px;
         height: 90px;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
-        box-shadow:
-          0 0 15px rgba(0, 255, 255, 0.3),
-          inset 0 0 8px rgba(0, 255, 255, 0.3);
         animation: spin 16s infinite linear;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .gear::before {
@@ -194,12 +191,14 @@
         width: 28px;
         height: 28px;
         background: #0b0f15;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #0ff;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .gear-teeth {
@@ -212,8 +211,6 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        background: #0ff;
-        box-shadow: 0 0 10px cyan;
         clip-path: polygon(
           30% 0%,
           70% 0%,
@@ -222,6 +219,9 @@
           30% 100%,
           0% 30%
         );
+        transition:
+          background-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .tooth:nth-child(1) {
@@ -296,42 +296,39 @@
         }
       }
 
-      /* ============================================
-       RELÓGIO
-       ============================================ */
+      /* RELÓGIO */
       .clock-container {
         text-align: center;
         margin: 15px auto 20px;
         padding: 5px 10px;
-        background: rgba(0, 255, 255, 0.03);
-        border: 1px dashed #0ff5;
+        border: 1px dashed;
         border-radius: 0;
         box-shadow: none;
         width: fit-content;
         max-width: 200px;
         font-family: "Courier New", monospace;
+        transition: border-color 0.3s;
       }
 
       .clock {
         font-size: 2rem;
         font-weight: 400;
-        color: #0ff;
-        text-shadow: 0 0 5px cyan;
         display: block;
         letter-spacing: 3px;
+        transition:
+          color 0.3s,
+          text-shadow 0.3s;
       }
 
       .date {
         font-size: 0.8rem;
-        color: #0ff;
         opacity: 0.7;
         display: block;
         letter-spacing: 2px;
+        transition: color 0.3s;
       }
 
-      /* ============================================
-       CABEÇALHO DA PÁGINA
-       ============================================ */
+      /* CABEÇALHO DA PÁGINA */
       .page-header {
         display: flex;
         justify-content: space-between;
@@ -343,8 +340,7 @@
 
       .voltar-btn {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 8px 20px;
         border-radius: 30px;
         cursor: pointer;
@@ -354,23 +350,23 @@
       }
 
       .voltar-btn:hover {
-        background: #0ff2;
-        box-shadow: 0 0 15px cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 15px;
       }
 
       h1 {
-        color: #0ff;
         font-size: 2rem;
-        border-bottom: 2px solid #0ff3;
+        border-bottom: 2px solid;
         padding-bottom: 10px;
         max-width: 600px;
         margin: 0 auto 30px;
         text-align: center;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
       }
 
-      /* ============================================
-       SEÇÃO PLANILHAS
-       ============================================ */
+      /* SEÇÃO PLANILHAS */
       .planilhas-container {
         max-width: 1200px;
         margin: 0 auto;
@@ -387,8 +383,7 @@
 
       .btn-planilha {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 12px 30px;
         border-radius: 40px;
         cursor: pointer;
@@ -400,9 +395,8 @@
       }
 
       .btn-planilha:hover {
-        background: #0ff2;
-        box-shadow: 0 0 20px cyan;
         transform: translateY(-2px);
+        box-shadow: 0 0 20px;
       }
 
       .btn-planilha.importar {
@@ -416,18 +410,20 @@
       }
 
       #status-planilha {
-        color: #0ff5;
         font-size: 0.9rem;
         margin-left: 10px;
+        transition: color 0.3s;
       }
 
       .visualizacao {
-        background: rgba(26, 31, 42, 0.8);
         backdrop-filter: blur(10px);
         border-radius: 20px;
         padding: 20px;
-        border: 1px solid #0ff3;
-        box-shadow: 0 0 30px rgba(0, 255, 255, 0.1);
+        border: 1px solid;
+        transition:
+          background-color 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .visualizacao-header {
@@ -436,21 +432,21 @@
         align-items: center;
         margin-bottom: 20px;
         padding-bottom: 10px;
-        border-bottom: 1px solid #0ff3;
+        border-bottom: 1px solid;
+        transition: border-color 0.3s;
       }
 
       .visualizacao-header h3 {
-        color: #0ff;
         font-size: 1.3rem;
         display: flex;
         align-items: center;
         gap: 8px;
+        transition: color 0.3s;
       }
 
       .btn-atualizar {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 8px 20px;
         border-radius: 30px;
         cursor: pointer;
@@ -459,8 +455,8 @@
       }
 
       .btn-atualizar:hover {
-        background: #0ff2;
-        box-shadow: 0 0 15px cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 15px;
       }
 
       .tabela-container {
@@ -478,21 +474,25 @@
       }
 
       th {
-        background: rgba(0, 255, 255, 0.15);
-        color: #0ff;
         padding: 15px 10px;
         text-align: left;
         position: sticky;
         top: 0;
         backdrop-filter: blur(5px);
-        border-bottom: 2px solid #0ff;
+        border-bottom: 2px solid;
         font-weight: 600;
+        transition:
+          background-color 0.3s,
+          color 0.3s,
+          border-color 0.3s;
       }
 
       td {
         padding: 12px 10px;
-        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
-        color: #fff;
+        border-bottom: 1px solid;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
       }
 
       tr:hover td {
@@ -500,17 +500,10 @@
       }
 
       .loading {
-        color: #0ff5;
         text-align: center;
         padding: 40px;
         font-style: italic;
-      }
-
-      .loading-small {
-        color: #0ff5;
-        text-align: center;
-        padding: 20px;
-        font-style: italic;
+        transition: color 0.3s;
       }
 
       /* SCROLLBAR */
@@ -554,74 +547,6 @@
         }
       }
 
-      /* ============================================
-   TEMAS - PLANILHAS
-   ============================================ */
-
-      /* Tema Claro */
-      body.tema-claro {
-        background: #f5f5f5 !important;
-      }
-
-      body.tema-claro .visualizacao {
-        background: rgba(255, 255, 255, 0.9) !important;
-        border-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .visualizacao-header h3 {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro th {
-        background: rgba(0, 170, 255, 0.15) !important;
-        color: #00aaff !important;
-        border-bottom-color: #00aaff !important;
-      }
-
-      body.tema-claro td {
-        color: #222 !important;
-        border-bottom-color: #00aaff1a !important;
-      }
-
-      body.tema-claro .btn-planilha {
-        border-color: #00aaff !important;
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .btn-planilha.importar {
-        border-color: #ffaa00 !important;
-        color: #ffaa00 !important;
-      }
-
-      /* Tema Matrix */
-      body.tema-matrix {
-        background: #0a0f0a !important;
-      }
-
-      body.tema-matrix .visualizacao {
-        background: rgba(10, 20, 10, 0.95) !important;
-        border-color: #0f03 !important;
-      }
-
-      body.tema-matrix .visualizacao-header h3 {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix th {
-        background: rgba(0, 255, 0, 0.15) !important;
-        color: #0f0 !important;
-        border-bottom-color: #0f0 !important;
-      }
-
-      body.tema-matrix td {
-        color: #0f0 !important;
-        border-bottom-color: #0f01 !important;
-      }
-
-      body.tema-matrix .btn-planilha {
-        border-color: #0f0 !important;
-        color: #0f0 !important;
-      }
     </style>
   </head>
   <body>
@@ -669,7 +594,7 @@
           <div class="tooth"></div>
         </div>
       </div>
-      <div class="gear small" style="top: -5px; right: -10px">
+      <div class="gear small">
         <div class="gear-teeth">
           <div class="tooth"></div>
           <div class="tooth"></div>
@@ -721,45 +646,41 @@
     </div>
 
     <script>
-      // ===========================================
-      // RELÓGIO EM TEMPO REAL
-      // ===========================================
-      function atualizarRelogio() {
-        const agora = new Date();
-        document.getElementById("clock").textContent =
-          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
-        document.getElementById("date").textContent =
-          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
-      }
-      atualizarRelogio();
-      setInterval(atualizarRelogio, 1000);
+// ===========================================
+// RELÓGIO
+// ===========================================
+function atualizarRelogio() {
+    const agora = new Date();
+    document.getElementById("clock").textContent =
+        `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+    document.getElementById("date").textContent =
+        `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
 
-      // ===========================================
-      // PLANILHAS
-      // ===========================================
-      (function () {
-        const invoke = window.__TAURI__.core.invoke;
-        console.log(">>> PLANILHAS");
+// ===========================================
+// PLANILHAS
+// ===========================================
+(async function() {
+    console.log(">>> PLANILHAS");
 
-        const statusEl = document.getElementById("status-planilha");
+    // TEMA JÁ É APLICADO PELO TEMAS.JS
 
-        function atualizarStatus(msg, cor) {
-          if (statusEl) {
+    const statusEl = document.getElementById("status-planilha");
+
+    function atualizarStatus(msg, cor) {
+        if (statusEl) {
             statusEl.textContent = msg;
             statusEl.style.color = cor;
-          }
         }
+    }
 
-        // ===========================================
-        // EXPORTAR CSV
-        // ===========================================
-        async function exportarCSV() {
-          try {
+    async function exportarCSV() {
+        try {
             atualizarStatus("📥 Exportando...", "#0ff5");
+            const csv = await API.exportar_csv();
 
-            const csv = await invoke("exportar_csv");
-
-            // Criar arquivo para download
             const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
             const url = URL.createObjectURL(blob);
             const link = document.createElement("a");
@@ -769,136 +690,94 @@
 
             URL.revokeObjectURL(url);
             atualizarStatus("✅ Exportado com sucesso!", "#0f0");
-
             setTimeout(() => atualizarStatus("Pronto", "#0ff5"), 3000);
-          } catch (error) {
+        } catch (error) {
             console.error(">>> ERRO ao exportar:", error);
             atualizarStatus("❌ Erro ao exportar", "#a22");
-          }
         }
+    }
 
-        // ===========================================
-        // IMPORTAR CSV
-        // ===========================================
-        async function importarCSV() {
-          const input = document.createElement("input");
-          input.type = "file";
-          input.accept = ".csv";
+    async function importarCSV() {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = ".csv";
 
-          input.onchange = async (e) => {
+        input.onchange = async (e) => {
             const file = e.target.files[0];
             if (!file) return;
 
-            // Dupla confirmação (dados serão substituídos)
-            if (
-              !confirm(
-                "⚠️ IMPORTANTE: Isso vai SUBSTITUIR todos os dados atuais pelos dados do arquivo. Deseja continuar?",
-              )
-            ) {
-              return;
-            }
-
-            if (
-              !confirm(
-                "ÚLTIMA CHANCE! Tem certeza absoluta? Esta ação não pode ser desfeita.",
-              )
-            ) {
-              return;
-            }
+            if (!confirm("⚠️ Isso vai SUBSTITUIR todos os dados atuais. Deseja continuar?")) return;
+            if (!confirm("ÚLTIMA CHANCE! Tem certeza absoluta?")) return;
 
             try {
-              atualizarStatus("📤 Importando...", "#ffaa00");
+                atualizarStatus("📤 Importando...", "#ffaa00");
+                const text = await file.text();
+                const resultado = await API.importar_csv(text);
 
-              const text = await file.text();
-              const resultado = await invoke("importar_csv", { csvData: text });
-
-              console.log(">>> Resultado da importação:", resultado);
-              atualizarStatus("✅ Importado com sucesso!", "#0f0");
-
-              // Atualizar visualização
-              carregarVisualizacao();
+                console.log(">>> Resultado da importação:", resultado);
+                atualizarStatus("✅ Importado com sucesso!", "#0f0");
+                carregarVisualizacao();
             } catch (error) {
-              console.error(">>> ERRO ao importar:", error);
-              atualizarStatus("❌ Erro ao importar: " + error, "#a22");
+                console.error(">>> ERRO ao importar:", error);
+                atualizarStatus("❌ Erro ao importar", "#a22");
             }
-          };
+        };
+        input.click();
+    }
 
-          input.click();
-        }
+    async function carregarVisualizacao() {
+        const container = document.getElementById("tabela-dados-container");
+        if (!container) return;
 
-        // ===========================================
-        // CARREGAR VISUALIZAÇÃO DOS DADOS
-        // ===========================================
-        async function carregarVisualizacao() {
-          const container = document.getElementById("tabela-dados-container");
-          if (!container) return;
+        container.innerHTML = '<div class="loading">Carregando dados...</div>';
 
-          container.innerHTML =
-            '<div class="loading">Carregando dados...</div>';
-
-          try {
-            // Busca dados completos para visualização
-            const dados = await invoke("relatorio_completo");
+        try {
+            const dados = await API.relatorio_completo();
 
             if (!dados || dados.length === 0) {
-              container.innerHTML =
-                '<div class="loading">Nenhum dado encontrado</div>';
-              return;
+                container.innerHTML = '<div class="loading">Nenhum dado encontrado</div>';
+                return;
             }
 
-            let html =
-              "<table><thead><tr><th>Seção</th><th>Tipo</th><th>Produto</th><th>Validade</th><th>Total</th><th>Prateleira</th></tr></thead><tbody>";
+            let html = "<table><thead><tr><th>Seção</th><th>Tipo</th><th>Produto</th><th>Validade</th><th>Total</th><th>Prateleira</th></tr></thead><tbody>";
 
-            // Percorre a árvore para gerar linhas
             dados.forEach((secao) => {
-              if (secao.filhos && secao.filhos.length > 0) {
-                secao.filhos.forEach((tipo) => {
-                  if (tipo.filhos && tipo.filhos.length > 0) {
-                    tipo.filhos.forEach((produto) => {
-                      if (produto.filhos && produto.filhos.length > 0) {
-                        produto.filhos.forEach((lote) => {
-                          html += `<tr>
-                          <td>${secao.nome}</td>
-                          <td>${tipo.nome}</td>
-                          <td>${produto.nome}</td>
-                          <td>${lote.nome.replace("Lote ", "")}</td>
-                          <td>${lote.total}</td>
-                          <td>${lote.prateleira}</td>
-                        </tr>`;
-                        });
-                      }
+                if (secao.filhos && secao.filhos.length > 0) {
+                    secao.filhos.forEach((tipo) => {
+                        if (tipo.filhos && tipo.filhos.length > 0) {
+                            tipo.filhos.forEach((produto) => {
+                                if (produto.filhos && produto.filhos.length > 0) {
+                                    produto.filhos.forEach((lote) => {
+                                        html += `<tr>
+                                            <td>${secao.nome}</td>
+                                            <td>${tipo.nome}</td>
+                                            <td>${produto.nome}</td>
+                                            <td>${lote.nome.replace("Lote ", "")}</td>
+                                            <td>${lote.total}</td>
+                                            <td>${lote.prateleira}</td>
+                                        </tr>`;
+                                    });
+                                }
+                            });
+                        }
                     });
-                  }
-                });
-              }
+                }
             });
 
             html += "</tbody></table>";
             container.innerHTML = html;
-          } catch (error) {
+        } catch (error) {
             console.error(">>> ERRO ao carregar visualização:", error);
             container.innerHTML = `<div class="loading" style="color: #a22;">Erro ao carregar: ${error}</div>`;
-          }
         }
+    }
 
-        // ===========================================
-        // EVENTOS
-        // ===========================================
-        document
-          .getElementById("btn-exportar-csv")
-          ?.addEventListener("click", exportarCSV);
-        document
-          .getElementById("btn-importar-csv")
-          ?.addEventListener("click", importarCSV);
-        document
-          .getElementById("btn-atualizar-visualizacao")
-          ?.addEventListener("click", carregarVisualizacao);
+    document.getElementById("btn-exportar-csv")?.addEventListener("click", exportarCSV);
+    document.getElementById("btn-importar-csv")?.addEventListener("click", importarCSV);
+    document.getElementById("btn-atualizar-visualizacao")?.addEventListener("click", carregarVisualizacao);
 
-        // ===========================================
-        // INICIALIZAÇÃO
-        // ===========================================
-        carregarVisualizacao();
-      })();
-    </script>
+    carregarVisualizacao();
+})();
+</script>
   </body>
 </html>

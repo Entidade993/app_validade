@@ -1,59 +1,66 @@
-// temas.js - Gerenciamento centralizado de temas
+// ===========================================
+// TEMAS.JS - VERSÃO QUE NÃO INTERFERE EM NADA
+// ===========================================
+(function() {
+    console.log('🔥 TEMAS.JS CARREGADO');
+    
+    // ===========================================
+    // CORES DE CADA TEMA (usado para fallback)
+    // ===========================================
+    const cores = {
+        escuro: { bg: '#000', texto: '#fff', tema: '#0ff' },
+        claro: { bg: '#f5f5f5', texto: '#222', tema: '#00aaff' },
+        matrix: { bg: '#0a0f0a', texto: '#0f0', tema: '#0f0' }
+    };
 
-const Temas = {
-    // Temas disponíveis
-    temas: {
-        escuro: {
-            nome: 'Escuro',
-            cor: '#0ff',
-            bg: '#000'
-        },
-        claro: {
-            nome: 'Claro',
-            cor: '#00aaff',
-            bg: '#f5f5f5'
-        },
-        matrix: {
-            nome: 'Matrix',
-            cor: '#0f0',
-            bg: '#0a0f0a'
-        }
-    },
-
-    // Aplicar tema
-    aplicar(tema) {
+    // ===========================================
+    // FUNÇÃO PRINCIPAL - SÓ MUDA A CLASSE
+    // ===========================================
+    function aplicarTema(tema) {
+        console.log('🎨 Aplicando tema:', tema);
+        
         // Remove todas as classes de tema
         document.body.classList.remove('tema-escuro', 'tema-claro', 'tema-matrix');
         
-        // Adiciona a classe do tema selecionado
-        if (tema) {
-            document.body.classList.add(`tema-${tema}`);
-            localStorage.setItem('temaGlobal', tema);
-            
-            // Dispara evento personalizado para outras páginas
-            window.dispatchEvent(new CustomEvent('temaAlterado', { 
-                detail: { tema: tema } 
-            }));
-        }
-    },
-
-    // Carregar tema salvo
-    carregar() {
-        const temaSalvo = localStorage.getItem('temaGlobal') || 'escuro';
-        this.aplicar(temaSalvo);
-        return temaSalvo;
-    },
-
-    // Obter tema atual
-    getTemaAtual() {
-        return localStorage.getItem('temaGlobal') || 'escuro';
+        // Adiciona a nova classe
+        document.body.classList.add(`tema-${tema}`);
+        
+        // Salva no localStorage
+        localStorage.setItem('temaGlobal', tema);
+        
+        // Dispara evento para outras páginas
+        window.dispatchEvent(new CustomEvent('temaAlterado', { detail: { tema } }));
     }
-};
 
-// Exporta para uso global
-window.temas = Temas;
+    // ===========================================
+    // FUNÇÃO PARA CARREGAR TEMA SALVO
+    // ===========================================
+    function carregarTema() {
+        let tema = localStorage.getItem('temaGlobal');
+        if (!tema || !['escuro', 'claro', 'matrix'].includes(tema)) {
+            tema = 'escuro';
+        }
+        aplicarTema(tema);
+        return tema;
+    }
 
-// Carrega o tema automaticamente quando o script é incluído
-document.addEventListener('DOMContentLoaded', () => {
-    Temas.carregar();
-});
+    // ===========================================
+    // EXPÕE FUNÇÕES GLOBAIS
+    // ===========================================
+    window.temas = {
+        aplicar: aplicarTema,
+        carregar: carregarTema,
+        getTemaAtual: () => localStorage.getItem('temaGlobal') || 'escuro'
+    };
+
+    // ===========================================
+    // APLICA TEMA QUANDO A PÁGINA CARREGA
+    // ===========================================
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', carregarTema);
+    } else {
+        carregarTema();
+    }
+
+    console.log('✅ TEMAS.JS PRONTO - Tema atual:', localStorage.getItem('temaGlobal') || 'escuro');
+})();

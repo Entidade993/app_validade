@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Validade - Validade App</title>
     <script src="temas.js"></script>
+    <script src="api.js"></script>
     <link rel="stylesheet" href="temas.css" />
     <style>
       /* ============================================
-       RESET E CONFIGURAÇÕES GLOBAIS
-       ============================================ */
+         RESET E CONFIGURAÇÕES GLOBAIS
+         ============================================ */
       * {
         margin: 0;
         padding: 0;
@@ -17,8 +18,6 @@
       }
 
       body {
-        background: #000;
-        color: white;
         font-family:
           system-ui,
           -apple-system,
@@ -28,6 +27,9 @@
         min-height: 100vh;
         overflow: hidden;
         position: relative;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
       }
 
       /* FUNDO ANIMADO */
@@ -38,7 +40,6 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: #000;
         overflow: hidden;
       }
 
@@ -103,14 +104,12 @@
       }
 
       .code-line {
-        color: #0ff;
         font-family: "Courier New", monospace;
         font-size: 14px;
         line-height: 1.8;
         white-space: nowrap;
         opacity: 0;
         animation: fadeCode 4s ease-in-out infinite;
-        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
       }
 
       .code-line:nth-child(odd) {
@@ -163,9 +162,7 @@
         }
       }
 
-      /* ============================================
-       LOGO
-       ============================================ */
+      /* LOGO */
       .gear-container {
         position: relative;
         width: 110px;
@@ -180,12 +177,12 @@
         position: absolute;
         width: 90px;
         height: 90px;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
-        box-shadow:
-          0 0 15px rgba(0, 255, 255, 0.3),
-          inset 0 0 8px rgba(0, 255, 255, 0.3);
         animation: spin 16s infinite linear;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .gear::before {
@@ -194,12 +191,14 @@
         width: 28px;
         height: 28px;
         background: #0b0f15;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #0ff;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .gear-teeth {
@@ -212,8 +211,6 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        background: #0ff;
-        box-shadow: 0 0 10px cyan;
         clip-path: polygon(
           30% 0%,
           70% 0%,
@@ -222,6 +219,9 @@
           30% 100%,
           0% 30%
         );
+        transition:
+          background-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .tooth:nth-child(1) {
@@ -296,42 +296,39 @@
         }
       }
 
-      /* ============================================
-       RELÓGIO
-       ============================================ */
+      /* RELÓGIO */
       .clock-container {
         text-align: center;
         margin: 15px auto 20px;
         padding: 5px 10px;
-        background: rgba(0, 255, 255, 0.03);
-        border: 1px dashed #0ff5;
+        border: 1px dashed;
         border-radius: 0;
         box-shadow: none;
         width: fit-content;
         max-width: 200px;
         font-family: "Courier New", monospace;
+        transition: border-color 0.3s;
       }
 
       .clock {
         font-size: 2rem;
         font-weight: 400;
-        color: #0ff;
-        text-shadow: 0 0 5px cyan;
         display: block;
         letter-spacing: 3px;
+        transition:
+          color 0.3s,
+          text-shadow 0.3s;
       }
 
       .date {
         font-size: 0.8rem;
-        color: #0ff;
         opacity: 0.7;
         display: block;
         letter-spacing: 2px;
+        transition: color 0.3s;
       }
 
-      /* ============================================
-       CABEÇALHO DA PÁGINA
-       ============================================ */
+      /* CABEÇALHO DA PÁGINA */
       .page-header {
         display: flex;
         justify-content: space-between;
@@ -343,8 +340,7 @@
 
       .voltar-btn {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 8px 20px;
         border-radius: 30px;
         cursor: pointer;
@@ -354,23 +350,23 @@
       }
 
       .voltar-btn:hover {
-        background: #0ff2;
-        box-shadow: 0 0 15px cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 15px;
       }
 
       h1 {
-        color: #0ff;
         font-size: 2rem;
-        border-bottom: 2px solid #0ff3;
+        border-bottom: 2px solid;
         padding-bottom: 10px;
         max-width: 600px;
         margin: 0 auto 30px;
         text-align: center;
+        transition:
+          color 0.3s,
+          border-color 0.3s;
       }
 
-      /* ============================================
-       SEÇÃO VALIDADE
-       ============================================ */
+      /* SEÇÃO VALIDADE */
       .validade-container {
         max-width: 1000px;
         margin: 0 auto;
@@ -384,10 +380,12 @@
         flex-wrap: wrap;
         margin-bottom: 25px;
         padding: 15px 20px;
-        background: rgba(26, 31, 42, 0.5);
         backdrop-filter: blur(5px);
         border-radius: 50px;
-        border: 1px solid #0ff3;
+        border: 1px solid;
+        transition:
+          background-color 0.3s,
+          border-color 0.3s;
       }
 
       .controle-item {
@@ -397,31 +395,32 @@
       }
 
       .controle-item label {
-        color: #0ff;
         font-size: 0.95rem;
+        transition: color 0.3s;
       }
 
       #dias-alerta {
         width: 80px;
         padding: 8px 12px;
-        background: #1a1f2a;
-        border: 1px solid #0ff3;
+        border: 1px solid;
         border-radius: 30px;
-        color: white;
         text-align: center;
         font-size: 1rem;
+        transition:
+          background-color 0.3s,
+          border-color 0.3s,
+          color 0.3s,
+          box-shadow 0.3s;
       }
 
       #dias-alerta:focus {
         outline: none;
-        border-color: #0ff;
-        box-shadow: 0 0 15px cyan;
+        box-shadow: 0 0 15px;
       }
 
       .btn-validade {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 8px 25px;
         border-radius: 30px;
         cursor: pointer;
@@ -431,8 +430,8 @@
       }
 
       .btn-validade:hover {
-        background: #0ff2;
-        box-shadow: 0 0 15px cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 15px;
       }
 
       #info-vencidos {
@@ -451,7 +450,6 @@
       }
 
       .validade-card {
-        background: rgba(26, 31, 42, 0.8);
         backdrop-filter: blur(10px);
         border-left: 6px solid;
         border-radius: 16px;
@@ -462,7 +460,7 @@
         flex-wrap: wrap;
         gap: 15px;
         transition: all 0.3s;
-        border: 1px solid #0ff3;
+        border: 1px solid;
       }
 
       .validade-card:hover {
@@ -472,29 +470,14 @@
 
       .validade-card.critico {
         border-left-color: #ff5555;
-        background: linear-gradient(
-          90deg,
-          rgba(255, 85, 85, 0.1),
-          rgba(26, 31, 42, 0.8)
-        );
       }
 
       .validade-card.alerta {
         border-left-color: #ffaa00;
-        background: linear-gradient(
-          90deg,
-          rgba(255, 170, 0, 0.1),
-          rgba(26, 31, 42, 0.8)
-        );
       }
 
       .validade-card.normal {
         border-left-color: #2a5;
-        background: linear-gradient(
-          90deg,
-          rgba(0, 255, 85, 0.1),
-          rgba(26, 31, 42, 0.8)
-        );
       }
 
       .card-info {
@@ -502,21 +485,21 @@
       }
 
       .card-info h3 {
-        color: #0ff;
         margin: 0 0 5px 0;
         font-size: 1.3rem;
+        transition: color 0.3s;
       }
 
       .card-info p {
-        color: #aaa;
         margin: 0;
         font-size: 0.9rem;
+        transition: color 0.3s;
       }
 
       .card-info .detalhes {
-        color: #888;
         font-size: 0.85rem;
         margin-top: 5px;
+        transition: color 0.3s;
       }
 
       .card-dias {
@@ -551,17 +534,17 @@
       }
 
       .loading {
-        color: #0ff5;
         text-align: center;
         padding: 40px;
         font-style: italic;
+        transition: color 0.3s;
       }
 
       .sem-produtos {
-        color: #0ff5;
         text-align: center;
         padding: 40px;
         font-size: 1.2rem;
+        transition: color 0.3s;
       }
 
       /* SCROLLBAR */
@@ -609,133 +592,6 @@
         }
       }
 
-      /* ============================================
-   TEMAS - VALIDADE
-   ============================================ */
-
-      /* Tema Claro */
-      body.tema-claro {
-        background: #f5f5f5 !important;
-      }
-
-      body.tema-claro .controles {
-        background: rgba(255, 255, 255, 0.9) !important;
-        border-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .controle-item label {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro #dias-alerta {
-        background: #ffffff !important;
-        border-color: #00aaff33 !important;
-        color: #222 !important;
-      }
-
-      body.tema-claro .btn-validade {
-        border-color: #00aaff !important;
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .validade-card {
-        background: rgba(255, 255, 255, 0.95) !important;
-        border-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .validade-card.critico {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 85, 85, 0.15),
-          rgba(255, 255, 255, 0.95)
-        ) !important;
-      }
-
-      body.tema-claro .validade-card.alerta {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 170, 0, 0.15),
-          rgba(255, 255, 255, 0.95)
-        ) !important;
-      }
-
-      body.tema-claro .validade-card.normal {
-        background: linear-gradient(
-          90deg,
-          rgba(0, 255, 85, 0.15),
-          rgba(255, 255, 255, 0.95)
-        ) !important;
-      }
-
-      body.tema-claro .card-info h3 {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .card-info p {
-        color: #666 !important;
-      }
-
-      /* Tema Matrix */
-      body.tema-matrix {
-        background: #0a0f0a !important;
-      }
-
-      body.tema-matrix .controles {
-        background: rgba(10, 20, 10, 0.95) !important;
-        border-color: #0f03 !important;
-      }
-
-      body.tema-matrix .controle-item label {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix #dias-alerta {
-        background: #1a2a1a !important;
-        border-color: #0f03 !important;
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .btn-validade {
-        border-color: #0f0 !important;
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .validade-card {
-        background: rgba(10, 20, 10, 0.95) !important;
-        border-color: #0f03 !important;
-      }
-
-      body.tema-matrix .validade-card.critico {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 85, 85, 0.15),
-          rgba(10, 20, 10, 0.95)
-        ) !important;
-      }
-
-      body.tema-matrix .validade-card.alerta {
-        background: linear-gradient(
-          90deg,
-          rgba(255, 170, 0, 0.15),
-          rgba(10, 20, 10, 0.95)
-        ) !important;
-      }
-
-      body.tema-matrix .validade-card.normal {
-        background: linear-gradient(
-          90deg,
-          rgba(0, 255, 0, 0.15),
-          rgba(10, 20, 10, 0.95)
-        ) !important;
-      }
-
-      body.tema-matrix .card-info h3 {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .card-info p {
-        color: #8f8 !important;
-      }
     </style>
   </head>
   <body>
@@ -783,7 +639,7 @@
           <div class="tooth"></div>
         </div>
       </div>
-      <div class="gear small" style="top: -5px; right: -10px">
+      <div class="gear small">
         <div class="gear-teeth">
           <div class="tooth"></div>
           <div class="tooth"></div>
@@ -829,201 +685,169 @@
     </div>
 
     <script>
-      // ===========================================
-      // RELÓGIO EM TEMPO REAL
-      // ===========================================
-      function atualizarRelogio() {
-        const agora = new Date();
-        document.getElementById("clock").textContent =
-          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
-        document.getElementById("date").textContent =
-          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
-      }
-      atualizarRelogio();
-      setInterval(atualizarRelogio, 1000);
+// ===========================================
+// RELÓGIO
+// ===========================================
+function atualizarRelogio() {
+    const agora = new Date();
+    document.getElementById("clock").textContent =
+        `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+    document.getElementById("date").textContent =
+        `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
 
-      // ===========================================
-      // VALIDADE
-      // ===========================================
-      (function () {
-        const invoke = window.__TAURI__.core.invoke;
-        console.log(">>> VALIDADE");
+// ===========================================
+// VALIDADE
+// ===========================================
+(async function() {
+    console.log(">>> VALIDADE");
 
-        const listaEl = document.getElementById("lista-validade");
-        const diasInput = document.getElementById("dias-alerta");
-        const infoVencidos = document.getElementById("info-vencidos");
+    // TEMA JÁ É APLICADO PELO TEMAS.JS
 
-        // ===========================================
-        // CARREGAR PRODUTOS PRÓXIMOS AO VENCIMENTO
-        // ===========================================
-        async function carregarValidade() {
-          if (!listaEl) return;
+    const listaEl = document.getElementById("lista-validade");
+    const diasInput = document.getElementById("dias-alerta");
+    const infoVencidos = document.getElementById("info-vencidos");
 
-          const dias = parseInt(diasInput?.value || "30");
+    async function carregarValidade() {
+        if (!listaEl) return;
 
-          listaEl.innerHTML =
-            '<div class="loading">Carregando produtos...</div>';
+        const dias = parseInt(diasInput?.value || "30");
+        listaEl.innerHTML = '<div class="loading">Carregando produtos...</div>';
 
-          try {
-            // Busca todos os dados
-            const dados = await invoke("relatorio_completo");
+        try {
+            const dados = await API.relatorio_completo();
 
             if (!dados || dados.length === 0) {
-              listaEl.innerHTML =
-                '<div class="sem-produtos">Nenhum produto cadastrado</div>';
-              return;
+                listaEl.innerHTML = '<div class="sem-produtos">Nenhum produto cadastrado</div>';
+                return;
             }
 
-            // Extrai todos os lotes com informações completas
             const lotes = [];
             const hoje = new Date();
             hoje.setHours(0, 0, 0, 0);
 
             dados.forEach((secao) => {
-              if (!secao.filhos) return;
-              secao.filhos.forEach((tipo) => {
-                if (!tipo.filhos) return;
-                tipo.filhos.forEach((produto) => {
-                  if (!produto.filhos) return;
-                  produto.filhos.forEach((lote) => {
-                    if (!lote || !lote.id) return;
+                if (!secao.filhos) return;
+                secao.filhos.forEach((tipo) => {
+                    if (!tipo.filhos) return;
+                    tipo.filhos.forEach((produto) => {
+                        if (!produto.filhos) return;
+                        produto.filhos.forEach((lote) => {
+                            if (!lote || !lote.id) return;
 
-                    // Extrai a data do nome do lote (formato "Lote YYYY-MM-DD")
-                    const dataStr = lote.nome?.replace("Lote ", "") || "";
-                    const dataLote = new Date(dataStr + "T00:00:00");
+                            const dataStr = lote.nome?.replace("Lote ", "") || "";
+                            const dataLote = new Date(dataStr + "T00:00:00");
 
-                    if (isNaN(dataLote)) return;
+                            if (isNaN(dataLote)) return;
 
-                    const diffTime = dataLote - hoje;
-                    const diffDays = Math.ceil(
-                      diffTime / (1000 * 60 * 60 * 24),
-                    );
+                            const diffTime = dataLote - hoje;
+                            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
-                    lotes.push({
-                      secao: secao.nome || "Sem seção",
-                      tipo: tipo.nome || "Sem tipo",
-                      produto: produto.nome || "Sem produto",
-                      loteId: lote.id,
-                      validade: dataStr,
-                      dias: diffDays,
-                      total: lote.total || 0,
-                      prateleira: lote.prateleira || 0,
+                            lotes.push({
+                                secao: secao.nome || "Sem seção",
+                                tipo: tipo.nome || "Sem tipo",
+                                produto: produto.nome || "Sem produto",
+                                loteId: lote.id,
+                                validade: dataStr,
+                                dias: diffDays,
+                                total: lote.total || 0,
+                                prateleira: lote.prateleira || 0,
+                            });
+                        });
                     });
-                  });
                 });
-              });
             });
 
-            // Filtra apenas os que vencem em até X dias (incluindo vencidos)
-            const proximos = lotes
-              .filter((l) => l.dias <= dias)
-              .sort((a, b) => a.dias - b.dias);
+            const proximos = lotes.filter((l) => l.dias <= dias).sort((a, b) => a.dias - b.dias);
 
             if (proximos.length === 0) {
-              listaEl.innerHTML = `<div class="sem-produtos">✨ Nenhum produto vence nos próximos ${dias} dias</div>`;
-              if (infoVencidos) infoVencidos.textContent = "";
-              return;
+                listaEl.innerHTML = `<div class="sem-produtos">✨ Nenhum produto vence nos próximos ${dias} dias</div>`;
+                if (infoVencidos) infoVencidos.textContent = "";
+                return;
             }
 
-            // Conta quantos estão vencidos
             const vencidos = proximos.filter((l) => l.dias <= 0).length;
             if (infoVencidos) {
-              infoVencidos.textContent =
-                vencidos > 0 ? `⚠️ ${vencidos} produto(s) vencido(s)!` : "";
+                infoVencidos.textContent = vencidos > 0 ? `⚠️ ${vencidos} produto(s) vencido(s)!` : "";
             }
 
-            // Renderiza cards
             let html = "";
             proximos.forEach((l) => {
-              if (!l.loteId) return;
+                if (!l.loteId) return;
 
-              let classe = "normal";
-              let diasText = "";
-              let corDias = "#2a5";
+                let classe = "normal";
+                let diasText = "";
+                let corDias = "#2a5";
 
-              if (l.dias <= 0) {
-                classe = "critico";
-                diasText = `VENCIDO HÁ ${Math.abs(l.dias)} DIAS`;
-                corDias = "#ff5555";
-              } else if (l.dias <= 7) {
-                classe = "critico";
-                diasText = `${l.dias} ${l.dias === 1 ? "DIA" : "DIAS"}`;
-                corDias = "#ff5555";
-              } else if (l.dias <= 15) {
-                classe = "alerta";
-                diasText = `${l.dias} DIAS`;
-                corDias = "#ffaa00";
-              } else {
-                classe = "normal";
-                diasText = `${l.dias} DIAS`;
-                corDias = "#2a5";
-              }
+                if (l.dias <= 0) {
+                    classe = "critico";
+                    diasText = `VENCIDO HÁ ${Math.abs(l.dias)} DIAS`;
+                    corDias = "#ff5555";
+                } else if (l.dias <= 7) {
+                    classe = "critico";
+                    diasText = `${l.dias} ${l.dias === 1 ? "DIA" : "DIAS"}`;
+                    corDias = "#ff5555";
+                } else if (l.dias <= 15) {
+                    classe = "alerta";
+                    diasText = `${l.dias} DIAS`;
+                    corDias = "#ffaa00";
+                } else {
+                    classe = "normal";
+                    diasText = `${l.dias} DIAS`;
+                    corDias = "#2a5";
+                }
 
-              html += `
-              <div class="validade-card ${classe}" data-lote-id="${l.loteId}">
-                <div class="card-info">
-                  <h3>${l.produto}</h3>
-                  <p>${l.secao} › ${l.tipo}</p>
-                  <div class="detalhes">
-                    Lote: ${l.validade} | Estoque: ${l.total} | Prateleira: ${l.prateleira}
-                  </div>
-                </div>
-                <div class="card-dias" style="color: ${corDias}">
-                  ${diasText}
-                </div>
-                <div class="card-acoes">
-                  <button class="btn-excluir-lote" data-id="${l.loteId}">🗑️ Excluir lote</button>
-                </div>
-              </div>
-            `;
+                html += `
+                    <div class="validade-card ${classe}" data-lote-id="${l.loteId}">
+                        <div class="card-info">
+                            <h3>${l.produto}</h3>
+                            <p>${l.secao} › ${l.tipo}</p>
+                            <div class="detalhes">
+                                Lote: ${l.validade} | Estoque: ${l.total} | Prateleira: ${l.prateleira}
+                            </div>
+                        </div>
+                        <div class="card-dias" style="color: ${corDias}">
+                            ${diasText}
+                        </div>
+                        <div class="card-acoes">
+                            <button class="btn-excluir-lote" data-id="${l.loteId}">🗑️ Excluir lote</button>
+                        </div>
+                    </div>
+                `;
             });
 
             listaEl.innerHTML = html;
 
-            // Adiciona eventos aos botões de excluir
             document.querySelectorAll(".btn-excluir-lote").forEach((btn) => {
-              btn.addEventListener("click", async (e) => {
-                e.stopPropagation();
-                const loteId = parseInt(e.target.dataset.id);
+                btn.addEventListener("click", async (e) => {
+                    e.stopPropagation();
+                    const loteId = parseInt(e.target.dataset.id);
 
-                if (
-                  !confirm(
-                    "⚠️ Tem certeza que deseja EXCLUIR este lote inteiro?",
-                  )
-                )
-                  return;
-                if (!confirm("ÚLTIMA CHANCE! Essa ação não pode ser desfeita."))
-                  return;
+                    if (!confirm("⚠️ Tem certeza que deseja EXCLUIR este lote inteiro?")) return;
+                    if (!confirm("ÚLTIMA CHANCE! Essa ação não pode ser desfeita.")) return;
 
-                try {
-                  await invoke("deletar_lote", { id: loteId });
-                  alert("✅ Lote excluído com sucesso!");
-                  carregarValidade(); // Recarrega a lista
-                } catch (error) {
-                  console.error(">>> ERRO ao excluir lote:", error);
-                  alert("Erro: " + error);
-                }
-              });
+                    try {
+                        await API.deletar_lote(loteId);
+                        alert("✅ Lote excluído com sucesso!");
+                        carregarValidade();
+                    } catch (error) {
+                        console.error(">>> ERRO ao excluir lote:", error);
+                        alert("Erro: " + error);
+                    }
+                });
             });
-          } catch (error) {
+        } catch (error) {
             console.error(">>> ERRO ao carregar validade:", error);
             listaEl.innerHTML = `<div class="loading" style="color: #a22;">Erro ao carregar: ${error}</div>`;
-          }
         }
+    }
 
-        // ===========================================
-        // EVENTOS
-        // ===========================================
-        document
-          .getElementById("btn-atualizar-validade")
-          ?.addEventListener("click", carregarValidade);
-        diasInput?.addEventListener("change", carregarValidade);
-
-        // ===========================================
-        // INICIALIZAÇÃO
-        // ===========================================
-        carregarValidade();
-      })();
-    </script>
+    document.getElementById("btn-atualizar-validade")?.addEventListener("click", carregarValidade);
+    diasInput?.addEventListener("change", carregarValidade);
+    carregarValidade();
+})();
+</script>
   </body>
 </html>

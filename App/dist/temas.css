@@ -1,167 +1,569 @@
-/* temas.css - COMPLETO */
+/* ============================================
+   GLOBAL.CSS - ÚNICO ARQUIVO PARA TUDO
+   ============================================ */
+
+/* RESET BÁSICO */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  min-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  transition: background-color 0.3s, color 0.3s;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* FUNDO ANIMADO */
+.cyber-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.code-rain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  opacity: 0.15;
+}
+
+.code-column {
+  width: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.code-line {
+  font-family: "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.8;
+  white-space: nowrap;
+  opacity: 0;
+  animation: fadeCode 4s ease-in-out infinite;
+}
+
+@keyframes fadeCode {
+  0%,100% { opacity: 0; }
+  10% { opacity: 0.8; }
+  20% { opacity: 0.4; }
+  30% { opacity: 0.9; }
+  40% { opacity: 0.3; }
+  50% { opacity: 0.7; }
+  60% { opacity: 0.2; }
+  70% { opacity: 0.6; }
+  80% { opacity: 0.1; }
+  90% { opacity: 0.5; }
+}
+
+/* LOGO */
+.gear-container {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto 0.5rem;
+}
+
+.gear {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border: 3px solid;
+  border-radius: 50%;
+  animation: spin 16s infinite linear;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.gear::before {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background: #0b0f15;
+  border: 3px solid;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.gear-teeth {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+
+.tooth {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 70% 100%, 30% 100%, 0% 30%);
+  transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.tooth:nth-child(1) { top: -10px; left: 35px; }
+.tooth:nth-child(2) { top: 20px; left: 75px; transform: rotate(45deg); }
+.tooth:nth-child(3) { top: 65px; left: 55px; transform: rotate(90deg); }
+.tooth:nth-child(4) { top: 65px; left: -5px; transform: rotate(135deg); }
+.tooth:nth-child(5) { top: 22px; left: -25px; transform: rotate(180deg); }
+.tooth:nth-child(6) { top: -20px; left: -5px; transform: rotate(225deg); }
+.tooth:nth-child(7) { top: -28px; left: 25px; transform: rotate(270deg); }
+.tooth:nth-child(8) { top: -15px; left: 60px; transform: rotate(315deg); }
+
+.gear.small {
+  width: 55px;
+  height: 55px;
+  right: -10px;
+  top: 30px;
+  border-width: 2px;
+  animation: spin-reverse 12s infinite linear;
+}
+
+.gear.small .tooth {
+  width: 10px;
+  height: 10px;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spin-reverse {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(-360deg); }
+}
+
+/* RELÓGIO */
+.clock-container {
+  text-align: center;
+  margin: 0.5rem auto 1.5rem;
+  padding: 5px 10px;
+  border: 1px dashed;
+  border-radius: 0;
+  width: fit-content;
+  font-family: "Courier New", monospace;
+  transition: border-color 0.3s;
+}
+
+.clock {
+  font-size: 2rem;
+  font-weight: 400;
+  display: block;
+  letter-spacing: 3px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+.date {
+  font-size: 0.8rem;
+  opacity: 0.7;
+  display: block;
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
+
+/* TÍTULO */
+.app-title {
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  font-family: "Courier New", monospace;
+  text-align: center;
+  margin: 0 auto 20px;
+  padding-bottom: 10px;
+  max-width: 600px;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+
+/* CABEÇALHO */
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto 20px;
+  padding: 0 20px;
+}
+
+.voltar-btn {
+  background: transparent;
+  border: 2px solid;
+  padding: 8px 20px;
+  border-radius: 30px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s;
+  text-decoration: none;
+}
+
+.voltar-btn:hover {
+  background: rgba(0, 255, 255, 0.1);
+  box-shadow: 0 0 15px;
+}
+
+/* BOTÕES DO MENU */
+.menu-btn {
+  transition: all 0.3s !important;
+}
+
+/* BOTÃO SAIR */
+.sair {
+  transition: all 0.3s !important;
+}
+
+/* CONTAINERS */
+.config-container,
+.planilhas-container,
+.relatorios-container,
+.validade-container,
+.produtos-container,
+.login-container,
+.menu-container {
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+/* CARDS */
+.card-item {
+  transition: all 0.2s !important;
+}
+
+.card-placeholder {
+  transition: all 0.3s !important;
+}
+
+/* BARRA DE PESQUISA */
+.search-input {
+  transition: all 0.3s !important;
+}
+
+.search-results {
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* ROLAGEM */
+html, body {
+  height: auto !important;
+  min-height: 100vh !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+}
+
+.lista-cards,
+.lista-validade,
+.produtos-container,
+.planilhas-container,
+.validade-container,
+.relatorios-container,
+.tabela-container,
+.arvore-container,
+.config-container,
+.menu-botoes,
+.coluna,
+.visualizacao,
+.controles {
+  max-height: none !important;
+  height: auto !important;
+  overflow-y: visible !important;
+}
+
+.coluna {
+  display: flex !important;
+  flex-direction: column !important;
+  min-height: auto !important;
+}
+
+.lista-cards {
+  flex: 1 !important;
+  min-height: auto !important;
+}
+
+body::after {
+  content: "";
+  display: block;
+  height: 30px;
+  width: 100%;
+}
+
+.tabela-container,
+.arvore-container,
+.lista-validade {
+  overflow-y: auto !important;
+  max-height: 60vh !important;
+}
+
+.menu-botoes {
+  flex-wrap: wrap !important;
+  gap: 15px !important;
+  padding: 20px !important;
+}
+
+.login-content {
+  min-height: 100vh !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 20px !important;
+}
 
 /* ============================================
-   CORES BASE POR TEMA
+   TEMAS (APENAS AS CORES)
    ============================================ */
-:root {
-  --cor-primaria: #0ff;
-  --cor-secundaria: #ff5555;
-  --bg-escuro: #000;
-  --bg-claro: #f5f5f5;
-  --bg-matrix: #0a0f0a;
-}
 
 /* Tema Escuro */
 body.tema-escuro {
-  background: var(--bg-escuro) !important;
+  background: #000 !important;
   color: #fff !important;
-  --cor-tema: #0ff;
-  --cor-sair: #ff5555;
 }
+body.tema-escuro .code-line { color: #0ff; text-shadow: 0 0 5px rgba(0,255,255,0.3); }
+body.tema-escuro .gear { border-color: #0ff; box-shadow: 0 0 15px rgba(0,255,255,0.3); }
+body.tema-escuro .gear::before { border-color: #0ff; box-shadow: 0 0 10px #0ff; }
+body.tema-escuro .tooth { background: #0ff; box-shadow: 0 0 10px cyan; }
+body.tema-escuro .clock-container { border-color: #0ff5; }
+body.tema-escuro .clock { color: #0ff; text-shadow: 0 0 5px cyan; }
+body.tema-escuro .date { color: #0ff; }
+body.tema-escuro .app-title { color: #0ff; text-shadow: 0 0 20px cyan; }
+body.tema-escuro .voltar-btn { border-color: #0ff; color: #0ff; }
+body.tema-escuro .menu-btn { border-color: #0ff3; color: #0ff; background: rgba(0,255,255,0.05); }
+body.tema-escuro .menu-btn:hover { background: rgba(0,255,255,0.1); border-color: #0ff; box-shadow: 0 0 30px #0ff; }
+body.tema-escuro .sair { border-color: #ff5555; color: #ff5555; }
+body.tema-escuro .sair:hover { background: rgba(255,85,85,0.1); box-shadow: 0 0 20px #ff5555; }
+body.tema-escuro .config-container { background: rgba(0,255,255,0.05); border-color: rgba(0,255,255,0.2); }
+body.tema-escuro .config-bloco h3 { color: #0ff; }
+body.tema-escuro .btn-add { border-color: #0ff; color: #0ff; }
+body.tema-escuro .card-item { background: #1a1f2a; border-color: rgba(0,255,255,0.2); color: #fff; }
+body.tema-escuro .card-item.selecionado { border-color: #0ff; background: rgba(0,255,255,0.08); }
+body.tema-escuro .card-header span { color: #0ff; }
+body.tema-escuro .card-placeholder { background: rgba(0,255,255,0.05); border-color: rgba(0,255,255,0.3); color: rgba(0,255,255,0.5); }
+body.tema-escuro .card-placeholder:hover { background: rgba(0,255,255,0.1); border-color: #0ff; color: #0ff; }
+body.tema-escuro .search-input { background: #1a1f2a; border-color: rgba(0,255,255,0.2); color: #fff; }
+body.tema-escuro .search-input::placeholder { color: rgba(0,255,255,0.5); }
+body.tema-escuro .search-results { background: #1a1f2a; border-color: rgba(0,255,255,0.2); }
+body.tema-escuro .search-result-nome { color: #0ff; }
+body.tema-escuro .search-result-caminho { color: #aaa; }
 
 /* Tema Claro */
 body.tema-claro {
-  background: var(--bg-claro) !important;
+  background: #f5f5f5 !important;
   color: #222 !important;
-  --cor-tema: #00aaff;
-  --cor-sair: #ff5555;
 }
+body.tema-claro .code-line { color: #00aaff; text-shadow: 0 0 5px rgba(0,170,255,0.3); }
+body.tema-claro .gear { border-color: #00aaff; box-shadow: 0 0 15px rgba(0,170,255,0.3); }
+body.tema-claro .gear::before { border-color: #00aaff; box-shadow: 0 0 10px #00aaff; }
+body.tema-claro .tooth { background: #00aaff; box-shadow: 0 0 10px #00aaff; }
+body.tema-claro .clock-container { border-color: #00aaff33; }
+body.tema-claro .clock { color: #00aaff; text-shadow: 0 0 5px #00aaff; }
+body.tema-claro .date { color: #00aaff; }
+body.tema-claro .app-title { color: #00aaff; text-shadow: 0 0 20px #00aaff; }
+body.tema-claro .voltar-btn { border-color: #00aaff; color: #00aaff; }
+body.tema-claro .menu-btn { border-color: #00aaff33; color: #00aaff; background: rgba(0,170,255,0.05); }
+body.tema-claro .menu-btn:hover { background: rgba(0,170,255,0.1); border-color: #00aaff; box-shadow: 0 0 30px #00aaff; }
+body.tema-claro .sair { border-color: #ff5555; color: #ff5555; }
+body.tema-claro .sair:hover { background: rgba(255,85,85,0.1); box-shadow: 0 0 20px #ff5555; }
+body.tema-claro .config-container { background: rgba(255,255,255,0.8); border-color: rgba(0,170,255,0.3); }
+body.tema-claro .config-bloco h3 { color: #00aaff; }
+body.tema-claro .btn-add { border-color: #00aaff; color: #00aaff; }
+body.tema-claro .card-item { background: #ffffff; border-color: rgba(0,170,255,0.2); color: #222; }
+body.tema-claro .card-item.selecionado { border-color: #00aaff; background: rgba(0,170,255,0.1); }
+body.tema-claro .card-header span { color: #00aaff; }
+body.tema-claro .card-placeholder { background: rgba(0,170,255,0.05); border-color: rgba(0,170,255,0.3); color: rgba(0,170,255,0.5); }
+body.tema-claro .card-placeholder:hover { background: rgba(0,170,255,0.1); border-color: #00aaff; color: #00aaff; }
+body.tema-claro .search-input { background: #ffffff; border-color: rgba(0,170,255,0.2); color: #222; }
+body.tema-claro .search-input::placeholder { color: rgba(0,170,255,0.5); }
+body.tema-claro .search-results { background: #ffffff; border-color: rgba(0,170,255,0.2); }
+body.tema-claro .search-result-nome { color: #00aaff; }
+body.tema-claro .search-result-caminho { color: #666; }
 
 /* Tema Matrix */
 body.tema-matrix {
-  background: var(--bg-matrix) !important;
+  background: #0a0f0a !important;
   color: #0f0 !important;
-  --cor-tema: #0f0;
-  --cor-sair: #f0f;
 }
-
+body.tema-matrix .code-line { color: #0f0; text-shadow: 0 0 5px rgba(0,255,0,0.3); }
+body.tema-matrix .gear { border-color: #0f0; box-shadow: 0 0 15px rgba(0,255,0,0.3); }
+body.tema-matrix .gear::before { border-color: #0f0; box-shadow: 0 0 10px #0f0; }
+body.tema-matrix .tooth { background: #0f0; box-shadow: 0 0 10px #0f0; }
+body.tema-matrix .clock-container { border-color: #0f03; }
+body.tema-matrix .clock { color: #0f0; text-shadow: 0 0 5px #0f0; }
+body.tema-matrix .date { color: #0f0; }
+body.tema-matrix .app-title { color: #0f0; text-shadow: 0 0 20px #0f0; }
+body.tema-matrix .voltar-btn { border-color: #0f0; color: #0f0; }
+body.tema-matrix .menu-btn { border-color: #0f03; color: #0f0; background: rgba(0,255,0,0.05); }
+body.tema-matrix .menu-btn:hover { background: rgba(0,255,0,0.1); border-color: #0f0; box-shadow: 0 0 30px #0f0; }
+body.tema-matrix .sair { border-color: #f0f; color: #f0f; }
+body.tema-matrix .sair:hover { background: rgba(255,0,255,0.1); box-shadow: 0 0 20px #f0f; }
+body.tema-matrix .config-container { background: rgba(0,20,0,0.8); border-color: rgba(0,255,0,0.2); }
+body.tema-matrix .config-bloco h3 { color: #0f0; }
+body.tema-matrix .btn-add { border-color: #0f0; color: #0f0; }
+body.tema-matrix .card-item { background: #1a2a1a; border-color: rgba(0,255,0,0.2); color: #0f0; }
+body.tema-matrix .card-item.selecionado { border-color: #0f0; background: rgba(0,255,0,0.1); }
+body.tema-matrix .card-header span { color: #0f0; }
+body.tema-matrix .card-placeholder { background: rgba(0,255,0,0.05); border-color: rgba(0,255,0,0.3); color: rgba(0,255,0,0.5); }
+body.tema-matrix .card-placeholder:hover { background: rgba(0,255,0,0.1); border-color: #0f0; color: #0f0; }
+body.tema-matrix .search-input { background: #1a2a1a; border-color: rgba(0,255,0,0.2); color: #0f0; }
+body.tema-matrix .search-input::placeholder { color: rgba(0,255,0,0.5); }
+body.tema-matrix .search-results { background: #1a2a1a; border-color: rgba(0,255,0,0.2); }
+body.tema-matrix .search-result-nome { color: #0f0; }
+body.tema-matrix .search-result-caminho { color: #8f8; }
 /* ============================================
-   ELEMENTOS GLOBAIS
+   CORREÇÃO DE BORDAS E TÍTULOS
    ============================================ */
 
-/* Gear/Logo */
-body.tema-escuro .gear,
-body.tema-claro .gear,
-body.tema-matrix .gear {
-  border-color: var(--cor-tema) !important;
-}
-
-body.tema-escuro .gear::before,
-body.tema-claro .gear::before,
-body.tema-matrix .gear::before {
-  border-color: var(--cor-tema) !important;
-  background: currentBg;
-}
-
-body.tema-escuro .gear::before { background: var(--bg-escuro) !important; }
-body.tema-claro .gear::before { background: var(--bg-claro) !important; }
-body.tema-matrix .gear::before { background: var(--bg-matrix) !important; }
-
-body.tema-escuro .tooth,
-body.tema-claro .tooth,
-body.tema-matrix .tooth {
-  background: var(--cor-tema) !important;
-  box-shadow: 0 0 10px var(--cor-tema) !important;
-}
-
-/* Relógio */
-body.tema-escuro .clock-container,
-body.tema-claro .clock-container,
-body.tema-matrix .clock-container {
-  border-color: var(--cor-tema)33 !important;
-  background: color-mix(in srgb, var(--cor-tema) 3%, transparent) !important;
-}
-
-body.tema-escuro .clock,
-body.tema-claro .clock,
-body.tema-matrix .clock {
-  color: var(--cor-tema) !important;
-  text-shadow: 0 0 5px var(--cor-tema) !important;
-}
-
-body.tema-escuro .date,
-body.tema-claro .date,
-body.tema-matrix .date {
-  color: var(--cor-tema) !important;
-}
-
-/* Título */
-body.tema-escuro .app-title,
-body.tema-claro .app-title,
-body.tema-matrix .app-title {
-  color: var(--cor-tema) !important;
-  text-shadow: 0 0 20px var(--cor-tema) !important;
-}
-
-/* Botões do Menu */
+/* Garantir que todas as bordas usem a cor do tema */
+body.tema-escuro .btn-add,
+body.tema-escuro .config-btn,
+body.tema-escuro .voltar-btn,
 body.tema-escuro .menu-btn,
-body.tema-claro .menu-btn,
-body.tema-matrix .menu-btn {
-  border-color: var(--cor-tema)33 !important;
-  color: var(--cor-tema) !important;
-  background: color-mix(in srgb, var(--cor-tema) 5%, transparent) !important;
-}
-
-body.tema-escuro .menu-btn:hover,
-body.tema-claro .menu-btn:hover,
-body.tema-matrix .menu-btn:hover {
-  background: color-mix(in srgb, var(--cor-tema) 10%, transparent) !important;
-  border-color: var(--cor-tema) !important;
-  box-shadow: 0 0 30px var(--cor-tema) !important;
-}
-
-/* Botão Sair */
 body.tema-escuro .sair,
-body.tema-claro .sair {
-  border-color: #ff5555 !important;
-  color: #ff5555 !important;
+body.tema-escuro .card-item,
+body.tema-escuro .card-placeholder,
+body.tema-escuro .search-input,
+body.tema-escuro .search-results,
+body.tema-escuro .coluna,
+body.tema-escuro .config-container,
+body.tema-escuro .clock-container,
+body.tema-escuro .gear {
+  border-color: #0ff !important;
 }
 
-body.tema-matrix .sair {
-  border-color: #f0f !important;
-  color: #f0f !important;
+body.tema-claro .btn-add,
+body.tema-claro .config-btn,
+body.tema-claro .voltar-btn,
+body.tema-claro .menu-btn,
+body.tema-claro .sair,
+body.tema-claro .card-item,
+body.tema-claro .card-placeholder,
+body.tema-claro .search-input,
+body.tema-claro .search-results,
+body.tema-claro .coluna,
+body.tema-claro .config-container,
+body.tema-claro .clock-container,
+body.tema-claro .gear {
+  border-color: #00aaff !important;
 }
 
-body.tema-escuro .sair:hover,
-body.tema-claro .sair:hover {
-  background: rgba(255, 85, 85, 0.1) !important;
-  box-shadow: 0 0 20px #ff5555 !important;
+body.tema-matrix .btn-add,
+body.tema-matrix .config-btn,
+body.tema-matrix .voltar-btn,
+body.tema-matrix .menu-btn,
+body.tema-matrix .sair,
+body.tema-matrix .card-item,
+body.tema-matrix .card-placeholder,
+body.tema-matrix .search-input,
+body.tema-matrix .search-results,
+body.tema-matrix .coluna,
+body.tema-matrix .config-container,
+body.tema-matrix .clock-container,
+body.tema-matrix .gear {
+  border-color: #0f0 !important;
 }
 
-body.tema-matrix .sair:hover {
-  background: rgba(255, 0, 255, 0.1) !important;
-  box-shadow: 0 0 20px #f0f !important;
-}
-
-/* Fundo animado (code rain) */
-body.tema-escuro .code-line { color: #0ff !important; }
-body.tema-claro .code-line { color: #00aaff !important; }
-body.tema-matrix .code-line { color: #0f0 !important; }
-
-/* Estilo do botão */
-.login-form button {
+/* Centralizar títulos principais */
+h1, h2, h3, .app-title, .coluna h3, .config-bloco h3 {
+  text-align: center !important;
   width: 100%;
-  padding: 14px;
-  background: rgba(0, 255, 255, 0.1);
-  border: 2px solid #0ff;
-  color: #0ff;
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  border-radius: 40px;
-  cursor: pointer;
+}
+
+/* Títulos com cor do tema */
+body.tema-escuro h1,
+body.tema-escuro h2,
+body.tema-escuro h3,
+body.tema-escuro .app-title,
+body.tema-escuro .coluna h3,
+body.tema-escuro .config-bloco h3 {
+  color: #0ff !important;
+}
+
+body.tema-claro h1,
+body.tema-claro h2,
+body.tema-claro h3,
+body.tema-claro .app-title,
+body.tema-claro .coluna h3,
+body.tema-claro .config-bloco h3 {
+  color: #00aaff !important;
+}
+
+body.tema-matrix h1,
+body.tema-matrix h2,
+body.tema-matrix h3,
+body.tema-matrix .app-title,
+body.tema-matrix .coluna h3,
+body.tema-matrix .config-bloco h3 {
+  color: #0f0 !important;
+}
+
+/* Títulos das colunas com borda inferior colorida */
+.coluna h3, .config-bloco h3 {
+  border-bottom: 2px solid;
+  padding-bottom: 8px;
+  margin-bottom: 15px;
+}
+
+/* Bordas inferiores com transparência correta */
+body.tema-escuro .coluna h3,
+body.tema-escuro .config-bloco h3 {
+  border-bottom-color: rgba(0, 255, 255, 0.2) !important;  /* #0ff com 20% opacidade */
+}
+
+body.tema-claro .coluna h3,
+body.tema-claro .config-bloco h3 {
+  border-bottom-color: rgba(0, 170, 255, 0.2) !important;  /* #00aaff com 20% opacidade */
+}
+
+body.tema-matrix .coluna h3,
+body.tema-matrix .config-bloco h3 {
+  border-bottom-color: rgba(0, 255, 0, 0.2) !important;    /* #0f0 com 20% opacidade */
+}
+
+/* Botões com bordas coloridas */
+.btn-add, .config-btn, .voltar-btn, .menu-btn, .sair {
+  border-width: 2px;
+  border-style: solid;
   transition: all 0.3s;
-  margin-top: 10px;
 }
 
-.login-form button:hover:not(:disabled) {
-  background: #0ff;
-  color: black;
-  box-shadow: 0 0 30px cyan;
+/* Cards com bordas sutis */
+.card-item, .card-placeholder {
+  border-width: 1px;
+  border-style: solid;
 }
 
-.login-form button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+.card-item.selecionado {
+  border-width: 2px;
+}
+
+/* Inputs com bordas coloridas */
+.search-input {
+  border-width: 2px;
+  border-style: solid;
+}
+
+/* Containers com bordas */
+.coluna, .config-container, .clock-container {
+  border-width: 1px;
+  border-style: solid;
 }

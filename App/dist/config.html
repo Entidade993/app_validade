@@ -5,11 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Configurações - Validade App</title>
     <script src="temas.js"></script>
+    <script src="api.js"></script>
     <link rel="stylesheet" href="temas.css" />
     <style>
       /* ============================================
-     RESET E CONFIGURAÇÕES GLOBAIS
-     ============================================ */
+           RESET E CONFIGURAÇÕES GLOBAIS
+           ============================================ */
       * {
         margin: 0;
         padding: 0;
@@ -17,8 +18,6 @@
       }
 
       body {
-        background: #000;
-        color: white;
         font-family:
           system-ui,
           -apple-system,
@@ -26,8 +25,12 @@
           Roboto,
           sans-serif;
         min-height: 100vh;
-        overflow: hidden;
-        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+        transition:
+          background-color 0.3s,
+          color 0.3s;
+        -webkit-overflow-scrolling: touch;
       }
 
       /* FUNDO ANIMADO */
@@ -38,7 +41,6 @@
         width: 100%;
         height: 100%;
         z-index: -1;
-        background: #000;
         overflow: hidden;
       }
 
@@ -61,65 +63,6 @@
         animation: fall linear infinite;
       }
 
-      .code-column:nth-child(1) {
-        animation-duration: 15s;
-        animation-delay: 0s;
-      }
-      .code-column:nth-child(2) {
-        animation-duration: 18s;
-        animation-delay: 2s;
-      }
-      .code-column:nth-child(3) {
-        animation-duration: 20s;
-        animation-delay: 1s;
-      }
-      .code-column:nth-child(4) {
-        animation-duration: 16s;
-        animation-delay: 3s;
-      }
-      .code-column:nth-child(5) {
-        animation-duration: 22s;
-        animation-delay: 0.5s;
-      }
-      .code-column:nth-child(6) {
-        animation-duration: 19s;
-        animation-delay: 2.5s;
-      }
-      .code-column:nth-child(7) {
-        animation-duration: 17s;
-        animation-delay: 1.5s;
-      }
-      .code-column:nth-child(8) {
-        animation-duration: 21s;
-        animation-delay: 0s;
-      }
-      .code-column:nth-child(9) {
-        animation-duration: 14s;
-        animation-delay: 3s;
-      }
-      .code-column:nth-child(10) {
-        animation-duration: 23s;
-        animation-delay: 1s;
-      }
-
-      .code-line {
-        color: #0ff;
-        font-family: "Courier New", monospace;
-        font-size: 14px;
-        line-height: 1.8;
-        white-space: nowrap;
-        opacity: 0;
-        animation: fadeCode 4s ease-in-out infinite;
-        text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-      }
-
-      .code-line:nth-child(odd) {
-        animation-delay: 0.5s;
-      }
-      .code-line:nth-child(even) {
-        animation-delay: 1s;
-      }
-
       @keyframes fall {
         0% {
           transform: translateY(-100%);
@@ -127,6 +70,15 @@
         100% {
           transform: translateY(100vh);
         }
+      }
+
+      .code-line {
+        font-family: "Courier New", monospace;
+        font-size: 14px;
+        line-height: 1.8;
+        white-space: nowrap;
+        opacity: 0;
+        animation: fadeCode 4s ease-in-out infinite;
       }
 
       @keyframes fadeCode {
@@ -163,9 +115,7 @@
         }
       }
 
-      /* ============================================
-     LOGO
-     ============================================ */
+      /* LOGO COMPLETA */
       .gear-container {
         position: relative;
         width: 110px;
@@ -173,19 +123,19 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: 2rem auto 1rem;
+        margin: 2rem auto 0.5rem;
       }
 
       .gear {
         position: absolute;
         width: 90px;
         height: 90px;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
-        box-shadow:
-          0 0 15px rgba(0, 255, 255, 0.3),
-          inset 0 0 8px rgba(0, 255, 255, 0.3);
         animation: spin 16s infinite linear;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .gear::before {
@@ -194,12 +144,14 @@
         width: 28px;
         height: 28px;
         background: #0b0f15;
-        border: 3px solid #0ff;
+        border: 3px solid;
         border-radius: 50%;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #0ff;
+        transition:
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .gear-teeth {
@@ -212,8 +164,6 @@
         position: absolute;
         width: 16px;
         height: 16px;
-        background: #0ff;
-        box-shadow: 0 0 10px cyan;
         clip-path: polygon(
           30% 0%,
           70% 0%,
@@ -222,6 +172,9 @@
           30% 100%,
           0% 30%
         );
+        transition:
+          background-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .tooth:nth-child(1) {
@@ -296,58 +249,52 @@
         }
       }
 
-      /* ============================================
-     RELÓGIO
-     ============================================ */
+      /* RELÓGIO */
       .clock-container {
         text-align: center;
-        margin: 15px auto 20px;
+        margin: 0.5rem auto 1rem;
         padding: 5px 10px;
-        background: rgba(0, 255, 255, 0.03);
-        border: 1px dashed #0ff5;
+        border: 1px dashed;
         border-radius: 0;
-        box-shadow: none;
         width: fit-content;
-        max-width: 200px;
         font-family: "Courier New", monospace;
+        transition: border-color 0.3s;
       }
 
       .clock {
         font-size: 2rem;
         font-weight: 400;
-        color: #0ff;
-        text-shadow: 0 0 5px cyan;
         display: block;
         letter-spacing: 3px;
+        transition:
+          color 0.3s,
+          text-shadow 0.3s;
       }
 
       .date {
         font-size: 0.8rem;
-        color: #0ff;
         opacity: 0.7;
         display: block;
         letter-spacing: 2px;
+        transition: color 0.3s;
       }
 
-      /* ============================================
-     TÍTULO DAS PÁGINAS (APP-TITLE)
-     ============================================ */
+      /* TÍTULO DAS PÁGINAS */
       .app-title {
         font-size: 2rem;
         font-weight: 500;
-        color: #0ff;
-        text-shadow: 0 0 20px cyan;
         letter-spacing: 3px;
         font-family: "Courier New", monospace;
         text-align: center;
-        margin: 0 auto 30px;
+        margin: 0 auto 20px;
         padding-bottom: 10px;
         max-width: 600px;
+        transition:
+          color 0.3s,
+          text-shadow 0.3s;
       }
 
-      /* ============================================
-     CABEÇALHO DA PÁGINA
-     ============================================ */
+      /* CABEÇALHO DA PÁGINA */
       .page-header {
         display: flex;
         justify-content: space-between;
@@ -359,8 +306,7 @@
 
       .voltar-btn {
         background: transparent;
-        border: 2px solid #0ff;
-        color: #0ff;
+        border: 2px solid;
         padding: 8px 20px;
         border-radius: 30px;
         cursor: pointer;
@@ -370,28 +316,30 @@
       }
 
       .voltar-btn:hover {
-        background: #0ff2;
-        box-shadow: 0 0 15px cyan;
+        background: rgba(0, 255, 255, 0.1);
+        box-shadow: 0 0 15px;
       }
 
-      /* ============================================
-     CONFIGURAÇÕES
-     ============================================ */
+      /* CONFIGURAÇÕES */
       .config-container {
         background: rgba(0, 255, 255, 0.05);
-        border: 1px solid rgba(0, 255, 255, 0.2);
+        border: 1px solid;
         border-radius: 30px;
         padding: 30px;
         max-width: 600px;
-        margin: 0 auto;
+        margin: 0 auto 30px;
         backdrop-filter: blur(10px);
-        box-shadow: 0 0 50px rgba(0, 255, 255, 0.1);
+        transition:
+          background-color 0.3s,
+          border-color 0.3s,
+          box-shadow 0.3s;
       }
 
       .config-bloco {
         margin-bottom: 30px;
         padding-bottom: 20px;
-        border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+        border-bottom: 1px solid;
+        transition: border-color 0.3s;
       }
 
       .config-bloco:last-child {
@@ -401,9 +349,9 @@
       }
 
       .config-bloco h3 {
-        color: #0ff;
         margin-bottom: 20px;
         font-size: 1.3rem;
+        transition: color 0.3s;
       }
 
       .config-botoes {
@@ -415,20 +363,19 @@
 
       .config-btn {
         background: transparent;
-        border: 2px solid rgba(0, 255, 255, 0.2);
-        color: #889;
+        border: 2px solid;
         padding: 12px 25px;
         border-radius: 30px;
         cursor: pointer;
         font-size: 1rem;
         transition: all 0.3s;
+        opacity: 0.7;
       }
 
       .config-btn.ativo {
         background: rgba(0, 255, 255, 0.1);
-        border-color: #0ff;
-        color: #0ff;
-        box-shadow: 0 0 15px cyan;
+        box-shadow: 0 0 15px;
+        opacity: 1;
       }
 
       .config-btn:hover {
@@ -437,87 +384,9 @@
       }
 
       .config-info {
-        color: #aaa;
         font-size: 0.9rem;
         margin-top: 10px;
-      }
-
-      /* TOGGLE SWITCH */
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 52px;
-        height: 26px;
-        margin-right: 10px;
-      }
-
-      .switch input {
-        opacity: 0;
-        width: 0;
-        height: 0;
-      }
-
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #1a1f2a;
-        border: 2px solid rgba(0, 255, 255, 0.2);
-        transition: 0.3s;
-        border-radius: 34px;
-      }
-
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 3px;
-        bottom: 2px;
-        background-color: #0ff;
-        transition: 0.3s;
-        border-radius: 50%;
-        opacity: 0.5;
-      }
-
-      input:checked + .slider {
-        background-color: rgba(0, 255, 255, 0.1);
-        border-color: #0ff;
-      }
-
-      input:checked + .slider:before {
-        transform: translateX(24px);
-        opacity: 1;
-        box-shadow: 0 0 10px cyan;
-      }
-
-      .config-item {
-        display: flex;
-        align-items: center;
-        margin: 20px 0;
-        gap: 15px;
-      }
-
-      .config-item label {
-        color: #fff;
-      }
-
-      #horario-notificacao {
-        background: #1a1f2a;
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        border-radius: 20px;
-        padding: 8px 15px;
-        color: white;
-        font-family: monospace;
-      }
-
-      #horario-notificacao:focus {
-        outline: none;
-        border-color: #0ff;
-        box-shadow: 0 0 15px cyan;
+        transition: color 0.3s;
       }
 
       .config-status {
@@ -527,15 +396,10 @@
         display: none;
         animation: fadeIn 0.3s;
         text-align: center;
-      }
-
-      #horario-container {
-        transition: opacity 0.3s;
-      }
-
-      #horario-container.disabled {
-        opacity: 0.5;
-        pointer-events: none;
+        transition:
+          background-color 0.3s,
+          border-color 0.3s,
+          color 0.3s;
       }
 
       @keyframes fadeIn {
@@ -552,7 +416,7 @@
       /* RESPONSIVIDADE */
       @media (max-width: 768px) {
         .config-container {
-          margin: 0 20px;
+          margin: 0 20px 30px;
           padding: 20px;
         }
 
@@ -561,117 +425,6 @@
         }
       }
 
-      /* ============================================
-   TEMAS GLOBAIS
-   ============================================ */
-
-      /* Tema Escuro (padrão) */
-      body.tema-escuro {
-        background: #000 !important;
-        color: #fff !important;
-      }
-
-      body.tema-escuro .gear {
-        border-color: #0ff !important;
-      }
-
-      body.tema-escuro .clock-container {
-        border-color: #0ff5 !important;
-      }
-
-      body.tema-escuro .clock {
-        color: #0ff !important;
-      }
-
-      body.tema-escuro .app-title {
-        color: #0ff !important;
-      }
-
-      body.tema-escuro .voltar-btn {
-        border-color: #0ff !important;
-        color: #0ff !important;
-      }
-
-      body.tema-escuro .config-container {
-        background: rgba(0, 255, 255, 0.05) !important;
-        border-color: rgba(0, 255, 255, 0.2) !important;
-      }
-
-      body.tema-escuro .config-bloco h3 {
-        color: #0ff !important;
-      }
-
-      /* Tema Claro */
-      body.tema-claro {
-        background: #f5f5f5 !important;
-        color: #222 !important;
-      }
-
-      body.tema-claro .gear {
-        border-color: #00aaff !important;
-      }
-
-      body.tema-claro .clock-container {
-        border-color: #00aaff33 !important;
-      }
-
-      body.tema-claro .clock {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .app-title {
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .voltar-btn {
-        border-color: #00aaff !important;
-        color: #00aaff !important;
-      }
-
-      body.tema-claro .config-container {
-        background: rgba(255, 255, 255, 0.8) !important;
-        border-color: rgba(0, 170, 255, 0.3) !important;
-      }
-
-      body.tema-claro .config-bloco h3 {
-        color: #00aaff !important;
-      }
-
-      /* Tema Matrix */
-      body.tema-matrix {
-        background: #0a0f0a !important;
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .gear {
-        border-color: #0f0 !important;
-      }
-
-      body.tema-matrix .clock-container {
-        border-color: #0f03 !important;
-      }
-
-      body.tema-matrix .clock {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .app-title {
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .voltar-btn {
-        border-color: #0f0 !important;
-        color: #0f0 !important;
-      }
-
-      body.tema-matrix .config-container {
-        background: rgba(0, 20, 0, 0.8) !important;
-        border-color: rgba(0, 255, 0, 0.2) !important;
-      }
-
-      body.tema-matrix .config-bloco h3 {
-        color: #0f0 !important;
-      }
     </style>
   </head>
   <body>
@@ -682,24 +435,10 @@
           <div class="code-line">fn main() {</div>
           <div class="code-line">let x = 42;</div>
           <div class="code-line">println!("{}", x);</div>
-          <div class="code-line">if x > 0 {</div>
-          <div class="code-line">loop { x += 1 }</div>
-          <div class="code-line">match x {</div>
-          <div class="code-line">Some(val) => val</div>
-          <div class="code-line">Box::new(x)</div>
-          <div class="code-line">unsafe {}</div>
-          <div class="code-line">impl Trait for</div>
         </div>
         <div class="code-column">
           <div class="code-line">SELECT * FROM</div>
-          <div class="code-line">INNER JOIN users</div>
           <div class="code-line">WHERE id = 1</div>
-          <div class="code-line">INSERT INTO logs</div>
-          <div class="code-line">UPDATE produtos</div>
-          <div class="code-line">DELETE FROM lotes</div>
-          <div class="code-line">CREATE TABLE</div>
-          <div class="code-line">ALTER TABLE ADD</div>
-          <div class="code-line">DROP COLUMN</div>
           <div class="code-line">ORDER BY validade</div>
         </div>
       </div>
@@ -719,7 +458,7 @@
           <div class="tooth"></div>
         </div>
       </div>
-      <div class="gear small" style="top: -5px; right: -10px">
+      <div class="gear small">
         <div class="gear-teeth">
           <div class="tooth"></div>
           <div class="tooth"></div>
@@ -740,8 +479,7 @@
     <!-- CABEÇALHO DA PÁGINA -->
     <div class="page-header">
       <a href="menu.html" class="voltar-btn">← Menu</a>
-      <h1 class="app-title">⚙️ Configurações</h1>
-      <!-- ← CLASSE ADICIONADA -->
+      <h1 class="app-title">⚙️ CONFIGURAÇÕES</h1>
       <div style="width: 80px"></div>
     </div>
 
@@ -749,37 +487,13 @@
     <div class="config-container">
       <!-- TEMA -->
       <div class="config-bloco">
-        <h3>🎨 Tema</h3>
+        <h3>🎨 TEMA</h3>
         <div class="config-botoes">
-          <div class="config-botoes">
-            <button id="tema-matrix" class="config-btn">💚 Matrix</button>
-            <button id="tema-escuro" class="config-btn ativo">🌙 Escuro</button>
-            <button id="tema-claro" class="config-btn">☀️ Claro</button>
-          </div>
+          <button id="tema-matrix" class="config-btn">💚 MATRIX</button>
+          <button id="tema-escuro" class="config-btn ativo">🌙 ESCURO</button>
+          <button id="tema-claro" class="config-btn">☀️ CLARO</button>
         </div>
-        <p id="tema-status" class="config-info">Tema atual: Escuro</p>
-      </div>
-
-      <!-- NOTIFICAÇÕES -->
-      <div class="config-bloco">
-        <h3>🔔 Notificações de Validade</h3>
-
-        <div class="config-item">
-          <label class="switch">
-            <input type="checkbox" id="notificacoes-ativas" checked />
-            <span class="slider"></span>
-          </label>
-          <span>Ativar notificações</span>
-        </div>
-
-        <div class="config-item" id="horario-container">
-          <label for="horario-notificacao">Horário do lembrete:</label>
-          <input type="time" id="horario-notificacao" value="08:00" />
-        </div>
-
-        <p class="config-info" id="notificacao-status">
-          ⏰ Notificações ativadas
-        </p>
+        <p id="tema-status" class="config-info">TEMA ATUAL: ESCURO</p>
       </div>
 
       <!-- STATUS -->
@@ -787,64 +501,67 @@
     </div>
 
     <script>
-      // ===========================================
-      // RELÓGIO EM TEMPO REAL
-      // ===========================================
-      function atualizarRelogio() {
-        const agora = new Date();
-        document.getElementById("clock").textContent =
-          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
-        document.getElementById("date").textContent =
-          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
-      }
-      atualizarRelogio();
-      setInterval(atualizarRelogio, 1000);
+// ===========================================
+// RELÓGIO
+// ===========================================
+function atualizarRelogio() {
+    const agora = new Date();
+    document.getElementById("clock").textContent =
+        `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+    document.getElementById("date").textContent =
+        `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
 
-      // ===========================================
-      // CONFIGURAÇÕES DE TEMA (VERSÃO CORRIGIDA)
-      // ===========================================
-      (function () {
-        const btnEscuro = document.getElementById("tema-escuro");
-        const btnClaro = document.getElementById("tema-claro");
-        const btnMatrix = document.getElementById("tema-matrix");
-        const temaStatus = document.getElementById("tema-status");
-        const configStatus = document.getElementById("config-status");
+// ===========================================
+// CONFIGURAÇÕES
+// ===========================================
+(async function() {
+    console.log(">>> CONFIGURAÇÕES");
 
-        function mostrarStatus(msg, tipo) {
-          configStatus.style.display = "block";
-          configStatus.textContent = msg;
-          configStatus.style.background =
-            tipo === "sucesso" ? "rgba(0,255,0,0.1)" : "rgba(255,85,85,0.1)";
-          configStatus.style.border =
-            tipo === "sucesso" ? "1px solid #0f0" : "1px solid #f55";
-          configStatus.style.color = tipo === "sucesso" ? "#0f0" : "#f55";
-          setTimeout(() => (configStatus.style.display = "none"), 3000);
+    // TEMA JÁ É APLICADO PELO TEMAS.JS
+
+    const btnEscuro = document.getElementById("tema-escuro");
+    const btnClaro = document.getElementById("tema-claro");
+    const btnMatrix = document.getElementById("tema-matrix");
+    const temaStatus = document.getElementById("tema-status");
+    const configStatus = document.getElementById("config-status");
+
+    function mostrarStatus(msg, tipo) {
+        configStatus.style.display = "block";
+        configStatus.textContent = msg;
+        configStatus.style.background = tipo === "sucesso" ? "rgba(0,255,0,0.1)" : "rgba(255,85,85,0.1)";
+        configStatus.style.border = tipo === "sucesso" ? "1px solid #0f0" : "1px solid #f55";
+        configStatus.style.color = tipo === "sucesso" ? "#0f0" : "#f55";
+        setTimeout(() => (configStatus.style.display = "none"), 3000);
+    }
+
+    async function aplicarTema(tema) {
+        if (window.temas) window.temas.aplicar(tema);
+
+        btnEscuro.classList.toggle("ativo", tema === "escuro");
+        btnClaro.classList.toggle("ativo", tema === "claro");
+        btnMatrix.classList.toggle("ativo", tema === "matrix");
+
+        const nomes = { escuro: "Escuro", claro: "Claro", matrix: "Matrix" };
+        temaStatus.textContent = `Tema atual: ${nomes[tema]}`;
+
+        if (typeof API !== "undefined") {
+            try {
+                await API.salvar_tema_dispositivo(tema);
+                mostrarStatus(`🎨 Tema ${nomes[tema]} salvo`, "sucesso");
+            } catch (e) {
+                console.error("Erro ao salvar tema:", e);
+                mostrarStatus("❌ Erro ao salvar tema", "erro");
+            }
         }
+    }
 
-        function aplicarTema(tema) {
-          // Usa o objeto global temas
-          window.temas.aplicar(tema);
-
-          // Atualiza UI dos botões
-          btnEscuro.classList.toggle("ativo", tema === "escuro");
-          btnClaro.classList.toggle("ativo", tema === "claro");
-          btnMatrix.classList.toggle("ativo", tema === "matrix");
-
-          // Atualiza texto de status
-          const nomes = { escuro: "Escuro", claro: "Claro", matrix: "Matrix" };
-          temaStatus.textContent = `Tema atual: ${nomes[tema]}`;
-          mostrarStatus(`🎨 Tema ${nomes[tema]} ativado`, "sucesso");
-        }
-
-        // Carrega tema salvo
-        const temaAtual = window.temas.getTemaAtual();
-        aplicarTema(temaAtual);
-
-        // Event listeners
-        btnEscuro?.addEventListener("click", () => aplicarTema("escuro"));
-        btnClaro?.addEventListener("click", () => aplicarTema("claro"));
-        btnMatrix?.addEventListener("click", () => aplicarTema("matrix"));
-      })();
-    </script>
+    btnEscuro?.addEventListener("click", () => aplicarTema("escuro"));
+    btnClaro?.addEventListener("click", () => aplicarTema("claro"));
+    btnMatrix?.addEventListener("click", () => aplicarTema("matrix"));
+})();
+</script>
   </body>
 </html>

@@ -3,29 +3,271 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Validade App</title>
-    <link rel="stylesheet" href="styles.css" />
+    <title>Validade App - Login</title>
     <script src="temas.js"></script>
-    <link rel="stylesheet" href="temas.css">
-    <script type="module" src="main.js" defer></script>
+    <script src="api.js"></script>
     <style>
-      /* ============================================
-       RESET E CONFIGURAÇÕES GLOBAIS
-       ============================================ */
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
-        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        font-family: "Courier New", monospace;
         min-height: 100vh;
-        overflow: hidden;
+        overflow-y: auto; /* ← MUDOU DE hidden PARA auto */
+        overflow-x: hidden;
         position: relative;
+        background: #000;
+        color: #0ff;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start; /* ← MUDOU DE center PARA flex-start */
+        padding: 20px 0; /* ← ESPAÇO EM CIMA E EMBAIXO */
+        -webkit-overflow-scrolling: touch;
+        h1 {
+          text-align: center auto;
+        }
       }
 
-      /* FUNDO ANIMADO (MANTIDO IGUAL) */
+      /* Garante que o container centralize mas role */
+      .login-content {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh; /* ← OCUPA TELA CHEIA */
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      /* LOGO COMPLETA */
+      .gear-container {
+        position: relative;
+        width: 110px;
+        height: 110px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+      }
+
+      .gear {
+        position: absolute;
+        width: 90px;
+        height: 90px;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        box-shadow:
+          0 0 15px rgba(0, 255, 255, 0.3),
+          inset 0 0 8px rgba(0, 255, 255, 0.3);
+        animation: spin 16s infinite linear;
+      }
+
+      .gear::before {
+        content: "";
+        position: absolute;
+        width: 28px;
+        height: 28px;
+        background: #0b0f15;
+        border: 3px solid #0ff;
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        box-shadow: 0 0 10px #0ff;
+      }
+
+      .gear-teeth {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+      }
+
+      .tooth {
+        position: absolute;
+        width: 16px;
+        height: 16px;
+        background: #0ff;
+        box-shadow: 0 0 10px cyan;
+        clip-path: polygon(
+          30% 0%,
+          70% 0%,
+          100% 30%,
+          70% 100%,
+          30% 100%,
+          0% 30%
+        );
+      }
+
+      .tooth:nth-child(1) {
+        top: -10px;
+        left: 35px;
+      }
+      .tooth:nth-child(2) {
+        top: 20px;
+        left: 75px;
+        transform: rotate(45deg);
+      }
+      .tooth:nth-child(3) {
+        top: 65px;
+        left: 55px;
+        transform: rotate(90deg);
+      }
+      .tooth:nth-child(4) {
+        top: 65px;
+        left: -5px;
+        transform: rotate(135deg);
+      }
+      .tooth:nth-child(5) {
+        top: 22px;
+        left: -25px;
+        transform: rotate(180deg);
+      }
+      .tooth:nth-child(6) {
+        top: -20px;
+        left: -5px;
+        transform: rotate(225deg);
+      }
+      .tooth:nth-child(7) {
+        top: -28px;
+        left: 25px;
+        transform: rotate(270deg);
+      }
+      .tooth:nth-child(8) {
+        top: -15px;
+        left: 60px;
+        transform: rotate(315deg);
+      }
+
+      .gear.small {
+        width: 55px;
+        height: 55px;
+        right: -10px;
+        top: 30px;
+        border-width: 2px;
+        animation: spin-reverse 12s infinite linear;
+      }
+
+      .gear.small .tooth {
+        width: 10px;
+        height: 10px;
+      }
+
+      @keyframes spin {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes spin-reverse {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(-360deg);
+        }
+      }
+
+      .clock-container {
+        text-align: center;
+        margin: 15px auto 20px;
+        padding: 5px 10px;
+        border: 1px dashed #0ff5;
+        width: fit-content;
+        font-family: "Courier New", monospace;
+      }
+
+      .clock {
+        font-size: 2rem;
+        color: #0ff;
+        text-shadow: 0 0 5px cyan;
+        display: block;
+        letter-spacing: 3px;
+      }
+
+      .date {
+        font-size: 0.8rem;
+        color: #0ff;
+        opacity: 0.7;
+        display: block;
+        letter-spacing: 2px;
+      }
+
+      .login-container {
+        background: #111;
+        padding: 40px;
+        border-radius: 10px;
+        border: 2px solid #0ff;
+        box-shadow: 0 0 20px #0ff;
+        width: 350px;
+        position: relative;
+        z-index: 1;
+      }
+
+      h1 {
+        text-align: center;
+        margin: 20px 0 30px 0;
+        font-size: 24px;
+        text-transform: uppercase;
+        color: #0ff;
+        text-shadow: 0 0 10px cyan;
+        font-family: "Courier New", monospace;
+      }
+
+      input {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0 20px 0;
+        background: #222;
+        border: 1px solid #0ff;
+        color: #0ff;
+        border-radius: 5px;
+        font-size: 16px;
+        box-sizing: border-box;
+        font-family: "Courier New", monospace;
+      }
+
+      input:focus {
+        outline: none;
+        box-shadow: 0 0 10px #0ff;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: transparent;
+        border: 2px solid #0ff;
+        color: #0ff;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.3s;
+        font-family: "Courier New", monospace;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+
+      button:hover {
+        background: #0ff;
+        color: #000;
+        box-shadow: 0 0 20px #0ff;
+      }
+
+      .error {
+        color: #f00;
+        text-align: center;
+        margin-top: 10px;
+        font-size: 14px;
+        font-family: "Courier New", monospace;
+      }
+
+      /* FUNDO ANIMADO */
       .cyber-background {
         position: fixed;
         top: 0;
@@ -56,16 +298,46 @@
         animation: fall linear infinite;
       }
 
-      .code-column:nth-child(1) { animation-duration: 15s; animation-delay: 0s; }
-      .code-column:nth-child(2) { animation-duration: 18s; animation-delay: 2s; }
-      .code-column:nth-child(3) { animation-duration: 20s; animation-delay: 1s; }
-      .code-column:nth-child(4) { animation-duration: 16s; animation-delay: 3s; }
-      .code-column:nth-child(5) { animation-duration: 22s; animation-delay: 0.5s; }
-      .code-column:nth-child(6) { animation-duration: 19s; animation-delay: 2.5s; }
-      .code-column:nth-child(7) { animation-duration: 17s; animation-delay: 1.5s; }
-      .code-column:nth-child(8) { animation-duration: 21s; animation-delay: 0s; }
-      .code-column:nth-child(9) { animation-duration: 14s; animation-delay: 3s; }
-      .code-column:nth-child(10) { animation-duration: 23s; animation-delay: 1s; }
+      .code-column:nth-child(1) {
+        animation-duration: 15s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(2) {
+        animation-duration: 18s;
+        animation-delay: 2s;
+      }
+      .code-column:nth-child(3) {
+        animation-duration: 20s;
+        animation-delay: 1s;
+      }
+      .code-column:nth-child(4) {
+        animation-duration: 16s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(5) {
+        animation-duration: 22s;
+        animation-delay: 0.5s;
+      }
+      .code-column:nth-child(6) {
+        animation-duration: 19s;
+        animation-delay: 2.5s;
+      }
+      .code-column:nth-child(7) {
+        animation-duration: 17s;
+        animation-delay: 1.5s;
+      }
+      .code-column:nth-child(8) {
+        animation-duration: 21s;
+        animation-delay: 0s;
+      }
+      .code-column:nth-child(9) {
+        animation-duration: 14s;
+        animation-delay: 3s;
+      }
+      .code-column:nth-child(10) {
+        animation-duration: 23s;
+        animation-delay: 1s;
+      }
 
       .code-line {
         color: #0ff;
@@ -78,283 +350,111 @@
         text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
       }
 
-      .code-line:nth-child(odd) { animation-delay: 0.5s; }
-      .code-line:nth-child(even) { animation-delay: 1s; }
+      .code-line:nth-child(odd) {
+        animation-delay: 0.5s;
+      }
+      .code-line:nth-child(even) {
+        animation-delay: 1s;
+      }
 
       @keyframes fall {
-        0% { transform: translateY(-100%); }
-        100% { transform: translateY(100vh); }
+        0% {
+          transform: translateY(-100%);
+        }
+        100% {
+          transform: translateY(100vh);
+        }
       }
 
       @keyframes fadeCode {
-        0%, 100% { opacity: 0; }
-        10% { opacity: 0.8; }
-        20% { opacity: 0.4; }
-        30% { opacity: 0.9; }
-        40% { opacity: 0.3; }
-        50% { opacity: 0.7; }
-        60% { opacity: 0.2; }
-        70% { opacity: 0.6; }
-        80% { opacity: 0.1; }
-        90% { opacity: 0.5; }
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.8;
+        }
+        20% {
+          opacity: 0.4;
+        }
+        30% {
+          opacity: 0.9;
+        }
+        40% {
+          opacity: 0.3;
+        }
+        50% {
+          opacity: 0.7;
+        }
+        60% {
+          opacity: 0.2;
+        }
+        70% {
+          opacity: 0.6;
+        }
+        80% {
+          opacity: 0.1;
+        }
+        90% {
+          opacity: 0.5;
+        }
       }
 
-      /* ============================================
-       CENTRALIZAÇÃO - ÚNICA MUDANÇA
-       ============================================ */
-      .login-content {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        padding: 20px;
+      /* Tema Escuro (padrão) */
+      body.tema-escuro {
+        background: #000;
+        color: #fff;
       }
 
-      /* ============================================
-       LOGO
-       ============================================ */
-      .gear-container {
-        position: relative;
-        width: 110px;
-        height: 110px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1rem;
-      }
-
-      .gear {
-        position: absolute;
-        width: 90px;
-        height: 90px;
-        border: 3px solid #0ff;
-        border-radius: 50%;
-        box-shadow: 0 0 15px rgba(0, 255, 255, 0.3), inset 0 0 8px rgba(0, 255, 255, 0.3);
-        animation: spin 16s infinite linear;
-      }
-
-      .gear::before {
-        content: "";
-        position: absolute;
-        width: 28px;
-        height: 28px;
-        background: #0b0f15;
-        border: 3px solid #0ff;
-        border-radius: 50%;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        box-shadow: 0 0 10px #0ff;
-      }
-
-      .gear-teeth {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-      }
-
-      .tooth {
-        position: absolute;
-        width: 16px;
-        height: 16px;
-        background: #0ff;
-        box-shadow: 0 0 10px cyan;
-        clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 70% 100%, 30% 100%, 0% 30%);
-      }
-
-      .tooth:nth-child(1) { top: -10px; left: 35px; }
-      .tooth:nth-child(2) { top: 20px; left: 75px; transform: rotate(45deg); }
-      .tooth:nth-child(3) { top: 65px; left: 55px; transform: rotate(90deg); }
-      .tooth:nth-child(4) { top: 65px; left: -5px; transform: rotate(135deg); }
-      .tooth:nth-child(5) { top: 22px; left: -25px; transform: rotate(180deg); }
-      .tooth:nth-child(6) { top: -20px; left: -5px; transform: rotate(225deg); }
-      .tooth:nth-child(7) { top: -28px; left: 25px; transform: rotate(270deg); }
-      .tooth:nth-child(8) { top: -15px; left: 60px; transform: rotate(315deg); }
-
-      .gear.small {
-        width: 55px;
-        height: 55px;
-        right: -10px;
-        top: 30px;
-        border-width: 2px;
-        animation: spin-reverse 12s infinite linear;
-      }
-
-      .gear.small .tooth {
-        width: 10px;
-        height: 10px;
-      }
-
-      @keyframes spin {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-
-      @keyframes spin-reverse {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(-360deg); }
-      }
-
-      /* ============================================
-       TÍTULO E RELÓGIO
-       ============================================ */
-      .app-title {
-        font-size: 2.2rem;
-        font-weight: 500;
-        margin: 0 0 1rem 0;
-        text-align: center;
-        color: #0ff;
-        text-shadow: 0 0 20px cyan;
-        letter-spacing: 5px;
-        font-family: "Courier New", monospace;
-        text-transform: uppercase;
-      }
-
-      .clock-container {
-        text-align: center;
-        margin: 0 auto 2rem auto;
-        padding: 5px 10px;
-        background: rgba(0, 255, 255, 0.03);
-        border: 1px dashed #0ff5;
-        border-radius: 0;
-        width: fit-content;
-        font-family: "Courier New", monospace;
-      }
-
-      .clock {
-        font-size: 2rem;
-        font-weight: 400;
-        color: #0ff;
-        text-shadow: 0 0 8px cyan;
-        display: block;
-        letter-spacing: 3px;
-      }
-
-      .date {
-        font-size: 0.8rem;
-        color: #0ff;
-        opacity: 0.8;
-        display: block;
-        letter-spacing: 2px;
-      }
-
-      /* ============================================
-       LOGIN - ESTRUTURA ORIGINAL MANTIDA
-       ============================================ */
-      #login-area {
-        width: 100%;
-        max-width: 350px;
-        margin: 0 auto;
-      }
-
-      .form form {
-        background: rgba(10, 15, 22, 0.8);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        border-radius: 30px;
-        padding: 30px;
-        box-shadow: 0 0 50px rgba(0, 255, 255, 0.2);
-      }
-
-      .form label {
-        color: #0ff;
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 5px;
-        display: block;
-        text-align: left;
-      }
-
-      .form input {
-        width: 100%;
-        padding: 12px 15px;
-        background: rgba(0, 0, 0, 0.5);
-        border: 1px solid rgba(0, 255, 255, 0.2);
-        border-radius: 30px;
-        color: white;
-        font-size: 1rem;
-        transition: all 0.3s;
-        margin-bottom: 15px;
-        text-align: left;
-      }
-
-      .form input:focus {
-        outline: none;
+      body.tema-escuro .login-container {
+        background: #111;
         border-color: #0ff;
-        box-shadow: 0 0 20px cyan;
-        background: rgba(0, 0, 0, 0.7);
       }
 
-      .form button {
-        width: 100%;
-        padding: 12px;
-        background: rgba(0, 255, 255, 0.1);
-        border: 2px solid #0ff;
-        color: #0ff;
-        font-size: 1.2rem;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        border-radius: 30px;
-        cursor: pointer;
-        transition: all 0.3s;
+      body.tema-escuro .gear {
+        border-color: #0ff;
       }
 
-      .form button:hover:not(:disabled) {
+      body.tema-escuro .tooth {
         background: #0ff;
-        color: black;
-        box-shadow: 0 0 30px cyan;
       }
 
-      .form button:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
+      /* Tema Claro */
+      body.tema-claro {
+        background: #f5f5f5;
+        color: #222;
       }
 
-      /* ============================================
-       TEMAS - MANTIDOS IGUAIS
-       ============================================ */
-      body.tema-escuro { background: #000 !important; }
-      body.tema-escuro .clock-container { border-color: #0ff5 !important; }
-      body.tema-escuro .clock { color: #0ff !important; }
-      body.tema-escuro .app-title { color: #0ff !important; }
-      body.tema-escuro .form form { background: rgba(10, 15, 22, 0.8) !important; border-color: rgba(0, 255, 255, 0.2) !important; }
-      body.tema-escuro .form label { color: #0ff !important; }
-      body.tema-escuro .form input { background: rgba(0, 0, 0, 0.5) !important; border-color: rgba(0, 255, 255, 0.2) !important; color: white !important; }
-      body.tema-escuro .form button { border-color: #0ff !important; color: #0ff !important; }
-      body.tema-escuro .form button:hover:not(:disabled) { background: #0ff !important; color: black !important; }
+      body.tema-claro .login-container {
+        background: #fff;
+        border-color: #00aaff;
+      }
 
-      body.tema-claro { background: #f5f5f5 !important; }
-      body.tema-claro .clock-container { border-color: #00aaff33 !important; background: rgba(255, 255, 255, 0.2) !important; }
-      body.tema-claro .clock { color: #00aaff !important; }
-      body.tema-claro .app-title { color: #00aaff !important; }
-      body.tema-claro .form form { background: rgba(255, 255, 255, 0.8) !important; border-color: rgba(0, 170, 255, 0.3) !important; }
-      body.tema-claro .form label { color: #00aaff !important; }
-      body.tema-claro .form input { background: rgba(255, 255, 255, 0.9) !important; border-color: rgba(0, 170, 255, 0.3) !important; color: #222 !important; }
-      body.tema-claro .form button { border-color: #00aaff !important; color: #00aaff !important; }
-      body.tema-claro .form button:hover:not(:disabled) { background: #00aaff !important; color: white !important; }
+      body.tema-claro .gear {
+        border-color: #00aaff;
+      }
 
-      body.tema-matrix { background: #0a0f0a !important; }
-      body.tema-matrix .clock-container { border-color: #0f03 !important; background: rgba(0, 0, 0, 0.3) !important; }
-      body.tema-matrix .clock { color: #0f0 !important; }
-      body.tema-matrix .app-title { color: #0f0 !important; }
-      body.tema-matrix .form form { background: rgba(0, 20, 0, 0.8) !important; border-color: rgba(0, 255, 0, 0.2) !important; }
-      body.tema-matrix .form label { color: #0f0 !important; }
-      body.tema-matrix .form input { background: rgba(0, 30, 0, 0.5) !important; border-color: rgba(0, 255, 0, 0.2) !important; color: #0f0 !important; }
-      body.tema-matrix .form button { border-color: #0f0 !important; color: #0f0 !important; }
-      body.tema-matrix .form button:hover:not(:disabled) { background: #0f0 !important; color: black !important; }
+      body.tema-claro .tooth {
+        background: #00aaff;
+      }
 
-      /* ============================================
-       RESPONSIVIDADE
-       ============================================ */
-      @media (max-width: 480px) {
-        .app-title { font-size: 1.8rem; letter-spacing: 3px; }
-        .clock { font-size: 1.5rem; }
-        .form form { padding: 20px; }
+      /* Tema Matrix */
+      body.tema-matrix {
+        background: #0a0f0a;
+        color: #0f0;
+      }
+
+      body.tema-matrix .login-container {
+        background: #1a2a1a;
+        border-color: #0f0;
+      }
+
+      body.tema-matrix .gear {
+        border-color: #0f0;
+      }
+
+      body.tema-matrix .tooth {
+        background: #0f0;
       }
     </style>
   </head>
@@ -362,77 +462,108 @@
     <!-- FUNDO ANIMADO -->
     <div class="cyber-background">
       <div class="code-rain">
-        <!-- Colunas (mantive igual) -->
-        <div class="code-column">...</div>
-        <!-- ... resumido por brevidade ... -->
+        <div class="code-column">
+          <div class="code-line">fn main() {</div>
+          <div class="code-line">let x = 42;</div>
+          <div class="code-line">println!("{}", x);</div>
+          <div class="code-line">if x > 0 {</div>
+          <div class="code-line">loop { x += 1 }</div>
+          <div class="code-line">match x {</div>
+          <div class="code-line">Some(val) => val</div>
+          <div class="code-line">Box::new(x)</div>
+          <div class="code-line">unsafe {}</div>
+          <div class="code-line">impl Trait for</div>
+        </div>
+        <div class="code-column">
+          <div class="code-line">SELECT * FROM</div>
+          <div class="code-line">INNER JOIN users</div>
+          <div class="code-line">WHERE id = 1</div>
+          <div class="code-line">INSERT INTO logs</div>
+          <div class="code-line">UPDATE produtos</div>
+          <div class="code-line">DELETE FROM lotes</div>
+          <div class="code-line">CREATE TABLE</div>
+          <div class="code-line">ALTER TABLE ADD</div>
+          <div class="code-line">DROP COLUMN</div>
+          <div class="code-line">ORDER BY validade</div>
+        </div>
       </div>
     </div>
 
-    <!-- CONTEÚDO PRINCIPAL CENTRALIZADO -->
-    <div class="login-content">
-      <!-- LOGO -->
+    <div class="login-container">
+      <!-- LOGO COMPLETA -->
       <div class="gear-container">
         <div class="gear">
           <div class="gear-teeth">
-            <div class="tooth"></div><div class="tooth"></div><div class="tooth"></div><div class="tooth"></div>
-            <div class="tooth"></div><div class="tooth"></div><div class="tooth"></div><div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
           </div>
         </div>
-        <div class="gear small" style="top: -5px; right: -10px">
+        <div class="gear small">
           <div class="gear-teeth">
-            <div class="tooth"></div><div class="tooth"></div><div class="tooth"></div>
-            <div class="tooth"></div><div class="tooth"></div><div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
+            <div class="tooth"></div>
           </div>
         </div>
       </div>
-
-      <!-- TÍTULO -->
-      <h1 class="app-title">Controle de Validade</h1>
 
       <!-- RELÓGIO -->
       <div class="clock-container">
-        <span id="clock" class="clock">--:--:--</span>
-        <span id="date" class="date">--/--/----</span>
+        <span class="clock" id="clock">--:--:--</span>
+        <span class="date" id="date">--/--/----</span>
       </div>
 
-      <!-- LOGIN - ESTRUTURA ORIGINAL INTOCADA -->
-      <section id="login-area">
-        <div class="form">
-          <form>
-            <label>User</label>
-            <input
-              id="user"
-              type="text"
-              placeholder="DIGITE SEU USUÁRIO"
-              autocorrect="off"
-              autocapitalize="characters"
-            />
-            <label>Password</label>
-            <input
-              id="password"
-              type="password"
-              placeholder="DIGITE SUA SENHA"
-              autocorrect="off"
-            />
-            <button id="submit-button" type="submit" disabled>Enter</button>
-          </form>
-        </div>
-      </section>
+      <h1>Controle de Validade</h1>
+
+      <input type="text" id="user" placeholder="Usuário" />
+      <input type="password" id="pass" placeholder="Senha" />
+
+      <button id="btn-login">ENTRAR</button>
+      <div id="error" class="error"></div>
     </div>
 
     <script>
-      // RELÓGIO
-      function atualizarRelogio() {
-        const agora = new Date();
-        document.getElementById("clock").textContent =
-          `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
-        document.getElementById("date").textContent =
-          `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
-      }
-      document.addEventListener("DOMContentLoaded", () => {
-        atualizarRelogio();
-        setInterval(atualizarRelogio, 1000);
-      });
-    </script>
+// ===========================================
+// RELÓGIO
+// ===========================================
+function atualizarRelogio() {
+    const agora = new Date();
+    document.getElementById("clock").textContent =
+        `${String(agora.getHours()).padStart(2, "0")}:${String(agora.getMinutes()).padStart(2, "0")}:${String(agora.getSeconds()).padStart(2, "0")}`;
+    document.getElementById("date").textContent =
+        `${String(agora.getDate()).padStart(2, "0")}/${String(agora.getMonth() + 1).padStart(2, "0")}/${agora.getFullYear()}`;
+}
+atualizarRelogio();
+setInterval(atualizarRelogio, 1000);
+
+// ===========================================
+// LOGIN
+// ===========================================
+document.getElementById("btn-login")?.addEventListener("click", async () => {
+    const user = document.getElementById("user").value;
+    const pass = document.getElementById("pass").value;
+    
+    const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: `nome=${user}&password=${pass}`
+    });
+    
+    if (await response.json()) {
+        window.location.href = "menu.html";
+    } else {
+        alert("Usuário ou senha inválidos");
+    }
+});
+</script>
   </body>
 </html>
